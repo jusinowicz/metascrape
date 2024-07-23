@@ -18,6 +18,7 @@
 # export NCBI_API_KEY="f2857b2abca3fe365c756aeb647e06417b08"
 #==============================================================================
 #Libraries
+#######1
 NCBI_API_KEY = "f2857b2abca3fe365c756aeb647e06417b08"	
 
 #libraries
@@ -46,11 +47,13 @@ import common.utilities
 #==============================================================================
 #Fetch records from PubMed
 #==============================================================================
+#####2
 fetcher = PubMedFetcher(cachedir='./papers/')
 # Construct search query: based on Averil et al 2022
 #query = '(mycorrhiz*) AND ((soil inocul*) OR (whole soil inocul*) OR (soil transplant*) OR (whole community transplant*))'
 
 #Modified to be more specific: 
+#####3
 query = '(mycorrhiz*) AND ((soil inocul*) OR (whole soil inocul*) OR (soil transplant*) OR (whole community transplant*)) AND biomass NOT review'
 #(mycorrhiz*) AND ((soil inocul*) OR (whole soil inocul*) OR (soil transplant*) OR (whole community transplant*)) AND biomass AND (control OR non-inoculate* OR non inoculate* OR uninoculate* OR steril* OR noncondition* OR uncondition* OR non condition*) NOT review
 # Use the fetcher to get PMIDs for the query
@@ -79,7 +82,9 @@ for article in articles:
         doi_pmid_pairs.append((doi, pmid))
 
 # # Save the DOIs and PMIDs to a CSV file
-with open("./../fulltext/all_DOIs.csv", 'w', newline='') as csvfile:
+#######4
+doi_save = "./../fulltext/all_DOIs.csv"
+with open(doi_save, 'w', newline='') as csvfile:
     csvwriter = csv.writer(csvfile)
     csvwriter.writerow(['DOI', 'PMID'])  # Write header
     for doi, pmid in doi_pmid_pairs:
@@ -90,8 +95,10 @@ with open("./../fulltext/all_DOIs.csv", 'w', newline='') as csvfile:
 # Create project to fine-tune an NER to pull useful info from abstracts
 # 1. First, link to Label Studio to label text
 #==============================================================================
+#######5
 LABEL_STUDIO_URL = 'http://localhost:8080'
 API_KEY = '45d69e3e9c859f4583dd42e5246f346e509a0a8e'
+#######6
 PROJECT_ID = '2' #This links to the abstract-specific trainer
 
 
@@ -99,6 +106,7 @@ PROJECT_ID = '2' #This links to the abstract-specific trainer
 # If needed: Define the labeling configuration XML and update
 #==============================================================================
 
+########7
 label_config_xml = """
 <View>
   <Labels name="label" toName="text">
@@ -144,6 +152,7 @@ for a in articles:
 #Turn this into a loop to get better predictions as more annotations are added. 
 #==============================================================================
 
+######1,5,6
 LABEL_STUDIO_URL = 'http://localhost:8080' #Run with model_abstract_app.py
 API_KEY = '45d69e3e9c859f4583dd42e5246f346e509a0a8e'
 PROJECT_ID = '2' #This links to the abstract-specific trainer
@@ -166,10 +175,12 @@ incomplete_tasks = [task for task in tasks if not is_task_completed(task)]
 # Prepare a list to hold the predictions
 predictions = []
 
+########8
+ntasks = 50
 # Process the e.g. first 20 [:20] incomplete tasks
 # Make sure the model is being hosted! 
 # py -3.10 model_abstract_app.py
-for task in incomplete_tasks[:50]:
+for task in incomplete_tasks[:ntasks]:
     text = task['data']['text']  # Adjust this key based on your data format
     response = requests.post('http://localhost:5000/predict', json={'text': text})
     predictions_response = response.json()

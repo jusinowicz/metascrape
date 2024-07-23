@@ -24,6 +24,7 @@ sys.path.append(os.path.abspath('./../'))
 import common
 
 #Make sure to load the latest version of text from Label Studio
+######10
 latest_labels = './../label_studio_projects/project-2-at-2024-07-18-10-26-167602b7.json'
 
 #==============================================================================
@@ -51,6 +52,7 @@ cleaned_data = common.utilities.clean_annotations(labeled_data)
 #nlp =spacy.load("en_core_sci_scibert")
 
 #OR retrain a model on new data
+#####11
 output_dir = "./../models/custom_web_ner_abs_v382"
 nlp = spacy.load(output_dir)
 # nlp_1 = spacy.load("custom_web_ner_abs_v1")
@@ -84,6 +86,7 @@ with nlp.disable_pipes(*unaffected_pipes):
         print(losses) 
 
 # Save the model
+#######11
 output_dir = "./../models/custom_web_ner_abs_v382"
 nlp.to_disk(output_dir)
 print(f"Model saved to {output_dir}")

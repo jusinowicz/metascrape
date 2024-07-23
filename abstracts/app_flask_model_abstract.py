@@ -8,6 +8,7 @@ import spacy
 
 # Load your custom model
 #nlp = spacy.load("custom_sci_ner_abs_v2")
+#####12
 nlp = spacy.load("custom_web_ner_abs_v382")
 
 app = Flask(__name__)
@@ -37,5 +38,16 @@ def setup():
     # This is a placeholder endpoint that Label Studio needs to validate the backend
     return jsonify({"status": "ready"})
 
-if __name__ == '__main__':
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
+    shutdown_func = request.environ.get('werkzeug.server.shutdown')
+    if shutdown_func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    shutdown_func()
+    return jsonify({"status": "shutting down"})
+
+def run_app():
     app.run(host='0.0.0.0', port=5000)
+
+if __name__ == '__main__':
+    run_app()
