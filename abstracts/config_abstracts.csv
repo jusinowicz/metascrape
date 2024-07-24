@@ -2,7 +2,7 @@ ncbi_api_key, f2857b2abca3fe365c756aeb647e06417b08
 query, (mycorrhiz*) AND ((soil inocul*) OR (whole soil inocul*) OR (soil transplant*) OR (whole community transplant*)) AND biomass NOT review
 output_file, ./../output/all_DOIs.csv
 cache_dir, ./../papers/
-doi_save,  ./../fulltext/all_DOIs.csv
+doi_save,  ./../output/all_DOIs.csv
 label_studio_url, http://localhost:8080
 ls_api_key, 45d69e3e9c859f4583dd42e5246f346e509a0a8e
 project_id, 2

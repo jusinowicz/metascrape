@@ -10,18 +10,21 @@
 #	
 #==============================================================================
 #libraries
-import os
-import csv
-import sys
+try:
+	import os
+	import csv
+	import sys
 
-#for label studio interactions: upload_task
-import requests  
+	#for label studio interactions: upload_task
+	import requests
 
-#the custom modules
-sys.path.append(os.path.abspath('./../'))  
-from common.config import load_config, get_config_param, ConfigError
+	#the custom modules
+	sys.path.append(os.path.abspath('./../'))
+	from common.config import load_config, get_config_param, ConfigError
+except ImportError as e:
+	print(f"Failed to import module: {e.name}. Please ensure it is installed.")
+	sys.exit(1)
 #==============================================================================
-
 def main():
 	config_file_path = './config_abstracts.csv'
 	try:

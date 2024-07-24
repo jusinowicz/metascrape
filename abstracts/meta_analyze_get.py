@@ -48,7 +48,7 @@ import common.utilities
 #Fetch records from PubMed
 #==============================================================================
 #####2
-fetcher = PubMedFetcher(cachedir='./papers/')
+fetcher = PubMedFetcher(cachedir='./../papers/')
 # Construct search query: based on Averil et al 2022
 #query = '(mycorrhiz*) AND ((soil inocul*) OR (whole soil inocul*) OR (soil transplant*) OR (whole community transplant*))'
 
