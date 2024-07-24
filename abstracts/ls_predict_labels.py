@@ -1,16 +1,16 @@
-#==============================================================================
-# Use a NER to predict labels for a Label Studio project
-# 	- Check the configuration file config_abstracts.csv for configuration.
-#	- Config needs: 
-#		ls_api_key: API key for Label Studio
-#		label_studio_url: The local location where it is running
-#		project_id: Which project id? 
-#		ntasks: How many tasks to predict over? 
-# 	- Label Studio needs to be running. Default location: http://localhost:8080
-#	- This module will run host_NER_model to start the NER as a service 
-#	  at localhost:5000. The process is terminated before the program ends. 
-#		In Windows: netstat -ano | findstr 5000
-#==============================================================================
+"""
+Use a NER to predict labels for a Label Studio project
+	- Check the configuration file config_abstracts.csv for configuration.
+	- Config needs: 
+		ls_api_key: API key for Label Studio
+		label_studio_url: The local location where it is running
+		project_id: Which project id? 
+		ntasks: How many tasks to predict over? 
+	- Label Studio needs to be running. Default location: http://localhost:8080
+	- This module will run host_NER_model to start the NER as a service 
+	  at localhost:5000. The process is terminated before the program ends. 
+		In Windows: netstat -ano | findstr 5000
+"""
 #libraries
 try:
 	import os

@@ -1,14 +1,13 @@
-#==============================================================================
-# Create or redefine the labeling configuration in a label studio project 
-# based on XML and update in the project. 
-# 	- Check the configuration file config_abstracts.csv for configuration.
-#	- Config needs: 
-#		ls_api_key: API key for Label Studio
-#		label_studio_url: The local location where it is running
-#		project_id: Which project id? 
-# 	- Label Studio needs to be running. Default location: http://localhost:8080
-#	
-#==============================================================================
+"""
+Create or redefine the labeling configuration in a label studio project 
+based on XML and update in the project. 
+	- Check the configuration file config_abstracts.csv for configuration.
+	- Config needs: 
+		ls_api_key: API key for Label Studio
+		label_studio_url: The local location where it is running
+		project_id: Which project id? 
+	- Label Studio needs to be running. Default location: http://localhost:8080
+"""
 #libraries
 try:
 	import os

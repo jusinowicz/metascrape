@@ -8,7 +8,7 @@ ls_api_key, 45d69e3e9c859f4583dd42e5246f346e509a0a8e
 project_id, 2
 label_config_xml, ./label_config.xml
 ntasks, 2
-latest_labels, ./../label_studio_projects/project-2-at-2024-07-18-10-26-167602b7.json
-model_output_dir, ./../models/custom_web_ner_abs_v382
+latest_labels, ./../label_studio_projects/
+model_save_dir, ./../models/custom_web_ner_abs_v382
 model_load_dir, ./../models/custom_web_ner_abs_v382
 abstract_table_dir, ./../output/abstract_parsing1.csv

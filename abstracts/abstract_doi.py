@@ -1,12 +1,12 @@
-#==============================================================================
-# Do a keyword search using the NCBI API. Export the PMIDs with DOIs.
-# 	- Check the configuration file config_abstracts.csv for configuration.
-#	- Config needs: 
-#		ncbi_api_key: The NCBI api key
-#		cache_dir: Where the module stores the abstracts
-#		doi_save: The output csv for PMIDs and DOIs
-# 		query: The query to PubMed, make sure it follows their rules! 
-#==============================================================================
+"""
+Do a keyword search using the NCBI API. Export the PMIDs with DOIs.
+	- Check the configuration file config_abstracts.csv for configuration.
+	- Config needs: 
+		ncbi_api_key: The NCBI api key
+		cache_dir: Where the module stores the abstracts
+		doi_save: The output csv for PMIDs and DOIs
+		query: The query to PubMed, make sure it follows their rules! 
+"""
 #libraries
 try:
 	import os
