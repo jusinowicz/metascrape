@@ -2,14 +2,27 @@
 # This file is to host the NER as an app using flask so that it can be run with 
 # Label Studio.
 #==============================================================================
-
+#libraries
 from flask import Flask, request, jsonify
 import spacy
+import sys
+import os
 
-# Load your custom model
-#nlp = spacy.load("custom_sci_ner_abs_v2")
-#####12
-nlp = spacy.load("custom_web_ner_abs_v382")
+#the custom modules
+sys.path.append(os.path.abspath('./../'))  
+from common.config import load_config, get_config_param, ConfigError
+#==============================================================================
+# Load the custom model
+config_file_path = './config_abstracts.csv'
+try:
+    config = load_config(config_file_path)
+    model_load_dir = get_config_param(config, 'model_load_dir', required=True)
+except ConfigError as e:
+    print(f"Configuration error: {e}")
+except Exception as e:
+    print(f"An error occurred: {e}")
+
+nlp = spacy.load(model_load_dir)
 
 app = Flask(__name__)
 
@@ -49,5 +62,5 @@ def shutdown():
 def run_app():
     app.run(host='0.0.0.0', port=5000)
 
-if __name__ == '__main__':
-    run_app()
+# if __name__ == '__main__':
+#     run_app()

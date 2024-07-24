@@ -32,6 +32,7 @@ def main():
 		LS_API_KEY = get_config_param(config, 'ls_api_key', required=True)
 		LABEL_STUDIO_URL = get_config_param(config, 'label_studio_url', required=True)
 		PROJECT_ID = get_config_param(config, 'project_id', required=True)
+		print("Config_abstracts successfully loaded")
 	except ConfigError as e:
 		print(f"Configuration error: {e}")
 	except Exception as e:
@@ -54,19 +55,19 @@ def main():
 		label_config= get_config_param(config, 'label_config_xml', required=True)
 		with open(label_config, 'r') as file:
 			label_config_xml = file.read()
-		# Update the project with the new labeling configuration
-		response = requests.patch(
-			f'{LABEL_STUDIO_URL}/api/projects/{PROJECT_ID}',
-			headers={'Authorization': f'Token {API_KEY}', 'Content-Type': 'application/json'},
-			json={'label_config': label_config_xml}
-		)
-		print("Status Code:", response.status_code)
-		print("Response Text:", response.text)
-	except ConfigError as e:
-		print(f"Configuration error: {e}")
-	except Exception as e:
-		print(f"An error occurred: {e}")
-
+		print("Loaded label configuration:", label_config_xml)
+	except FileNotFoundError as e:
+		print(e)
+		label_config_xml = None
+		
+	# Update the project with the new labeling configuration
+	response = requests.patch(
+		f'{LABEL_STUDIO_URL}/api/projects/{PROJECT_ID}',
+		headers={'Authorization': f'Token {API_KEY}', 'Content-Type': 'application/json'},
+		json={'label_config': label_config_xml}
+	)
+	print("Status Code:", response.status_code)
+	print("Response Text:", response.text)
 
 if __name__ == "__main__":
     main()

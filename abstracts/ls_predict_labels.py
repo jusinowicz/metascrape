@@ -9,22 +9,32 @@
 #	
 #==============================================================================
 #libraries
-import os
-import csv
-import sys
-
-#For label studio interactions
-import requests
-from label_studio_sdk import Client  
-
-#the custom modules
-sys.path.append(os.path.abspath('./../'))  
-from common.config import load_config, get_config_param, ConfigError
+try:
+	import os
+	import csv
+	import sys
+	
+	#For label studio interactions
+	import requests
+	from label_studio_sdk import Client
+	import json  
+	
+	#To start the NER on localhost from within this module:
+	import time
+	from multiprocessing import Process
+	from host_NER_model import run_app
+	#the custom modules
+	sys.path.append(os.path.abspath('./../'))
+	from common.config import load_config, get_config_param, ConfigError
+except ImportError as e:
+	print(f"Failed to import module: {e.name}. Please ensure it is installed.")
+	sys.exit(1)
 #==============================================================================
 # Filter out completed tasks
 def is_task_completed(task):
     return len(task['annotations']) > 0  # Adjust this condition based on your project's definition of "completed"
 
+#Main
 def main():
 	config_file_path = './config_abstracts.csv'
 	try:
@@ -36,6 +46,8 @@ def main():
 		LABEL_STUDIO_URL = get_config_param(config, 'label_studio_url', required=True)
 		PROJECT_ID = get_config_param(config, 'project_id', required=True)
 		ntasks = get_config_param(config, 'ntasks', required=True)
+		ntasks = int(ntasks)
+		print("Config_abstracts successfully loaded")
 	except ConfigError as e:
 		print(f"Configuration error: {e}")
 	except Exception as e:
@@ -51,9 +63,16 @@ def main():
 		print("Label Studio is not running. Please start Label Studio first.")
 		sys.exit(1)
 
+	#If all has gone right up to now then start the Flask app in a separate process
+	flask_process = Process(target=run_app)
+	flask_process.start()
+	print(f"The NER is being started at http://localhost:5000")
+	# Wait for the server to start
+	time.sleep(15)
+
 	try:
 		# Initialize the Label Studio client
-		ls = Client(url=LABEL_STUDIO_URL, api_key=API_KEY)
+		ls = Client(url=LABEL_STUDIO_URL, api_key=LS_API_KEY)
 
 		# Get the project
 		project = ls.get_project(PROJECT_ID)
@@ -66,6 +85,7 @@ def main():
 		predictions = []
 		
 		# Process the first "ntasks" incomplete tasks
+		print(f"NER running, generating predictions = {ntasks}")
 		for task in incomplete_tasks[:ntasks]:
 		    text = task['data']['text']  # Adjust this key based on your data format
 		    response = requests.post('http://localhost:5000/predict', json={'text': text})
@@ -91,3 +111,10 @@ def main():
 
 		# Create predictions in bulk
 		project.create_predictions(predictions)
+	finally:
+		print("Done! Shutting down NER model")
+		# Shutdown the Flask app
+		flask_process.terminate()
+
+if __name__ == "__main__":
+    main()
