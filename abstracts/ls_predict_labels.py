@@ -9,6 +9,7 @@
 # 	- Label Studio needs to be running. Default location: http://localhost:8080
 #	- This module will run host_NER_model to start the NER as a service 
 #	  at localhost:5000. The process is terminated before the program ends. 
+#		In Windows: netstat -ano | findstr 5000
 #==============================================================================
 #libraries
 try:
