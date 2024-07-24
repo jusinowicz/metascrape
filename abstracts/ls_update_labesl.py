@@ -1,8 +1,13 @@
 #==============================================================================
 # Create or redefine the labeling configuration in a label studio project 
 # based on XML and update in the project. 
-# NOTE: Need to enable error handling if label studio is not being locally
-# hosted. 
+# 	- Check the configuration file config_abstracts.csv for configuration.
+#	- Config needs: 
+#		ls_api_key
+#		label_studio_url
+#		project_id
+# 	- Label Studio needs to be running. Default location: http://localhost:8080
+#	
 #==============================================================================
 #libraries
 import os
