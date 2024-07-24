@@ -5,8 +5,10 @@
 #		ncbi_api_key: The NCBI api key
 #		cache_dir: Where the module stores the abstracts
 # 		query: The query to PubMed, make sure it follows their rules! 
-#
-#
+#		ls_api_key: API key for Label Studio
+#		label_studio_url: The local location where it is running
+#		project_id: Which project id? 
+# 	- Label Studio needs to be running. Default location: http://localhost:8080
 #
 #==============================================================================
 #libraries
