@@ -44,9 +44,6 @@ def main():
 	config_file_path = './config_abstracts.csv'
 	try:
 		config = load_config(config_file_path)
-		#==============================================================================
-		# Link to Label Studio to label text
-		#==============================================================================
 		LS_API_KEY = get_config_param(config, 'ls_api_key', required=True)
 		LABEL_STUDIO_URL = get_config_param(config, 'label_studio_url', required=True)
 		PROJECT_ID = get_config_param(config, 'project_id', required=True)

@@ -2,16 +2,14 @@
 Update the NER with user-annotated data from Label Studio
 - Check the configuration file config_abstracts.csv for configuration.
 - Config needs: 
-		ncbi_api_key: The NCBI api key
-		cache_dir: Where the module stores the abstracts
-		query: The query to PubMed, make sure it follows their rules! 
-		ls_api_key: API key for Label Studio
-		label_studio_url: The local location where it is running
-		project_id: Which project id? 
-	- This module does not interface directly with Label Studio. HOWEVER
-		it does require the latest annotations from a project as a .json
-		file, stored in the label_studio_projects directory. This can be 
-		easily exported from within Label Studio. 
+		model_load_dir: The location of the custom NER
+		model_save_dir: Where to save the fitted/updated NER
+		latest_labels: Directory of Label Studio projects. 
+			Default is ./../label_studio_projects/ 
+- This module does not interface directly with Label Studio. HOWEVER
+	it does require the latest annotations from a project as a .json
+	file, stored in the label_studio_projects directory. This can be 
+	easily exported from within Label Studio. 
 """
 #libraries
 try:
@@ -42,9 +40,6 @@ def main():
 	config_file_path = './config_abstracts.csv'
 	try:
 		config = load_config(config_file_path)
-		#==============================================================================
-		# Link to Label Studio to label text
-		#==============================================================================
 		model_load_dir = get_config_param(config, 'model_load_dir', required=True)
 		model_save_dir = get_config_param(config, 'model_save_dir', required=True)
 		latest_labels = get_config_param(config, 'latest_labels', required=True)

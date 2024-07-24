@@ -39,9 +39,6 @@ def main():
 	config_file_path = './config_abstracts.csv'
 	try:
 		config = load_config(config_file_path)
-		#==============================================================================
-		# Link to Label Studio to label text
-		#==============================================================================
 		NCBI_API_KEY = get_config_param(config, 'ncbi_api_key', required=True)
 		os.environ['NCBI_API_KEY'] = NCBI_API_KEY
 		cache_dir = get_config_param(config, 'cache_dir', required=True)
