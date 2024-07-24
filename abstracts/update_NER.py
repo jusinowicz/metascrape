@@ -1,7 +1,7 @@
 """
 Update the NER with user-annotated data from Label Studio
-	- Check the configuration file config_abstracts.csv for configuration.
-	- Config needs: 
+- Check the configuration file config_abstracts.csv for configuration.
+- Config needs: 
 		ncbi_api_key: The NCBI api key
 		cache_dir: Where the module stores the abstracts
 		query: The query to PubMed, make sure it follows their rules! 
@@ -19,7 +19,7 @@ try:
 	import csv
 	import sys
 	import json
-	import glob
+	import argparse
 
 	#Spacy NER
 	import spacy
@@ -34,6 +34,11 @@ except ImportError as e:
 	sys.exit(1)
 #==============================================================================
 def main():
+	# Parse command-line arguments
+	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+	parser.add_argument('--new', action='store_true', help='Create a new NER instead of retraining an existing one.')
+	args = parser.parse_args()
+	#Open config file
 	config_file_path = './config_abstracts.csv'
 	try:
 		config = load_config(config_file_path)
@@ -55,14 +60,61 @@ def main():
 		current_json = list(current_json)
 		#Order by creation to get the newest annotations
 		current_json.sort(key=lambda f: os.path.getmtime(os.path.join(latest_labels, f)), reverse=True)
-		ll = current_json[0]
+		ll = latest_labels+current_json[0]
 
 		# Load the exported data from Label Studio
 		with open(ll, 'r', encoding='utf-8') as file:
-    		labeled_data = json.load(file)
+			labeled_data = json.load(file)
 
 		# Filter out entries that have not been annotated by a human: 
 		labeled_data = [task for task in labeled_data if 'annotations' in task and task['annotations']]
 
 		# Clean Annotations Function
 		cleaned_data = clean_annotations(labeled_data)
+
+		if args.new:
+			#Train fresh. Load a default spaCy NLP
+			nlp = spacy.load("en_core_sci_md")
+			print("Train fresh. Load a default spaCy NLP")
+		else:
+			#Retrain an existing custom NER
+			nlp = spacy.load(model_load_dir)
+			print(f"Retraining {model_load_dir}")
+
+		# Prepare the data for spaCy
+		examples = []
+		for text, annotations in cleaned_data:
+		    doc = nlp.make_doc(text)
+		    example = Example.from_dict(doc, annotations)
+		    examples.append(example)
+
+		# Add the new labels to the NER component
+		ner = nlp.get_pipe("ner")
+		labels = set(label for _, anns in cleaned_data for _, _, label in anns["entities"])
+		for label in labels:
+		    ner.add_label(label)
+
+		# Disable other pipes for training
+		print("Annotations parsed. Begin training: ")
+		unaffected_pipes = [pipe for pipe in nlp.pipe_names if pipe != "ner"]
+		with nlp.disable_pipes(*unaffected_pipes):
+		    optimizer = nlp.resume_training()
+		    for i in range(50):  # Number of iterations
+		        print(f"Iteration {i+1}")
+		        losses = {}
+		        nlp.update(
+		            examples,
+		            drop=0.35,  # Dropout - make it harder to memorize data
+		            losses=losses,
+		        )
+		        print(losses)
+
+		# Save the model
+		nlp.to_disk(model_save_dir)
+		print(f"Model saved to {model_save_dir}")
+
+	except Exception as e:
+		print(f"An error occurred: {e}")
+
+if __name__ == "__main__":
+    main()
