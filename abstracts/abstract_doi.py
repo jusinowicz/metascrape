@@ -24,6 +24,8 @@ except ImportError as e:
 	sys.exit(1)
 #==============================================================================
 def main():
+	# Parse command-line arguments
+	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
 	config_file_path = './config_abstracts.csv'
 	try:
 		config = load_config(config_file_path)
