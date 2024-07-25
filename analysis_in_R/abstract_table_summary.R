@@ -29,50 +29,107 @@ split_and_unnest = function(df, column_name) {
     unnest({{ column_name }})
 }
 
-# Function to summarize unique phrases and their counts
-summarize_phrases = function(df, column_name) {
+# Function to split phrases into a list of data frames
+split_cols_list = function(df, column_name, study_id_col) {
   df %>%
-    group_by(.data[[column_name]]) %>%
-    summarise(count = n()) %>%
-    ungroup() %>%
-    arrange(desc(count))
+    mutate({{ column_name }} := strsplit(.data[[column_name]], split = ";")) %>%
+    unnest({{ column_name }}) %>%
+    distinct() %>%
+    select(study_id = all_of(study_id_col), phrase = all_of(column_name))
 }
 
+
+#Function to do this all in one step
+list_and_unnest = function(df, column_name, study_id_col) {
+    df %>%
+      mutate(phrases = strsplit(.data[[column_name]], split = ";")) %>%
+      unnest(phrases) %>%
+      distinct() %>%
+      select(study_id = all_of(study_id_col), phrase = phrases)
+  }
+
+split_phrases_list =function(df, column_name, study_id_col) {
+  df %>%
+    mutate(phrases = strsplit(.data[[column_name]], split = ";")) %>%
+    unnest(phrases) %>%
+    rename(study_id = all_of(study_id_col), phrase = phrases)
+}
+
+function(df, column_name, study_id_col) {
+  df %>%
+    mutate(phrase_list = strsplit(.data[[column_name]], split = ";")) %>%
+    unnest(phrase_list) %>%
+    distinct() %>%
+    rename(study_id = all_of(study_id_col), phrase = phrase_list)
+}
+
+function(df, column_name, study_id_col) {
+  df %>%
+    mutate(phrase_list = strsplit(.data[[column_name]], split = ";")) %>%
+    unnest(phrase_list) %>%
+    distinct() %>%
+    rename(study_id = all_of(study_id_col), phrase = phrase_list)
+}
+
+map(columns_to_process, function(col) {
+    df %>%
+      mutate(phrases = strsplit(.data[[col]], split = ";")) %>%
+      unnest(phrases) %>%
+      distinct() %>%
+      select(study_id = all_of(study_id_col), phrase = phrases)
+  })
+
+# Function to summarize unique phrases and their counts
+summarize_phrases = function(df) {
+  df %>%
+    count(phrase, name = "count") %>%  # Count occurrences
+    arrange(desc(count))
+}
 
 #=============================================================================
 #Main workflow
 #=============================================================================
 # Assume the first column is "study ID" and should not be processed
 data_use = data[,-1] 
-# Process each column dynamically
-processed_data = reduce(names(data_use), function(df, col) {
-  split_and_unnest(df, col)
-}, .init = data_use)
+study_id = names(data)[1]
 
-# Add the study ID column back to the processed data
-processed_data = bind_cols(data[,1], processed_data)
-
-# Summarize phrases for each column except the study ID column
-summaries = map(names(data_use), function(col) {
-  summarize_phrases(processed_data, col)
+# Create a list of data frames for each column, each containing study_id and phrases
+processed_data = map(names(data_use), function(col) {
+  split_cols_list(data, col,study_id)
 })
 
+# Apply split_and_unnest to each data frame in the list
+processed_data2 = map(processed_data, function(df) {
+  # Identify the column containing phrases in the data frame
+  column_name = names(df)[2] # Assuming the second column is 'phrase'
+  
+  split_and_unnest(df, column_name)
+})
+
+#Approach 2, all in one step. Make sure these match:
+study_id = names(data)[1]
+column_names = names(data)[names(data) != study_id]
+lodf = map(column_names, function(col){
+  list_and_unnest(data, col,study_id)
+})
+
+# Summarize phrases for each data frame in the list
+summaries = map(processed_data, summarize_phrases)
 
 #=============================================================================
 #Visualizing with ggplot
 #=============================================================================
-#This will use walk to cycle through the 
+#This will use walk to cycle through the list, summaries
 # Function to create a bar plot for a summary
 create_bar_plot <- function(summary_df, column_name) {
-  ggplot(summary_df, aes_string(x = column_name, y = "count")) +
+  ggplot(summary_df, aes_string(x = "phrase", y = "count")) +
     geom_bar(stat = "identity") +
     coord_flip() + # Flip coordinates for better readability
     theme_minimal() +
     labs(title = paste("Frequency of Phrases in", column_name),
-         x = column_name,
+         x = "Phrase",
          y = "Count")
 }
-
 # Create and save bar plots for each summary
 walk2(names(data_use), summaries, function(col, summary_df) {
   plot = create_bar_plot(summary_df, col)
