@@ -48,37 +48,6 @@ list_and_unnest = function(df, column_name, study_id_col) {
       select(study_id = all_of(study_id_col), phrase = phrases)
   }
 
-split_phrases_list =function(df, column_name, study_id_col) {
-  df %>%
-    mutate(phrases = strsplit(.data[[column_name]], split = ";")) %>%
-    unnest(phrases) %>%
-    rename(study_id = all_of(study_id_col), phrase = phrases)
-}
-
-function(df, column_name, study_id_col) {
-  df %>%
-    mutate(phrase_list = strsplit(.data[[column_name]], split = ";")) %>%
-    unnest(phrase_list) %>%
-    distinct() %>%
-    rename(study_id = all_of(study_id_col), phrase = phrase_list)
-}
-
-function(df, column_name, study_id_col) {
-  df %>%
-    mutate(phrase_list = strsplit(.data[[column_name]], split = ";")) %>%
-    unnest(phrase_list) %>%
-    distinct() %>%
-    rename(study_id = all_of(study_id_col), phrase = phrase_list)
-}
-
-map(columns_to_process, function(col) {
-    df %>%
-      mutate(phrases = strsplit(.data[[col]], split = ";")) %>%
-      unnest(phrases) %>%
-      distinct() %>%
-      select(study_id = all_of(study_id_col), phrase = phrases)
-  })
-
 # Function to summarize unique phrases and their counts
 summarize_phrases = function(df) {
   df %>%
@@ -89,29 +58,18 @@ summarize_phrases = function(df) {
 #=============================================================================
 #Main workflow
 #=============================================================================
-# Assume the first column is "study ID" and should not be processed
-data_use = data[,-1] 
-study_id = names(data)[1]
-
-# Create a list of data frames for each column, each containing study_id and phrases
-processed_data = map(names(data_use), function(col) {
-  split_cols_list(data, col,study_id)
-})
-
-# Apply split_and_unnest to each data frame in the list
-processed_data2 = map(processed_data, function(df) {
-  # Identify the column containing phrases in the data frame
-  column_name = names(df)[2] # Assuming the second column is 'phrase'
-  
-  split_and_unnest(df, column_name)
-})
-
-#Approach 2, all in one step. Make sure these match:
+#Split each label column into a list, then unpack all of the phrases
+#into new entries. 
 study_id = names(data)[1]
 column_names = names(data)[names(data) != study_id]
-lodf = map(column_names, function(col){
+processed_data = map(column_names, function(col){
   list_and_unnest(data, col,study_id)
 })
+
+#Put the correct names back on the columns
+for(n in 1:length(column_names)){ 
+  colnames(processed_data[[n]])[2] = column_names[n]
+}
 
 # Summarize phrases for each data frame in the list
 summaries = map(processed_data, summarize_phrases)
