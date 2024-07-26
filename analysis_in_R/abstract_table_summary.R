@@ -23,6 +23,25 @@ ap_dir = "./../output/abstract_parsing1.csv"
 data = read_csv(ap_dir)
 
 #=============================================================================
+# User input: 
+# These are helpful things to change so I will put them up front.
+#=============================================================================
+# The words/phrases that you would like to filter and get summary stats on.
+ex_words = c("crop", "metal", "pollut", "agri", "contam", "mine", "minin", 
+              "remedi", "toxic", "farm")
+
+# The word clouds can be very finicky. When certain words/phrases have very 
+# large counts, they might not print. 
+# Use the "scale" parameter to change the the font scale, which helps. 
+# Use the "transform" parameter to scale the counts themselves, which helps. 
+#For the first filter
+scale_ex = 0.5
+
+#For the second part, more words, more complicated
+scale2 =0.3 
+#Transform for second part.
+transform = 0.3 
+#=============================================================================
 #Custom functions
 #=============================================================================
 # Create a function to generate binary columns for each exclusion word
@@ -135,8 +154,6 @@ column_names = names(data)[names(data) != study_id]
 #=============================================================================
 # Apply the function to filter out rows where 'crop' appears in the LANDUSE column
 #What words:
-ex_words = c("crop", "metal", "pollut", "agri", "contam", "mine", "minin", 
-              "remedi", "toxic", "farm")
 ex_pattern = paste(ex_words, collapse = "|")
 
 #Which column: 
@@ -185,7 +202,7 @@ ggsave(paste0("./../output/exclusion_summary_bar_plot.png"), plot, width = 8, he
 #=============================================================================
 # Function to create a word cloud for a summary
 create_word_cloud = function(summary_df, column_name) {
-  wordcloud2(summary_df, size = 0.5, color = 'random-light', backgroundColor = "black")
+  wordcloud2(summary_df, size = scale_ex, color = 'random-light', backgroundColor = "black")
 }
 
 # Create and save the word cloud for exclusion summary
@@ -244,7 +261,7 @@ summaries2 = map(summaries, function(df) {
     filter(count > 1) %>%
     mutate(
       phrase = str_split(phrase, "; ", simplify = TRUE)[, 1],
-      count = count^0.3
+      count = count^transform
     )
 })
 
@@ -259,7 +276,7 @@ summaries3 = map(summaries, function(df) {
       phrase = sapply(str_split(phrase, "; "), function(x) {
       x[which.max(nchar(x))]
     }),
-      count = count^0.3
+      count = count^transform
     )
 })
 
@@ -290,7 +307,7 @@ walk2(column_names, summaries2, function(col, summary_df) {
 #=============================================================================
 # Function to create a word cloud for a summary
 create_word_cloud = function(summary_df, column_name) {
-  wordcloud2(summary_df, size = .3, color = 'random-light', backgroundColor = "black")
+  wordcloud2(summary_df, size = scale2, color = 'random-light', backgroundColor = "black")
 }
 
 # Create and save word clouds for each summary
