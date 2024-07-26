@@ -25,6 +25,20 @@ data = read_csv(ap_dir)
 #=============================================================================
 #Custom functions
 #=============================================================================
+# Create a function to generate binary columns for each exclusion word
+add_exclusions = function(df, column_name, words) {
+  # Create a copy of the data frame to avoid modifying the original
+  df_copy = df
+  
+  # Add binary columns for each exclusion word
+  for (word in words) {
+    df_copy = df_copy %>%
+      mutate(!!paste0("contains_", word) := as.integer(str_detect(.data[[column_name]], regex(word, ignore_case = TRUE))))
+  }
+  
+  return(df_copy)
+}
+#=============================================================================
 # Function to split and unnest words
 split_and_unnest = function(df, column_name) {
   df %>%
@@ -112,11 +126,80 @@ combine_phrases = function(df) {
 #=============================================================================
 #Main workflow
 #=============================================================================
-#Split each label column into a list, then unpack all of the phrases
-#into new entries. 
 study_id = names(data)[1]
 column_names = names(data)[names(data) != study_id]
+#=============================================================================
+# If you would like to apply any filters based on keywords.  
+# E.g., filter out agrictultural studies
+# And then get a count of how many studies were filtered by each phrase type
+#=============================================================================
+# Apply the function to filter out rows where 'crop' appears in the LANDUSE column
+#What words:
+ex_words = c("crop", "metal", "pollut", "agri", "contam", "mine", "minin", 
+              "remedi", "toxic", "farm")
+ex_pattern = paste(ex_words, collapse = "|")
 
+#Which column: 
+col_use = column_names[6] #6 is LANDUSE 
+
+# The "strict" version matches words exactly. 
+# The "wild" version uses regex to match ANY appearance of a word. 
+#Strict
+# filtered_data = data %>%
+#     filter(!str_detect(.data[[col_use]], fixed(ex_pattern, ignore_case = TRUE)))
+#Wild
+filtered_data = data %>%
+  filter(!str_detect(.data[[col_use]], regex(ex_pattern, ignore_case = TRUE)))
+
+# Apply the function to add columns for each exclusion word
+dat_ex = NULL
+dat_ex = add_exclusions(data, col_use, ex_words)
+dat_ex = dat_ex[,c(col_use, colnames(dat_ex)[(length(column_names)+2):dim(dat_ex)[2] ]) ]
+
+# Summarize counts for each exclusion word.
+# Add a column for total remaining studies. 
+exclusion_summary = dat_ex %>%
+  summarise(across(starts_with("contains_"), ~ sum(.x, na.rm = TRUE)))%>%
+  mutate(remaining = nrow(data) - rowSums(select(., starts_with("contains_")), na.rm = TRUE)) %>%
+  pivot_longer(everything(), names_to = "exclusion", values_to = "count")
+#=============================================================================
+#Visualizing with ggplot
+#=============================================================================
+# Function to create a bar plot for the exclusion summary
+create_bar_plot = function(summary_df) {
+  ggplot(summary_df, aes(x = reorder(exclusion, count), y = count)) +
+    geom_bar(stat = "identity", fill = "skyblue") +
+    coord_flip() + # Flip coordinates for better readability
+    theme_minimal() +
+    labs(title = "Exclusion Summary",
+         x = "Phrase",
+         y = "Count") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+}
+
+# Create and save the bar plot for exclusion summary
+plot = create_bar_plot(exclusion_summary)
+ggsave(paste0("./../output/exclusion_summary_bar_plot.png"), plot, width = 8, height = 6)
+#=============================================================================
+#Word cloud
+#=============================================================================
+# Function to create a word cloud for a summary
+create_word_cloud = function(summary_df, column_name) {
+  wordcloud2(summary_df, size = 0.5, color = 'random-light', backgroundColor = "black")
+}
+
+# Create and save the word cloud for exclusion summary
+html_filename = "./../output/exclusion_summary_word_cloud.html"
+saveWidget(create_word_cloud(exclusion_summary), html_filename, selfcontained = FALSE)
+#=============================================================================
+# This section attempts to unpack all of the individual phrases, and then 
+# provide some summaries based on the kinds of phrases/words that were found.
+#=============================================================================
+#Split each label column into a list, then unpack all of the phrases
+#into new entries. 
+#
+#>>>>>>>> Decide whether to use the data or filtered_data here <<<<<<<<
+#
 #This will unpack each word/phrase and create a long list where each
 #word/phrase is matched with the Study ID.
 processed_data = map(column_names, function(col){
@@ -126,6 +209,10 @@ processed_data = map(column_names, function(col){
 #Put the correct names back on the columns
 for(n in 1:length(column_names)){ 
   colnames(processed_data[[n]])[2] = column_names[n]
+  
+  #Export as long csv lists
+  file_name = paste("./../output/", column_names[n], ".csv", sep="")
+  write.csv(file = file_name,processed_data[[n]] )
 }
 
 # Create summary counts for each data frame in the list.
