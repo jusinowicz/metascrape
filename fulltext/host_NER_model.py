@@ -13,7 +13,7 @@ sys.path.append(os.path.abspath('./../'))
 from common.config import load_config, get_config_param, ConfigError
 #==============================================================================
 # Load the custom model
-config_file_path = './config_abstracts.csv'
+config_file_path = './config_fulltext.csv'
 try:
     config = load_config(config_file_path)
     model_load_dir = get_config_param(config, 'model_load_dir', required=True)

@@ -13,6 +13,7 @@ try:
 	import os
 	import csv
 	import sys
+	import argparse
 
 	#for label studio interactions: upload_task
 	import requests
@@ -27,7 +28,7 @@ except ImportError as e:
 def main():
 	# Parse command-line arguments
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-	config_file_path = './config_abstracts.csv'
+	config_file_path = './config_fulltext.csv'
 	try:
 		config = load_config(config_file_path)
 		#==============================================================================

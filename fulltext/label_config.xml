@@ -9,6 +9,8 @@
     <Label value="ECOTYPE" background="#0000ff"/>
     <Label value="ECOREGION" background="#ffff00"/>
     <Label value="LOCATION" background="#A133FF"/>
+    <Label value="LAT" background="#33FF7C"/>
+    <Label value="LON" background="#FF33A1"/>
     <Label value="CARDINAL" background="#FF5733"/>
     <Label value="PERCENTAGE" background="#D4380D"/>
     <Label value="UNITS" background="#33FFA1"/>
