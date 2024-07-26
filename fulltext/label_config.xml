@@ -1,0 +1,17 @@
+<View>
+  <Labels name="label" toName="text">
+    <Label value="TREATMENT" background="#ff0000"/>
+    <Label value="INOCTYPE" background="#00ffff"/>
+    <Label value="SOILTYPE" background="#ff9900"/>
+    <Label value="FIELDGREENHOUSE" background="#FFA500"/>
+    <Label value="LANDUSE" background="#800080"/>
+    <Label value="RESPONSE" background="#00ff00"/>
+    <Label value="ECOTYPE" background="#0000ff"/>
+    <Label value="ECOREGION" background="#ffff00"/>
+    <Label value="LOCATION" background="#A133FF"/>
+    <Label value="CARDINAL" background="#FF5733"/>
+    <Label value="PERCENTAGE" background="#D4380D"/>
+    <Label value="UNITS" background="#33FFA1"/>
+  </Labels>
+  <Text name="text" value="$text"/>
+</View>
