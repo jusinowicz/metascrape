@@ -8,6 +8,7 @@ project_id, 3
 label_config_xml, ./label_config.xml
 ntasks, 20
 latest_labels, ./../label_studio_projects/fulltext/
+pdf_save_dir, ./../papers/
 model_save_dir, ./../models/custom_sci_abs_met_v382
 model_load_dir, ./../models/custom_sci_abs_met_v382
 abstract_table, ./../output/abstract_parsing1.csv
