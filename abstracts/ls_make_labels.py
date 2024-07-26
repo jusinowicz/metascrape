@@ -68,7 +68,7 @@ def main():
 	# Update the project with the new labeling configuration
 	response = requests.patch(
 		f'{LABEL_STUDIO_URL}/api/projects/{PROJECT_ID}',
-		headers={'Authorization': f'Token {API_KEY}', 'Content-Type': 'application/json'},
+		headers={'Authorization': f'Token {LS_API_KEY}', 'Content-Type': 'application/json'},
 		json={'label_config': label_config_xml}
 	)
 	print("Status Code:", response.status_code)
