@@ -42,7 +42,7 @@ def is_task_completed(task):
 def main():
 	# Parse command-line arguments
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-	config_file_path = './config_abstracts.csv'
+	config_file_path = './config_fulltext.csv'
 	try:
 		config = load_config(config_file_path)
 		LS_API_KEY = get_config_param(config, 'ls_api_key', required=True)
@@ -50,7 +50,7 @@ def main():
 		PROJECT_ID = get_config_param(config, 'project_id', required=True)
 		ntasks = get_config_param(config, 'ntasks', required=True)
 		ntasks = int(ntasks)
-		print("Config_abstracts successfully loaded")
+		print("Config_fulltext successfully loaded")
 	except ConfigError as e:
 		print(f"Configuration error: {e}")
 	except Exception as e:
