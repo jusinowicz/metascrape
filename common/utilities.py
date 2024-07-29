@@ -130,7 +130,7 @@ def identify_sections(sentences, section_mapping):
             normalized_section = section_mapping.get(section_name, section_name)
             current_section = normalized_section
             sections[current_section].append(sentence)
-            print(f"Matched Section Header: {header_match}")  # Debugging line
+            #print(f"Matched Section Header: {header_match}")  # Debugging line
         elif current_section:
             sections[current_section].append(sentence)
     return sections

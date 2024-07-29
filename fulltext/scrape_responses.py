@@ -49,6 +49,7 @@ try:
 	import json
 	import argparse
 	import pandas as pd
+	import re
 
 	#Post-NER processing
 	from collections import defaultdict
@@ -73,11 +74,26 @@ def main():
 	#Open config file
 	config_file_path = './config_fulltext.csv'
 	try:
+		config = load_config(config_file_path)
 		pdf_save_dir = get_config_param(config, 'pdf_save_dir', required=True)
 		model_load_dir = get_config_param(config, 'model_load_dir', required=True)
-		label_list = get_config_param(config, 'label_list', required=True)
 		results_keywords= get_config_param(config,'results_keywords',required=True)
 		response_table= get_config_param(config,'response_table',required=True)
+		#Define a mapping for paper section variations
+		section_mapping = {
+		    'abstract': 'abstract',
+		    'introduction': 'introduction',
+		    'background': 'introduction',
+		    'methods': 'methods',
+		    'materials and methods': 'methods',
+		    'methodology': 'methods',
+		    'experimental methods': 'methods',
+		    'results': 'results',
+		    'findings': 'results',
+		    'discussion': 'discussion',
+		    'conclusion': 'discussion',
+		    'summary': 'discussion'
+		}
 		print("Config_abstracts successfully loaded")
 	except ConfigError as e:
 		print(f"Configuration error: {e}")
@@ -93,14 +109,13 @@ def main():
 			keywords = [value for row in csv.reader(file) for value in row]
 
 		# Get the list of current PDFs in the directory
-		current_pdfs = {f for f in os.listdir(pdf_save_dir) if f.endswith('.pdf')}
-
-		# Identify new PDFs that have not been processed
-		new_pdfs = current_pdfs - processed_pdfs
+		new_pdfs = {f for f in os.listdir(pdf_save_dir) if f.endswith('.pdf')}
 
 		data = []
+		index_p = 1
 		# Process the new PDFs
 		for pdf in new_pdfs:
+			print(f"PDF: {pdf} is {index_p} out of {len(new_pdfs)}")
 			#1. Open the current PDF and extract text
 			pdf_path = pdf_save_dir + pdf
 			study_id = pdf.rstrip(".pdf")
@@ -111,12 +126,15 @@ def main():
 			sections = identify_sections(sentences,section_mapping)
 			#Filter sentences in the "Results" section
 			results_text = filter_sentences(sections["results"], keywords) 
+			#Extract entities from filtered text
+			results_text = " ".join(results_text)
 			# Remove remaining newline characters
 			results_text = re.sub(r'\n', ' ', results_text)
 			results_doc, results_entities = extract_entities(results_text, nlp)
 			table = create_table(results_doc, results_entities, study_id)
 			data.append(table)
-
+			index_p +=1
+			
 		flattened_data = [item for sublist in data for item in sublist]
 		df = pd.DataFrame(flattened_data)
 
