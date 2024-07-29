@@ -1,13 +1,12 @@
 """
-Do a keyword search using the NCBI API. Export the abstracts to Label Studio.
-	- Check the configuration file config_abstracts.csv for configuration.
+Load text from PDF fulltext files. Export paper sections to Label Studio.
+	- Check the configuration file config_fulltext.csv for configuration.
 	- Config needs: 
-		ncbi_api_key: The NCBI api key
-		cache_dir: Where the module stores the abstracts
- 		query: The query to PubMed, make sure it follows their rules! 
+ 		pdf_save_dir: Where the PDFs live (i.e. ./../papers/) 
 		ls_api_key: API key for Label Studio
 		label_studio_url: The local location where it is running
 		project_id: Which project id? 
+		sections_wanted: Which section to export? Can only do one at a time. 
  	- Label Studio needs to be running. Default location: http://localhost:8080
 
 """

@@ -1,6 +1,6 @@
 """
 Use a NER to predict labels for a Label Studio project
-	- Check the configuration file config_abstracts.csv for configuration.
+	- Check the configuration file config_fulltext.csv for configuration.
 	- Config needs: 
 		ls_api_key: API key for Label Studio
 		label_studio_url: The local location where it is running

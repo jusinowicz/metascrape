@@ -1,6 +1,6 @@
 """
 Update the NER with user-annotated data from Label Studio
-- Check the configuration file config_abstracts.csv for configuration.
+- Check the configuration file config_fulltext.csv for configuration.
 - Config needs: 
 		model_load_dir: The location of the custom NER
 		model_save_dir: Where to save the fitted/updated NER

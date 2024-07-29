@@ -1,7 +1,7 @@
 """
 Create or redefine the labeling configuration in a label studio project 
 based on XML and update in the project. 
-	- Check the configuration file config_abstracts.csv for configuration.
+	- Check the configuration file config_fulltext.csv for configuration.
 	- Config needs: 
 		ls_api_key: API key for Label Studio
 		label_studio_url: The local location where it is running
