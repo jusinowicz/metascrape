@@ -85,7 +85,7 @@ def main():
 			# Upload abstracts
 			abstract = a.abstract
 			if abstract: # Check if the article has an abstract
-				upload_task(abstract, PROJECT_ID)
+				upload_task(abstract, LABEL_STUDIO_URL, LS_API_KEY, PROJECT_ID)
 			else:
 				print(f"No abstract found for article with PMID: {article.pmid}")
 

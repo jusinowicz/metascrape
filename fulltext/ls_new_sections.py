@@ -34,7 +34,7 @@ except ImportError as e:
 def main():
 	# Parse command-line arguments
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-	config_file_path = './config_abstracts.csv'
+	config_file_path = './config_fulltext.csv'
 	try:
 		config = load_config(config_file_path)
 		pdf_save_dir = get_config_param(config, 'pdf_save_dir', required=True)
@@ -57,7 +57,7 @@ def main():
 		    'conclusion': 'discussion',
 		    'summary': 'discussion'
 		}
-		print("Config_abstracts successfully loaded")
+		print("Config_fulltext successfully loaded")
 	except ConfigError as e:
 		print(f"Configuration error: {e}")
 	except Exception as e:
@@ -103,9 +103,9 @@ def main():
 		    #3. Put the sentences into their sections. 
 		    sections = identify_sections(sentences,section_mapping)
 		    #4.Get the required section(s) and upload to Label Studio
-		    section_text = " ".join(sections.get(sections_wanted, [])) 
+		    sections_text = " ".join(sections.get(sections_wanted, [])) 
 		    if sections_text: # Check it exists
-		        upload_task(sections_text, PROJECT_ID)
+		        upload_task(sections_text,LABEL_STUDIO_URL, LS_API_KEY, PROJECT_ID)
 		    else:
 		        print(f"No {sections_wanted} found for article with PMID: {pdf}")
 		    #Keep track of processed PDFs

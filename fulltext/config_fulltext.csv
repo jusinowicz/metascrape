@@ -13,3 +13,4 @@ model_save_dir, ./../models/custom_sci_abs_met_v382
 model_load_dir, ./../models/custom_sci_abs_met_v382
 abstract_table, ./../output/abstract_parsing1.csv
 label_list, labels.csv
+sections_wanted, methods

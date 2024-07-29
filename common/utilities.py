@@ -28,12 +28,12 @@ import spacy
 # Functions for dealing with label studio 
 #==============================================================================
 # Function to upload text data to Label Studio
-def upload_task(text, project_id):
+def upload_task(text, LABEL_STUDIO_URL, LS_API_KEY, project_id):
 	import_url = f'{LABEL_STUDIO_URL}/api/projects/{project_id}/import'
 	print("Import URL:", import_url)
 	response = requests.post(
 		import_url,
-		headers={'Authorization': f'Token {API_KEY}'},
+		headers={'Authorization': f'Token {LS_API_KEY}'},
 		json=[{
 			'data': {
 				'text': text
