@@ -4,7 +4,7 @@ treatments and responses.
 - Check the configuration file config_fulltext.csv for configuration.
 - Config needs: 
 		pdf_save_dir: Where the PDFs live (i.e. ./../papers/) 
-		model_save_dir: Where to save the fitted/updated NER
+		model_load_dir: Where the fitted/updated NER lives
 		label_list: The labels that the NER will recognize that you 
 			want to be outputted into the formatted table. 
 		results_keywords: What are the results keywords that the model has
@@ -61,7 +61,10 @@ try:
 	#the custom modules
 	sys.path.append(os.path.abspath('./../'))
 	from common.config import load_config, get_config_param, ConfigError
-	from common.utilities import extract_text_from_pdf, preprocess_text, identify_sections, filter_sentences, create_table, extract_entities
+	
+	#the table utilities
+	sys.path.append(os.path.abspath('./'))
+	import table_utilities as tu
 except ImportError as e:
 	print(f"Failed to import module: {e.name}. Please ensure it is installed.")
 	sys.exit(1)
@@ -134,7 +137,7 @@ def main():
 			table = create_table(results_doc, results_entities, study_id)
 			data.append(table)
 			index_p +=1
-			
+
 		flattened_data = [item for sublist in data for item in sublist]
 		df = pd.DataFrame(flattened_data)
 

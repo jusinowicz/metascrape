@@ -1,4 +1,8 @@
-#This module will read the CSV file and provide access to the configuration parameters.
+"""
+This is a module for loading and processing the shared config files. 
+These general have the format config_{workflow component}.csv
+This module will read the CSV file and provide access to the configuration parameters.
+"""
 
 import csv
 import os

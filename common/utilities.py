@@ -1,6 +1,7 @@
-#==============================================================================
-# All of the custom functions that are used across modules are collected here
-# 
+"""
+All of the custom functions that are used across modules are collected here
+"""
+ 
 #==============================================================================
 #Libraries
 #==============================================================================
