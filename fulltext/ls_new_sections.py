@@ -26,7 +26,7 @@ try:
 	#the custom modules
 	sys.path.append(os.path.abspath('./../'))
 	from common.config import load_config, get_config_param, ConfigError
-	from common.utilities import extract_text_from_pdf, preprocess_text, identify_sections
+	from common.utilities import extract_text_from_pdf, preprocess_text, identify_sections,upload_task
 except ImportError as e:
 	print(f"Failed to import module: {e.name}. Please ensure it is installed.")
 	sys.exit(1)
@@ -103,17 +103,11 @@ def main():
 		    #3. Put the sentences into their sections. 
 		    sections = identify_sections(sentences,section_mapping)
 		    #4.Get the required section(s) and upload to Label Studio
-		    methods_text = " ".join(sections.get('methods', [])) 
-		    if methods_text: # Check it exists
-		        common.utilities.upload_task(methods_text, PROJECT_ID)
+		    section_text = " ".join(sections.get(sections_wanted, [])) 
+		    if sections_text: # Check it exists
+		        upload_task(sections_text, PROJECT_ID)
 		    else:
-		        print(f"No Methods found for article with PMID: {pdf}")
-		    #Get the reults and upload
-		    results_text = " ".join(sections.get('results', []))
-		    if results_text: # Check it exists
-		        common.utilities.upload_task(results_text, PROJECT_ID)
-		    else:
-		        print(f"No Results found for article with PMID: {pdf}")
+		        print(f"No {sections_wanted} found for article with PMID: {pdf}")
 		    #Keep track of processed PDFs
 		    processed_pdfs.add(pdf)
 
