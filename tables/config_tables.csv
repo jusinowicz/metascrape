@@ -1,5 +1,4 @@
 pdf_save_dir, ./../papers/
 model_load_dir, ./../models/custom_sci_abs_met_v382
 column_list, ./column_list.csv
-results_keywords, results_keywords.csv
-sections_wanted, methods
+extracted_tables, ./../output/extracted_tables1.csv

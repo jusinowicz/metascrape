@@ -204,7 +204,7 @@ def headers_to_sentences(table):
     return sentences
 
 #Second, run the header-sentences through the NER
-def find_response_cols(table):
+def find_response_cols(table,nlp):
     sentences_with_treatment = [] 
     sent_index = []
     treat_name = []
@@ -230,12 +230,12 @@ def find_response_cols(table):
 #convert it to the write format for output (to match the table format from 
 #the main text, in extract_responses_txt_v2.py)
 
-def make_final_table(final_tables, study_id): 
+def make_final_table(final_tables, study_id, nlp): 
     column_list = ['STUDY', 'TREATMENT','RESPONSE','CARDINAL','PERCENTAGE','SENTENCE', 'ISTABLE']
     final_df = pd.DataFrame(columns = column_list )
     row_index = 0
     for t1 in final_tables:
-        r_index, r_sent, r_name = find_response_cols(t1)
+        r_index, r_sent, r_name = find_response_cols(t1,nlp)
         #If the response was not found, skip it 
         if not r_index:
             continue

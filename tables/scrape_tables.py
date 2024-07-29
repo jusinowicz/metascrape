@@ -64,7 +64,9 @@ try:
     import pandas as pd
     import numpy as np 
     import os
-
+    import sys
+    import argparse
+    import csv
     #Deepdoctection 
     import deepdoctection as dd
     import re
@@ -90,21 +92,24 @@ def main():
     parser.add_argument('--new', action='store_true', help='Create a new NER instead of retraining an existing one.')
     args = parser.parse_args()
     #Open config file
-    config_file_path = './config_fulltext.csv'
+    config_file_path = './config_tables.csv'
     try:
         config = load_config(config_file_path)
         pdf_save_dir = get_config_param(config, 'pdf_save_dir', required=True)
         model_load_dir = get_config_param(config, 'model_load_dir', required=True)
         column_list= get_config_param(config,'column_list',required=True)
-        response_table= get_config_param(config,'response_table',required=True)
-        print("Config_abstracts successfully loaded")
+        extracted_tables= get_config_param(config,'extracted_tables',required=True)
+        print("config_tables successfully loaded")
     except ConfigError as e:
         print(f"Configuration error: {e}")
     except Exception as e:
         print(f"An error occurred: {e}")
 
     try:
-        # 1. DD analyzer #default THRESHOLD_ROWS: 0.4
+        #Load custom NER
+        nlp = spacy.load(model_load_dir)
+        
+        #DD analyzer #default THRESHOLD_ROWS: 0.4
         #analyzer = dd.get_dd_analyzer(config_overwrite = ["SEGMENTATION.THRESHOLD_ROWS=0.01"])
         analyzer = dd.get_dd_analyzer()
 
@@ -117,7 +122,7 @@ def main():
             column_list = [value for row in csv.reader(file) for value in row]
 
         data = pd.DataFrame(columns = column_list ) #Initialize final table
-        
+        index_p = 1
         for pdf in new_pdfs:
             #1.Get PDFs and run through dd
             pdf_path = pdf_save_dir + pdf
@@ -169,7 +174,7 @@ def main():
                     #Use the output to grab the correct info from each table and format it and
                     #convert it to the write format for output (to match the table format from 
                     #the main text, in extract_responses_txt_v2.py)
-                    final_df = tu.make_final_table(final_tables, study_id)
+                    final_df = tu.make_final_table(final_tables, study_id, nlp)
                     final_df = final_df.reset_index(drop=True)
                     print(f"final_df{final_df}")
                     data = pd.concat([data, final_df[column_list] ], axis=0 )
@@ -177,3 +182,9 @@ def main():
 
         # Export DataFrame to a CSV file
         df.to_csv(extracted_tables, index=False)
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+if __name__ == "__main__":
+    main()
