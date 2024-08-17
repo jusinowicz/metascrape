@@ -11,3 +11,8 @@ This repository is structured to reflect each arm of the project.
 
 Each project folder contains its own README which further details what is happening on that side of the project. 
 
+py -3.8 -m venv myenv
+myenv\Scripts\activate
+pip install -r requirements.txt
+pip install ipykernel
+python -m ipykernel install --user --name=myenv --display-name "Python 3.8.10 (myenv)"

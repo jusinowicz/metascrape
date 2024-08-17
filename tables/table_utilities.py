@@ -134,7 +134,10 @@ def organize_tables(table, same_type):
     #Number of (sub)header rows:
     nheaders = len(same_type)-same_type.sum()
     whichrow = same_type.shape[1]-same_type.sum(axis=1)
-    nheaders = nheaders.iloc[1]
+    if len(nheaders) > 1:
+        nheaders = nheaders.iloc[1]
+    else:
+        nheaders = nheaders.iloc[0]
     #Case 0: First row is headers, single row. Could be two 
     #ways this appears, with either no FALSE row or FALSE row is 
     #in row[1].
@@ -170,22 +173,23 @@ def organize_tables(table, same_type):
         new_headers = header_rows.apply(lambda x: ' '.join(filter(pd.notna, x.astype(str))), axis=0) 
         # Iterate through the table to find additional sub-headers and divide the table into sub-sections
         current_index = header_index-1
-        while current_index < len(table):
-            next_index = same_type.iloc[current_index+2:, 1:].eq(False).idxmax().max()
-            if (next_index+2)>=len(table):
-                next_index = len(table)
-            #Create sub-headers
-            sub_headers = table.iloc[current_index,:]
-            # Combine main headers with sub headers
-            combined_headers = [f"{nh} {sh}" for nh, sh in zip_longest(new_headers, sub_headers, fillvalue="")]
-            # Extract the sub-table
-            sub_table = table.iloc[current_index+1:next_index]
-            # Create the final DataFrame for this section
-            ft = pd.DataFrame(sub_table.values, columns=combined_headers)
-            # Add to the list of final DataFrames
-            final_tables.append(ft)
-            # Move to the next section
-            current_index = next_index
+        if current_index+2 < len(table):
+            while current_index < len(table):
+                next_index = same_type.iloc[current_index+2:, 1:].eq(False).idxmax().max()
+                if (next_index+2)>=len(table):
+                    next_index = len(table)
+                #Create sub-headers
+                sub_headers = table.iloc[current_index,:]
+                # Combine main headers with sub headers
+                combined_headers = [f"{nh} {sh}" for nh, sh in zip_longest(new_headers, sub_headers, fillvalue="")]
+                # Extract the sub-table
+                sub_table = table.iloc[current_index+1:next_index]
+                # Create the final DataFrame for this section
+                ft = pd.DataFrame(sub_table.values, columns=combined_headers)
+                # Add to the list of final DataFrames
+                final_tables.append(ft)
+                # Move to the next section
+                current_index = next_index
     return final_tables
 
 #Approach 2: This seems to be cleaner and simpler. Just take each header as its own 

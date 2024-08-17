@@ -178,7 +178,7 @@ def main():
                     final_df = final_df.reset_index(drop=True)
                     print(f"final_df{final_df}")
                     data = pd.concat([data, final_df[column_list] ], axis=0 )
-                    table_num +=1
+                    index_p +=1
 
         # Export DataFrame to a CSV file
         df.to_csv(extracted_tables, index=False)
