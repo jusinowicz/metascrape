@@ -61,10 +61,7 @@ try:
 	#the custom modules
 	sys.path.append(os.path.abspath('./../'))
 	from common.config import load_config, get_config_param, ConfigError
-	
-	#the table utilities
-	sys.path.append(os.path.abspath('./'))
-	import table_utilities as tu
+	from common.utilities import extract_text_from_pdf, preprocess_text, identify_sections, filter_sentences, create_table, extract_entities
 except ImportError as e:
 	print(f"Failed to import module: {e.name}. Please ensure it is installed.")
 	sys.exit(1)

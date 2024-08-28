@@ -15,6 +15,7 @@ from metapub import FindIt
 
 #PDF extraction: extract_text_from_pdf
 import fitz  # PyMuPDF
+import pypdf
 
 #Text preprocessing: preprocess_text, identify_sections, 
 import re
@@ -88,6 +89,14 @@ def get_full_text(articles, save_directory):
     print(f"Total articles attempted: {total_attempted}")
     print(f"Total articles successfully retrieved: {total_successful}")
 
+#Test PDF viability before importing
+def pdf_try(pdf_path):
+	with open(pdf_path, 'rb') as file:
+		reader=pypdf.PdfReader(pdf_path)
+	if reader.is_encrypted:
+		return False
+	else:
+		return True
 
 #Extract Text from PDF
 def extract_text_from_pdf(pdf_path):

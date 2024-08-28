@@ -77,7 +77,8 @@ try:
     #the custom modules
     sys.path.append(os.path.abspath('./../'))
     from common.config import load_config, get_config_param, ConfigError
-        
+    from common.utilities import pdf_try
+
     #the table utilities
     sys.path.append(os.path.abspath('./'))
     import table_utilities as tu
@@ -128,60 +129,70 @@ def main():
             pdf_path = pdf_save_dir + pdf
             print(f"PDF: {pdf} is {index_p} out of {len(new_pdfs)}")
             study_id = pdf_path.lstrip(pdf_save_dir).rstrip('.pdf')
-            #Initialize the dd analyzer
-            df = analyzer.analyze(path=pdf_path)
-            df.reset_state()  # This method must be called just before starting the iteration. It is part of the API.
-            pages =[] #Get the pages in the PDF
-            for doc in df: 
-                pages.append(doc)
 
-        	#2. Cycle through tables in the pages, look for responses, extract them if they are 
-        	#there:
-            table_num = 1
-            for pg in pages:
-                for tbls in pg.tables:
-                    t2 = pd.DataFrame(tbls.csv)
-                    #Replace blank space with NaN
-                    t2.replace(r'^\s*$', np.nan, regex=True, inplace=True)
-                    #Drop columns and rows of NaN created by spaces
-                    t2.dropna(axis=1, how='all', inplace=True)
-                    t2.dropna(axis=0, how='all', inplace=True)
-                    t2 = t2.reset_index(drop=True)  
-                    # Remove letters and special symbols from numbers
-                    # Remove leading/trailing whitespace from all cells and make all 
-                    # lowercase
-                    t2= t2.applymap(tu.clean_numbers)
-                    # Check the case where there are just a few straggler entries  in 
-                    # the middle or at the end of a row. Usually means a word connects to 
-                    # the cell above it.
-                    t2 = tu.merge_danglers(t2)
-                    #Check rows with NaN and handle accordingly. This step is designed
-                    #to help identify headers/subheaders which might only fill a single cell
-                    for index, row in t2.iterrows():
-                        if (row.isna().sum() ) >= len(t2.columns)/2+1:
-                            #Fill NaN with previous cell in row
-                            row = row.fillna(method='ffill')
-                            t2.iloc[index,:] = row
-                    # Apply the classification function to each cell in the DataFrame
-                    classified_t2 =tu.classify_cells(t2)  
-                    #Check whether a row is the same type as previous row
-                    same_type = tu.is_same_type(classified_t2)
-                    #Use this information to find column headers and parse the table
-                    #Try to infer which rows are likely to contain headers based on 
-                    #where the data type across a row changes. If there seem to be 
-                    #multiple header rows then divide the table into multiple tables. 
-                    final_tables = tu.organize_tables(t2,same_type)
-                    #Use the output to grab the correct info from each table and format it and
-                    #convert it to the write format for output (to match the table format from 
-                    #the main text, in extract_responses_txt_v2.py)
-                    final_df = tu.make_final_table(final_tables, study_id, nlp)
-                    final_df = final_df.reset_index(drop=True)
-                    print(f"final_df{final_df}")
-                    data = pd.concat([data, final_df[column_list] ], axis=0 )
+            # Pre-check if the PDF can be read
+            if not pdf_try(pdf_path):
+                print(f"Skipping {pdf} as it is encrypted or unreadable.")
+                continue
+            try:
+                #Initialize the dd analyzer
+                df = analyzer.analyze(path=pdf_path)
+                df.reset_state()  # This method must be called just before starting the iteration. It is part of the API.
+                pages =[] #Get the pages in the PDF
+                for doc in df: 
+                    pages.append(doc)
+
+            	#2. Cycle through tables in the pages, look for responses, extract them if they are 
+            	#there:
+                table_num = 1
+                for pg in pages:
+                    for tbls in pg.tables:
+                        t2 = pd.DataFrame(tbls.csv)
+                        #Replace blank space with NaN
+                        t2.replace(r'^\s*$', np.nan, regex=True, inplace=True)
+                        #Drop columns and rows of NaN created by spaces
+                        t2.dropna(axis=1, how='all', inplace=True)
+                        t2.dropna(axis=0, how='all', inplace=True)
+                        t2 = t2.reset_index(drop=True)  
+                        # Remove letters and special symbols from numbers
+                        # Remove leading/trailing whitespace from all cells and make all 
+                        # lowercase
+                        t2= t2.applymap(tu.clean_numbers)
+                        # Check the case where there are just a few straggler entries  in 
+                        # the middle or at the end of a row. Usually means a word connects to 
+                        # the cell above it.
+                        t2 = tu.merge_danglers(t2)
+                        #Check rows with NaN and handle accordingly. This step is designed
+                        #to help identify headers/subheaders which might only fill a single cell
+                        for index, row in t2.iterrows():
+                            if (row.isna().sum() ) >= len(t2.columns)/2+1:
+                                #Fill NaN with previous cell in row
+                                row = row.fillna(method='ffill')
+                                t2.iloc[index,:] = row
+                        # Apply the classification function to each cell in the DataFrame
+                        classified_t2 =tu.classify_cells(t2)  
+                        #Check whether a row is the same type as previous row
+                        same_type = tu.is_same_type(classified_t2)
+                        #Use this information to find column headers and parse the table
+                        #Try to infer which rows are likely to contain headers based on 
+                        #where the data type across a row changes. If there seem to be 
+                        if not t2.empty or not same_type.empty:
+                            #multiple header rows then divide the table into multiple tables. 
+                            final_tables = tu.organize_tables(t2,same_type)
+                            #Use the output to grab the correct info from each table and format it and
+                            #convert it to the write format for output (to match the table format from 
+                            #the main text, in extract_responses_txt_v2.py)
+                            final_df = tu.make_final_table(final_tables, study_id, nlp)
+                            final_df = final_df.reset_index(drop=True)
+                            print(f"final_df{final_df}")
+                            data = pd.concat([data, final_df[column_list] ], axis=0 )        # Export DataFrame to a CSV file
+                            data.to_csv(extracted_tables, index=False)
                     index_p +=1
+                        #34797549.1_172.pdf
 
-        # Export DataFrame to a CSV file
-        df.to_csv(extracted_tables, index=False)
+            except Exception as e:
+                print(f"An error occurred: {e}")
+                continue
 
     except Exception as e:
         print(f"An error occurred: {e}")

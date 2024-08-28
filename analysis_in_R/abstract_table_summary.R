@@ -152,7 +152,8 @@ column_names = names(data)[names(data) != study_id]
 # E.g., filter out agrictultural studies
 # And then get a count of how many studies were filtered by each phrase type
 #=============================================================================
-# Apply the function to filter out rows where 'crop' appears in the LANDUSE column
+# Apply the function to filter out rows where e.g. 'crop' (or words in ex_words) 
+# appears in the LANDUSE column
 #What words:
 ex_pattern = paste(ex_words, collapse = "|")
 
@@ -219,8 +220,14 @@ saveWidget(create_word_cloud(exclusion_summary), html_filename, selfcontained = 
 #
 #This will unpack each word/phrase and create a long list where each
 #word/phrase is matched with the Study ID.
+#1. Data
 processed_data = map(column_names, function(col){
   list_and_unnest(data, col,study_id)
+})
+
+#2. Filtered data
+processed_data = map(column_names, function(col){
+  list_and_unnest(filtered_data, col,study_id)
 })
 
 #Put the correct names back on the columns
@@ -301,6 +308,13 @@ walk2(column_names, summaries2, function(col, summary_df) {
   ggsave(paste0("./../output/bar_plot_", col, ".png"), plot, width = 8, height = 6)
 })
 
+# Create and save bar plots for each summary
+# Usine suffix _ex for exclusion summaries: 
+walk2(column_names, summaries2, function(col, summary_df) {
+  plot = create_bar_plot(summary_df, col)
+  ggsave(paste0("./../output/bar_plot_", col, "_ex.png"), plot, width = 8, height = 6)
+})
+
 
 #=============================================================================
 #Word cloud
@@ -314,6 +328,16 @@ create_word_cloud = function(summary_df, column_name) {
 walk2(column_names, summaries2, function(col, summary_df) {
   # Wordcloud2 requires a proper filename for HTML
   html_filename = paste0("./../output/word_cloud_", col, ".html")
+  
+  # Save word cloud as HTML file without embedding all dependencies
+  saveWidget(create_word_cloud(summary_df, col), html_filename, selfcontained = FALSE)
+})
+
+# Create and save word clouds for each summary
+# Usine suffix _ex for exclusion summaries:
+walk2(column_names, summaries2, function(col, summary_df) {
+  # Wordcloud2 requires a proper filename for HTML
+  html_filename = paste0("./../output/word_cloud_", col, "_ex.html")
   
   # Save word cloud as HTML file without embedding all dependencies
   saveWidget(create_word_cloud(summary_df, col), html_filename, selfcontained = FALSE)
