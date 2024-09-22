@@ -11,6 +11,9 @@ img_dir = './download/images'
 # Directory to save the output images
 save_dir = './../output/figures'
 
+#Definitions of images
+image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.pdf']  # Add more as needed
+
 def cleanText(image_text):
 	return [(text, (textx, texty, w, h)) for text, (textx, texty, w, h) in image_text if text.strip() != 'I']
 

@@ -19,17 +19,20 @@ img_dir = './download/images'
 # Directory to save the output images
 save_dir = './../output/figures'
 
+#Definitions of images
+image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.pdf']  # Add more as needed
+
 #Method to detect x and y axis
 def findMaxConsecutiveOnes(nums) -> int:
 	count = maxCount = 0
-	    
+		
 	for i in range(len(nums)):
 		if nums[i] == 1:
 			count += 1
 		else:
 			maxCount = max(count, maxCount)
 			count = 0
-                
+				
 	return max(count, maxCount)
 
 
@@ -57,7 +60,7 @@ def detectAxes(filepath, threshold=None, debug=False):
 		start_idx += 1
 
 	yaxis = (maxindex, 0, maxindex, height)
-	    
+		
 	if debug:
 		fig, ax = plt.subplots(1, 2)
 
@@ -79,10 +82,10 @@ def detectAxes(filepath, threshold=None, debug=False):
 			maxindex = start_idx
 		
 		start_idx += 1
-            
+			
 	cv2.line(image, (0, maxindex), (width, maxindex),  (255, 0, 0), 2)
 	xaxis = (0, maxindex, width, maxindex)
-    
+	
 	if debug:
 		rcParams['figure.figsize'] = 15, 8
 
@@ -93,7 +96,6 @@ def detectAxes(filepath, threshold=None, debug=False):
 
 #Iterate through the files in the folder and find the axes on each, 
 #when possible.
-image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.pdf']  # Add more as needed
 
 # Iterate over each item in img_dir
 for subfolder in Path(img_dir).iterdir():
