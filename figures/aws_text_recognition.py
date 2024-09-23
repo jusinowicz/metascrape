@@ -1,6 +1,7 @@
 #####Need to edit this around img_text. This is the non AWS, OCR version
 #####Then need to make all of the other code follow from this output only.
-#####
+##### SEE text_recognition FOR THE pytesseract VERSION OF THIS FUNCTION!!!
+
 #####There are two different versions of the getProbableLabels functions. 
 #####Ultimately for data extraction need the one in data_extraction/DataExtraction.
 #####Make sure to do this for all of the functions! Now that I know about htis 
