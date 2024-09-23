@@ -6,7 +6,8 @@
 #####Make sure to do this for all of the functions! Now that I know about htis 
 #####sloppy function naming. 
 
-import cv2, json, boto3
+import cv2, json
+import pytesseract
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
@@ -30,59 +31,54 @@ def expand(points, margin = 1):
 		[[points[3][0][0] - margin, points[3][0][1] + margin]]])
 
 
-#Detect Text function 
 def detectText(path, image, image_text, img_text):
+	# Get image dimensions
+	img_height, img_width, _ = image.shape
 	
-	img_height, img_width, channels = image.shape
-	_, im_buf = cv2.imencode("." + path.name.split(".")[-1], image)
-		
-	response = client.detect_text(
-		Image = {
-			"Bytes" : im_buf.tobytes()
-		}
-	)
+	# Convert image to grayscale (optional, improves accuracy)
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+	
+	# Detect text using Tesseract
+	custom_config = r'--oem 3 --psm 6'  # Default OCR settings, you can tweak as needed
+	data = pytesseract.image_to_data(gray, config=custom_config, output_type=pytesseract.Output.DICT)
 	
 	if path.name not in image_text:
 		image_text[path.name] = {}
-		image_text[path.name]['TextDetections'] = response['TextDetections']
-	else:
-		image_text[path.name]['TextDetections'].extend(response['TextDetections'])
-		
-	textDetections = response['TextDetections']
+		image_text[path.name]['TextDetections'] = []
 		
 	if path.name not in img_text:
 		img_text[path.name] = []
+		
+	# Iterate over detected text blocks
+	n_boxes = len(data['text'])
+	for i in range(n_boxes):
+		if int(data['conf'][i]) >= 80:  # Filter low-confidence detections
+			detected_text = data['text'][i]
+			(x, y, w, h) = (data['left'][i], data['top'][i], data['width'][i], data['height'][i])
 			
-	for text in textDetections:
-		if text['Type'] == 'WORD' and text['Confidence'] >= 80:
-				
-			vertices = [[vertex['X'] * img_width, vertex['Y'] * img_height] for vertex in text['Geometry']['Polygon']]
-			vertices = np.array(vertices, np.int32)
-			vertices = vertices.reshape((-1, 1, 2))
+			# Store the detected text and its bounding box
+			image_text[path.name]['TextDetections'].append({
+				'DetectedText': detected_text,
+				'BoundingBox': (x, y, w, h),
+				'Confidence': data['conf'][i]
+			})
 			
-			image = cv2.fillPoly(image, [expand(vertices)], (255, 255, 255))
-				  
-			left = np.amin(vertices, axis=0)[0][0]
-			top = np.amin(vertices, axis=0)[0][1]
-			right = np.amax(vertices, axis=0)[0][0]
-			bottom = np.amax(vertices, axis=0)[0][1]
+			# Draw a rectangle around the detected text
+			vertices = np.array([[[x, y], [x + w, y], [x + w, y + h], [x, y + h]]], np.int32)
+			image = cv2.fillPoly(image, vertices, (255, 255, 255))
 			
+			# Append to img_text for further processing
 			img_text[path.name].append(
 				(
-					text['DetectedText'],
-					(
-						int(left),
-						int(top),
-						int(right - left),
-						int(bottom - top)
-					)
+					detected_text,
+					(x, y, w, h)
 				)
 			)
+			
 	return image
 
-img_text = {}
 image_text = {}
-client = boto3.client('rekognition', region_name='us-west-2')
+img_text = {}
 
 for subfolder in Path(img_dir).iterdir():
 	if subfolder.is_dir():  # Check if it's a directory (subfolder)
@@ -95,15 +91,12 @@ for subfolder in Path(img_dir).iterdir():
 				print("[{0}] file name: {1}".format(index, path.name))
 		
 				image = cv2.imread(filepath)
-				image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-					
+				image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)	
 				image = detectText(path, image, image_text, img_text)
-				detectText(path, image, image_text, img_text)
-
-
-
-with open('../data/aws-rekognition-output.json', 'w') as out:
-	json.dump(image_text, out)
+				detectText(path, image, img_text)
 	
-with open('../data/ocr-image-text.json', 'w') as out:
+with open('./json/pytess-image-text.json', 'w') as out:
+    json.dump(image_text, out)
+
+with open('./json/ocr-image-text.json', 'w') as out:
 	json.dump(img_text, out)
