@@ -1,3 +1,11 @@
+#####Need to edit this around img_text. This is the non AWS, OCR version
+#####Then need to make all of the other code follow from this output only.
+#####
+#####There are two different versions of the getProbableLabels functions. 
+#####Ultimately for data extraction need the one in data_extraction/DataExtraction.
+#####Make sure to do this for all of the functions! Now that I know about htis 
+#####sloppy function naming. 
+
 import cv2, json, boto3
 import matplotlib.pyplot as plt
 import numpy as np
@@ -72,9 +80,9 @@ def detectText(path, image, image_text, img_text):
 			)
 	return image
 
-
+img_text = {}
 image_text = {}
-client = boto3.client('rekognition')
+client = boto3.client('rekognition', region_name='us-west-2')
 
 for subfolder in Path(img_dir).iterdir():
 	if subfolder.is_dir():  # Check if it's a directory (subfolder)

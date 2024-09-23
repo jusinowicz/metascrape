@@ -71,7 +71,8 @@ def getTextFromImage(filepath, bw=False, debug=False):
 	# Remove all the duplicates in (text, box) pairs
 	return list(set(image_text))
 
-	def getProbableLabels(image, image_text, xaxis, yaxis):
+
+def getProbableLabels(image, image_text, xaxis, yaxis):
 	y_labels = []
 	x_labels = []
 	legends = []
@@ -251,7 +252,7 @@ def maskImageForwardPass(filepath, start_idx):
 
 def maskImageBackwardPass(filepath, end_idx):
 	# if path.name.endswith('.png') or path.name.endswith('.jpg') or path.name.endswith('.jpeg'):
-	#   filepath = img_dir + "/" + path.name
+	# 	filepath = img_dir + "/" + path.name
 	image = cv2.imread(filepath)
 	height, width, channels = image.shape
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -423,114 +424,3 @@ def getProbableYLabels(image, contours, xaxis, yaxis):
 			maxList = current
 					
 	return image, maxList
-
-
-workbook = xlsxwriter.Workbook('FigureData.xlsx')
-
-# Iterate over each item in img_dir
-for subfolder in Path(img_dir).iterdir():
-	if subfolder.is_dir():  # Check if it's a directory (subfolder)
-		# Now iterate over files within this subfolder
-		# for file in subfolder.iterdir():
-		for file in list(subfolder.iterdir())[0:10]:
-			if file.suffix.lower() in image_extensions:  # Check if it's an image
-				#filepath = str(file)  # Get the full path as a string
-				filepath = file
-				image = cv2.imread(filepath)  # Read the image
-				image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-		
-				height, width, channels = image.shape
-				xaxis, yaxis = detectAxes(filepath)
-				y_text, y_labels = [], []
-				
-				for (x1, y1, x2, y2) in [xaxis]:
-					xaxis = (x1, y1, x2, y2)
-				for (x1, y1, x2, y2) in [yaxis]:
-					yaxis = (x1, y1, x2, y2)
-				
-				rcParams['figure.figsize'] = 15, 4
-				fig, ax = plt.subplots(1, 3)
-				
-				# Make a backward pass to skip the ticks
-				gray = maskImageBackwardPass(filepath, yaxis[0])
-				
-				# Processing the image so that the contours are drawn to labels and text
-				ret, thresh = cv2.threshold(gray, 0, 255,cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
-				rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 15))
-				thresh = cv2.dilate(thresh, rect_kernel, iterations = 1)
-				rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 1))
-				thresh = cv2.dilate(thresh, rect_kernel, iterations = 1)
-				
-				contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-				contours = contours[0] if len(contours) == 2 else contours[1]
-				rects = [cv2.boundingRect(contour) for contour in contours]
-				print("number of contours: ", len(contours))
-				
-				image_text = getTextFromImage(filepath, bw=True)
-				image, y_labels = getProbableYLabels(image, rects, xaxis, yaxis)
-				white_bg = 255 * np.ones_like(gray.copy())
-				
-				for (textx, texty, w, h) in y_labels:
-					roi = gray[texty:texty + h, textx:textx + w]
-					white_bg[texty:texty + h, textx:textx + w] = roi
-				
-				# Get y-labels
-				y_labels_list = getTextFromImageArray(white_bg, 'y-labels')
-				ax[0].imshow(white_bg, aspect = 'auto')
-				
-				# Sort bounding rects by y coordinate
-				def getYFromRect(item):
-					return item[1][1]
-				# Whiten y-labels and get y-text
-				y_labels_list.sort(key = getYFromRect)
-				y_labels = []
-				for text, (textx, texty, w, h) in y_labels_list:
-					roi = 255 * np.ones_like(gray[texty:texty + h, textx:textx + w])
-					gray[texty:texty + h, textx:textx + w] = roi
-					y_labels.append(text)
-				
-				y_text_list = getTextFromImageArray(gray, 'y-text')
-				
-				# Sort bounding rects by x coordinate
-				def getXFromRect(item):
-					return item[1][0]
-				
-				y_text_list.sort(key = getXFromRect)        
-				for text, (textx, texty, w, h) in y_text_list:
-					y_text.append(text)
-				
-				# Get the remaining: x-labels and legends
-				image_text = getTextFromImage(filepath, bw=True)
-				image, x_labels, _, legends = getProbableLabels(image, image_text, xaxis, yaxis)
-				
-				# Write to Excel
-				worksheet = workbook.add_worksheet()
-				addToExcel("x-labels", x_labels, 1)
-				addToExcel("y-text", y_text, 2)
-				addToExcel("y-labels", y_labels, 3)
-				addToExcel("legends", legends, 4)
-				
-				# Print the output here!
-				print("file name    :  ", path.name)
-				print("x-labels     :  ", x_labels)
-				print("y-text       :  ", y_text)
-				print("y-labels     :  ", y_labels)
-				print("legends      :  ", legends, end = "\n\n")
-				
-				for (x1, y1, x2, y2) in [xaxis]:
-					cv2.line(image, (x1, y1), (x2, y2),  (0, 0, 255), 2)
-					
-				for (x1, y1, x2, y2) in [yaxis]:
-					cv2.line(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
-					
-				for text, (textx, texty, w, h) in y_labels_list:
-					cv2.rectangle(image, (textx, texty), (textx + w, texty + h), (255, 0, 255), 2)
-				
-				ax[1].imshow(gray, aspect = 'auto')
-				ax[2].imshow(image, aspect = 'auto')
-				
-				# Insert the image
-				worksheet.insert_image('B8', filepath)
-		
-# Close the excel workbook!
-workbook.close()
