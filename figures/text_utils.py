@@ -6,6 +6,78 @@ from pathlib import Path
 from matplotlib import rcParams
 from pytesseract import Output
 
+#Method to detect x and y axis
+def findMaxConsecutiveOnes(nums) -> int:
+	count = maxCount = 0
+		
+	for i in range(len(nums)):
+		if nums[i] == 1:
+			count += 1
+		else:
+			maxCount = max(count, maxCount)
+			count = 0
+				
+	return max(count, maxCount)
+
+
+def detectAxes(filepath, threshold=None, debug=False):
+	if filepath is None:
+		return None, None
+		
+	if threshold is None:
+		threshold = 10
+		
+	image = cv2.imread(filepath)
+	height, width, channels = image.shape
+	
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+	
+	# Get the max-consecutive-ones for eah column in the bw image, and...
+	# pick the "first" index that fall in [max - threshold, max + threshold]
+	maxConsecutiveOnes = [findMaxConsecutiveOnes(gray[:, idx] < 200) for idx in range(width)]
+	start_idx, maxindex, maxcount = 0, 0, max(maxConsecutiveOnes)
+	while start_idx < width:
+		if abs(maxConsecutiveOnes[start_idx] - maxcount) <= threshold:
+			maxindex = start_idx
+			break
+			
+		start_idx += 1
+		
+	yaxis = (maxindex, 0, maxindex, height)
+		
+	if debug:
+		fig, ax = plt.subplots(1, 2)
+		
+		ax[0].imshow(image)
+		
+		ax[1].plot(maxConsecutiveOnes, color = 'k')
+		ax[1].axhline(y = max(maxConsecutiveOnes) - 10, color = 'r', linestyle = 'dashed')
+		ax[1].axhline(y = max(maxConsecutiveOnes) + 10, color = 'r', linestyle = 'dashed')
+		ax[1].vlines(x = maxindex, ymin = 0.0, ymax = maxConsecutiveOnes[maxindex], color = 'b', linewidth = 4)
+		
+		plt.show()
+		
+	# Get the max-consecutive-ones for eah row in the bw image, and...
+	# pick the "last" index that fall in [max - threshold, max + threshold]
+	maxConsecutiveOnes = [findMaxConsecutiveOnes(gray[idx, :] < 200) for idx in range(height)]
+	start_idx, maxindex, maxcount = 0, 0, max(maxConsecutiveOnes)
+	while start_idx < height:
+		if abs(maxConsecutiveOnes[start_idx] - maxcount) <= threshold:
+			maxindex = start_idx
+		
+		start_idx += 1
+			
+	cv2.line(image, (0, maxindex), (width, maxindex),  (255, 0, 0), 2)
+	xaxis = (0, maxindex, width, maxindex)
+	
+	if debug:
+		rcParams['figure.figsize'] = 15, 8
+		
+		fig, ax = plt.subplots(1, 1)
+		ax.imshow(image, aspect = 'auto')
+	return xaxis, yaxis
+
+
 
 def cleanText(image_text):
 	return [(text, (textx, texty, w, h)) for text, (textx, texty, w, h) in image_text if text.strip() != 'I']
@@ -278,16 +350,15 @@ def getProbableLabels(image, image_text, xaxis, yaxis):
 #Finally, the value-tick ratio to normalize the heights of the bounding boxes is calculated by:
 
 
-def getRatio(path, xaxis, yaxis):
+def getRatio(path, image_text, xaxis, yaxis):
 	list_text = []
 	list_ticks = []
 	
-	filepath = img_dir + "/" + path.name
+	filepath = path
 	
 	image = cv2.imread(filepath)
 	image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 	height, width, channels = image.shape
-	image_text = images_text[path.name]
 	
 	for text, (textx, texty, w, h) in image_text:
 		text = text.strip()
@@ -377,32 +448,29 @@ def getTextFromImageArray(image, mode):
 
 
 def maskImageForwardPass(filepath, start_idx):
-	if path.name.endswith('.png') or path.name.endswith('.jpg') or path.name.endswith('.jpeg'):
+	image = cv2.imread(filepath)
+	height, width, channels = image.shape
+	
+	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-		filepath = img_dir + "/" + path.name
-		image = cv2.imread(filepath)
-		height, width, channels = image.shape
-		
-		gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-		start_idx = 1
-		while start_idx <= width:
-			if sum(gray[:, start_idx] < 200) != 0:
-				break
-			else:
-				start_idx += 1
-				
-		end_idx = start_idx
-		while end_idx <= width:
-			if sum(gray[:, end_idx] < 200) == 0:
-				break
-			else:
-				end_idx += 1
-				
-		gray[:, 1:start_idx] = 255
-		gray[:, end_idx:width] = 255
-		
-		return gray, start_idx, end_idx
+	start_idx = 1
+	while start_idx <= width:
+		if sum(gray[:, start_idx] < 200) != 0:
+			break
+		else:
+			start_idx += 1
+			
+	end_idx = start_idx
+	while end_idx <= width:
+		if sum(gray[:, end_idx] < 200) == 0:
+			break
+		else:
+			end_idx += 1
+			
+	gray[:, 1:start_idx] = 255
+	gray[:, end_idx:width] = 255
+	
+	return gray, start_idx, end_idx
 
 
 
@@ -671,150 +739,140 @@ def expand(points, margin):
 
 
 #Saving y-values in our data excel sheet
-def getYVal(img_dir, image_extensions):
-	yValueDict = {}
-	for subfolder in Path(img_dir).iterdir():
-		if subfolder.is_dir():  # Check if it's a directory (subfolder)
-			# Now iterate over files within this subfolder
-			# for file in subfolder.iterdir():
-			for index, path in enumerate(Path(subfolder).iterdir()):
-				if path.suffix.lower() in image_extensions:  # Check if it's an image
-					#filepath = str(file)  # Get the full path as a string
-					filepath = path
-					img = cv2.imread(filepath)
-					img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-					img_height, img_width, _ = img.shape
-					
-					# Axes detection
-					xaxis, yaxis = detectAxes(filepath)
-					
-					for (x1, y1, x2, y2) in [xaxis]:
-						xaxis = (x1, y1, x2, y2)
-					for (x1, y1, x2, y2) in [yaxis]:
-						yaxis = (x1, y1, x2, y2)
-					image_text = images_text[path.name]
-					img, x_labels, x_labels_list, _, _, _, _, legends, legendBoxes = getProbableLabels(img, image_text, xaxis, yaxis)
-					actual_image = img.copy()
-					
-					try:
-						list_text, normalize_ratio = getRatio(path, xaxis, yaxis)
-						print("[getYVal] legends: {0}".format(legends))
-						print("[{0}] path: {1}, ratio: {2}".format(index, path.name, normalize_ratio), end='\n\n')
-					
-						texts = bbox_text[path.name]['TextDetections']
-						
-						for text in texts:
-							if text['Type'] == 'WORD' and text['Confidence'] >= 80:
-								vertices = [[vertex['X'] * img_width, vertex['Y'] * img_height] for vertex in text['Geometry']['Polygon']]
-								vertices = np.array(vertices, np.int32)
-								vertices = vertices.reshape((-1, 1, 2))
-								img = cv2.fillPoly(img, [expand(vertices, 1)], (255, 255, 255))
-						gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-						threshold = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY)[1]
-						
-						contours, _ = cv2.findContours(threshold, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-						contours = [contour for contour in contours if cv2.contourArea(contour) < 0.01 * img_height * img_width]
-						contours = [cv2.approxPolyDP(contour, 3, True) for contour in contours]
-						rects = [cv2.boundingRect(contour) for contour in contours]
-						groups = []
-						legendtexts = []
-						legendrects = []
+def getYVal(index, path, yValueDict, image_text, texts, image_extensions):
+	filepath = path
+	img = cv2.imread(filepath)
+	img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+	img_height, img_width, _ = img.shape
+	
+	# Axes detection
+	xaxis, yaxis = detectAxes(filepath)
+	
+	for (x1, y1, x2, y2) in [xaxis]:
+		xaxis = (x1, y1, x2, y2)
+	for (x1, y1, x2, y2) in [yaxis]:
+		yaxis = (x1, y1, x2, y2)
+		
+	img, x_labels, x_labels_list, _, _, _, _, legends, legendBoxes = getProbableLabels(img, image_text, xaxis, yaxis)
+	actual_image = img.copy()
+	
+	try:
+		list_text, normalize_ratio = getRatio(path, image_text, xaxis, yaxis)
+		print("[getYVal] legends: {0}".format(legends))
+		print("[{0}] path: {1}, ratio: {2}".format(index, path.name, normalize_ratio), end='\n\n')
+		
+		for text in texts:
+			if text['Type'] == 'WORD' and text['Confidence'] >= 80:
+				vertices = [[vertex['X'] * img_width, vertex['Y'] * img_height] for vertex in text['Geometry']['Polygon']]
+				vertices = np.array(vertices, np.int32)
+				vertices = vertices.reshape((-1, 1, 2))
+				img = cv2.fillPoly(img, [expand(vertices, 1)], (255, 255, 255))
+		gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+		threshold = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY)[1]
+		
+		contours, _ = cv2.findContours(threshold, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+		contours = [contour for contour in contours if cv2.contourArea(contour) < 0.01 * img_height * img_width]
+		contours = [cv2.approxPolyDP(contour, 3, True) for contour in contours]
+		rects = [cv2.boundingRect(contour) for contour in contours]
+		groups = []
+		legendtexts = []
+		legendrects = []
+		
+		for box in legendBoxes:
+			text, (textx, texty, width, height) = box
+			bboxes = filterBbox(rects, box)
 			
-						for box in legendBoxes:
-							text, (textx, texty, width, height) = box
-							bboxes = filterBbox(rects, box)
-							
-							if bboxes is not None:
-								for rect in [bboxes]:
-									(x, y, w, h) = rect
-									legendrects.append(rect)
-									
-									group = boxGroup(actual_image, rect)[0]
-									group = [arr.tolist() for arr in group]
-									
-									groups.append(group)
-									legendtexts.append(text)
-									
-									cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 3)
-								cv2.rectangle(img, (textx, texty), (textx + width, texty + height), (255, 0, 0), 2)
-										 
-						data = {}
-						for legend in legends:
-							data[legend] = {}
-							
-							for x_label, box in x_labels_list:
-								data[legend][x_label] = 0.0
-								
-						for i in range(len(groups)):
-							img = cv2.imread(img_dir + "/" + path.name)
-							img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-							legendtext = legendtexts[i]
-							
-							for box in legendrects:
-								(textx, texty, width, height) = box
-								cv2.rectangle(img, (textx, texty), (textx + width, texty + height), (255, 255, 255), cv2.FILLED)
-							
-							mask = None
-							for value in groups[i]:
-								COLOR_MIN = np.array([value[0], value[1], value[2]], np.uint8)
-								COLOR_MAX = np.array([value[0], value[1], value[2]], np.uint8)
-								if mask is None:
-									mask = cv2.inRange(img, COLOR_MIN, COLOR_MAX)
-								else:
-									mask = mask | cv2.inRange(img, COLOR_MIN, COLOR_MAX)
-							image = cv2.bitwise_and(img, img, mask = mask)
-							image = cv2.morphologyEx(image, cv2.MORPH_CLOSE, (3, 3))
-							edged = cv2.Canny(image, 0, 250)
-							contours, _ = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-							contours = [contour for contour in contours if cv2.contourArea(contour) > 0.]
-							# Remove noisy ones!
-							if len(contours) == 0 or len(contours) > 100:
-								continue
-							contours = [cv2.approxPolyDP(contour, 3, True) for contour in contours]
-							rects = mergeRects(contours)
-							textBoxes = []
-							labels = []
-							
-							for rectBox in rects:
-								min_distance = sys.maxsize
-								closestBox = None
-								labeltext = None
-								for text, textBox in x_labels_list:
-									if RectDist(rectBox, textBox) < min_distance:
-										closestBox = textBox
-										min_distance = RectDist(rectBox, textBox)
-										labeltext = text
-								textBoxes.append(closestBox)
-								labels.append(labeltext)
-								
-							list_len = []
-							
-							for rect in rects:
-								list_len.append((rect, float(rect[3])))
-							# y-values will be a product of the normalize ratio and each length              
-							y_val = [(rect, round(l* normalize_ratio, 1)) for rect, l in list_len]
-							
-							for x_label, box in x_labels_list:
-								(x, y, w, h) = box
-								value = 0.0
-								closest = None
-								dist = sys.maxsize
-								
-								for index, item in enumerate(y_val):
-									if labels[index] == x_label:
-										(vx, vy, vw, vh) = item[0]
-										if abs(x + w/2 - vx - vw/2) < dist:
-											dist = abs(x + w/2 - vx - vw/2)
-											closest = item[0]
-											value = item[1]
-									 
-								data[legendtext][x_label] = value
-							 
-						yValueDict[path.name] = data
+			if bboxes is not None:
+				for rect in [bboxes]:
+					(x, y, w, h) = rect
+					legendrects.append(rect)
 					
-					except Exception as e:
-						print(e)
-						continue
+					group = boxGroup(actual_image, rect)[0]
+					group = [arr.tolist() for arr in group]
+					
+					groups.append(group)
+					legendtexts.append(text)
+					
+					cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 3)
+				cv2.rectangle(img, (textx, texty), (textx + width, texty + height), (255, 0, 0), 2)
+						 
+		data = {}
+		for legend in legends:
+			data[legend] = {}
+			
+			for x_label, box in x_labels_list:
+				data[legend][x_label] = 0.0
+				
+		for i in range(len(groups)):
+			img = cv2.imread(filepath)
+			img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+			legendtext = legendtexts[i]
+			
+			for box in legendrects:
+				(textx, texty, width, height) = box
+				cv2.rectangle(img, (textx, texty), (textx + width, texty + height), (255, 255, 255), cv2.FILLED)
+			
+			mask = None
+			for value in groups[i]:
+				COLOR_MIN = np.array([value[0], value[1], value[2]], np.uint8)
+				COLOR_MAX = np.array([value[0], value[1], value[2]], np.uint8)
+				if mask is None:
+					mask = cv2.inRange(img, COLOR_MIN, COLOR_MAX)
+				else:
+					mask = mask | cv2.inRange(img, COLOR_MIN, COLOR_MAX)
+			image = cv2.bitwise_and(img, img, mask = mask)
+			image = cv2.morphologyEx(image, cv2.MORPH_CLOSE, (3, 3))
+			edged = cv2.Canny(image, 0, 250)
+			contours, _ = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+			contours = [contour for contour in contours if cv2.contourArea(contour) > 0.]
+			# Remove noisy ones!
+			if len(contours) == 0 or len(contours) > 100:
+				continue
+			contours = [cv2.approxPolyDP(contour, 3, True) for contour in contours]
+			rects = mergeRects(contours)
+			textBoxes = []
+			labels = []
+			
+			for rectBox in rects:
+				min_distance = sys.maxsize
+				closestBox = None
+				labeltext = None
+				for text, textBox in x_labels_list:
+					if RectDist(rectBox, textBox) < min_distance:
+						closestBox = textBox
+						min_distance = RectDist(rectBox, textBox)
+						labeltext = text
+				textBoxes.append(closestBox)
+				labels.append(labeltext)
+				
+			list_len = []
+			
+			for rect in rects:
+				list_len.append((rect, float(rect[3])))
+			# y-values will be a product of the normalize ratio and each length              
+			y_val = [(rect, round(l* normalize_ratio, 1)) for rect, l in list_len]
+			
+			for x_label, box in x_labels_list:
+				(x, y, w, h) = box
+				value = 0.0
+				closest = None
+				dist = sys.maxsize
+				
+				for index, item in enumerate(y_val):
+					if labels[index] == x_label:
+						(vx, vy, vw, vh) = item[0]
+						if abs(x + w/2 - vx - vw/2) < dist:
+							dist = abs(x + w/2 - vx - vw/2)
+							closest = item[0]
+							value = item[1]
+					 
+				data[legendtext][x_label] = value
+			 
+		yValueDict[path.name] = data
+		
+	except Exception as e:
+		print(e)
+		return
 					
 	return yValueDict
 
