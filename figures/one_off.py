@@ -79,9 +79,6 @@ def detect_text_opencv(image_path):
 	#img = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
 	#                          cv2.THRESH_BINARY, 11, 2)
 	
-	reader = easyocr.Reader(['en'])
-	details = reader.readtext(image)
-	
 	# Detect text using Tesseract
 	custom_config = r'--oem 3 --psm 11'  # Default OCR settings, you can tweak as needed
 	details= pytesseract.image_to_data(img, config=custom_config, output_type=pytesseract.Output.DICT)
@@ -123,17 +120,51 @@ def detect_text_opencv(image_path):
 def detect_text_opencv(image_path):
 	# Load the image using OpenCV
 	img = cv2.imread(image_path)
+	height, width, _ = img.shape
 	
-	# Convert image to grayscale (optional, improves accuracy)
-	img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	#Try some things to enhance image readibility 
+	img = cv2.resize(img, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	
+	# # Convert image to grayscale (optional, improves accuracy)
+	#img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+	#_, img = cv2.threshold(img, 150, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+	
+	hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+		
+	# define range of black color in HSV
+	lower_val = np.array([0, 0, 0])
+	upper_val = np.array([179, 255, 179])
+		
+	# Threshold the HSV image to get only black colors
+	mask = cv2.inRange(hsv, lower_val, upper_val)
+		
+	# Bitwise-AND mask and original image
+	res = cv2.bitwise_and(img, img, mask = mask)
+		
+	# invert the mask to get black letters on white background
+	img= cv2.bitwise_not(mask)
 	
 	reader = easyocr.Reader(['en'])
-	details = reader.readtext(img)
+	horizontal_details = reader.readtext(img)
 	
+	# Rotate the image 90 degrees clockwise for vertical text detection
+	rotated_image = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+	
+	# Detect vertical text
+	vertical_details = reader.readtext(rotated_image)
+	
+	# Rotate bounding boxes back to original coordinates for vertical text
+	for box in vertical_details:
+		for point in box[0]:
+			# Swap x and y coordinates and adjust for the rotated image size
+			point[0], point[1] = img.shape[1] - point[1], point[0]
+	
+	details = horizontal_details #+ vertical_details
 	results = []
 	
 	# Assume result is the output from reader.readtext(image)
 	for i, (bbox, text, confidence) in enumerate(details):
+		print(f"This is the text: {text} with confidence {float(confidence)}")
 		if confidence > 0:  # Only include results with positive confidence
 			# Get the bounding box (as 4 points: (x, y))
 			x1, y1 = bbox[0]  # Top-left
@@ -170,16 +201,22 @@ def detect_text_opencv(image_path):
 			}
 			results.append(detected_text_data)
 	return results
+		
+
+
 
 def detectText2(path, image, image_text, img_text):
 	# Get image dimensions
 	img_height, img_width, _ = image.shape
 	
+	#Try some things to enhance image readibility 
+	image = cv2.resize(image, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+	
 	# Convert image to grayscale (optional, improves accuracy)
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 	
 	# Detect text using Tesseract
-	custom_config = r'--oem 3 --psm 6'  # Default OCR settings, you can tweak as needed
+	custom_config = r'--oem 3 --psm 11'  # Default OCR settings, you can tweak as needed
 	data = pytesseract.image_to_data(gray, config=custom_config, output_type=pytesseract.Output.DICT)
 	
 	if path.name not in image_text:
@@ -193,13 +230,16 @@ def detectText2(path, image, image_text, img_text):
 	results = []
 	n_boxes = len(data['text'])
 	for i in range(n_boxes):
-		if int(data['conf'][i]) >= 80:  # Filter low-confidence detections
+		if int(data['conf'][i]) >= 0:  # Filter low-confidence detections
 			
 			detected_text = data['text'][i]
 			(x, y, w, h) = (data['left'][i], data['top'][i], data['width'][i], data['height'][i])
 			
 			# Create a dictionary similar to the AWS output
 			details = data
+			print(f"This is the text: {detected_text} with confidence {float(details['conf'][i])}")
+			
+			print()
 			detected_text_data = {
 				'DetectedText': details['text'][i],
 				'Type': 'LINE',  # Assuming line level detection, adjust if needed
@@ -207,16 +247,16 @@ def detectText2(path, image, image_text, img_text):
 				'Confidence': float(details['conf'][i]),
 				'Geometry': {
 					'BoundingBox': {
-						'Width': details['width'][i] / img.shape[1],  # Normalize width
-						'Height': details['height'][i] / img.shape[0],  # Normalize height
-						'Left': details['left'][i] / img.shape[1],  # Normalize left position
-						'Top': details['top'][i] / img.shape[0]  # Normalize top position
+						'Width': details['width'][i] / image.shape[1],  # Normalize width
+						'Height': details['height'][i] / image.shape[0],  # Normalize height
+						'Left': details['left'][i] / image.shape[1],  # Normalize left position
+						'Top': details['top'][i] / image.shape[0]  # Normalize top position
 					},
 					'Polygon': [
-						{'X': details['left'][i] / img.shape[1], 'Y': details['top'][i] / img.shape[0]},
-						{'X': (details['left'][i] + details['width'][i]) / img.shape[1], 'Y': details['top'][i] / img.shape[0]},
-						{'X': (details['left'][i] + details['width'][i]) / img.shape[1], 'Y': (details['top'][i] + details['height'][i]) / img.shape[0]},
-						{'X': details['left'][i] / img.shape[1], 'Y': (details['top'][i] + details['height'][i]) / img.shape[0]}
+						{'X': details['left'][i] / image.shape[1], 'Y': details['top'][i] / image.shape[0]},
+						{'X': (details['left'][i] + details['width'][i]) / image.shape[1], 'Y': details['top'][i] / image.shape[0]},
+						{'X': (details['left'][i] + details['width'][i]) / image.shape[1], 'Y': (details['top'][i] + details['height'][i]) / image.shape[0]},
+						{'X': details['left'][i] / image.shape[1], 'Y': (details['top'][i] + details['height'][i]) / image.shape[0]}
 					]
 				}
 			}
@@ -258,12 +298,15 @@ filepath = file
 #This file should match this entry: 
 list(bb1)[2]
 for_comparison = bb1[list(bb1)[2]]
+print(filepath)
+
+results = detect_text_opencv(filepath)
 
 image = cv2.imread(filepath)
 #image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 img_height, img_width, _ = image.shape
-image = detectText(filepath, image, image_text, img_text)
-image2 = detectText2(filepath, image, image_text, img_text)
+#image = detectText(filepath, image, image_text, img_text)
+#image2 = detectText2(filepath, image, image_text, img_text)
 img=image
 
 #The right way
