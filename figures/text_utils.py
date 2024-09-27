@@ -1,4 +1,4 @@
-import cv2, imutils, re, xlsxwriter, json
+import cv2, imutils, re, xlsxwriter, json, sys
 import matplotlib.pyplot as plt
 import numpy as np
 import pytesseract
@@ -28,6 +28,8 @@ def detectAxes(filepath, threshold=None, debug=False):
 		threshold = 10
 		
 	image = cv2.imread(filepath)
+	image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	
 	height, width, channels = image.shape
 	
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -102,27 +104,29 @@ def getTextFromImage(filepath, bw=False, debug=False):
 	image_text = []
 	
 	image = cv2.imread(filepath)
+	image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+		
 	height, width, _ = image.shape
 		
 	if bw:
 		hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-
+			
 		# define range of black color in HSV
 		lower_val = np.array([0, 0, 0])
 		upper_val = np.array([179, 255, 179])
-
+			
 		# Threshold the HSV image to get only black colors
 		mask = cv2.inRange(hsv, lower_val, upper_val)
-
+			
 		# Bitwise-AND mask and original image
 		res = cv2.bitwise_and(image, image, mask = mask)
-
+			
 		# invert the mask to get black letters on white background
 		image = cv2.bitwise_not(mask)
 			
 	d = pytesseract.image_to_data(image, config = "-l eng --oem 1 --psm 11", output_type = Output.DICT)
 	n_boxes = len(d['text'])
-
+		
 	# Pick only the positive confidence boxes
 	for i in range(n_boxes):
 			
@@ -134,6 +138,8 @@ def getTextFromImage(filepath, bw=False, debug=False):
 	 
 	if bw:  
 		image = cv2.imread(filepath)
+		image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+
 		image_text = list(set(image_text))
 		white_bg = 255 * np.ones_like(image)
 		
@@ -144,12 +150,12 @@ def getTextFromImage(filepath, bw=False, debug=False):
 		image_text = []
 		d = pytesseract.image_to_data(white_bg, config = "-l eng --oem 1 --psm 11", output_type = Output.DICT)
 		n_boxes = len(d['text'])
-
+		
 		# Pick only the positive confidence boxes
 		for i in range(n_boxes):
-
+			
 			if int(d['conf'][i]) >= 0:
-
+					
 				text = d['text'][i].strip()
 				(x, y, w, h) = (d['left'][i], d['top'][i], d['width'][i], d['height'][i])
 				image_text.append((d['text'][i], (x, y, w, h)))
@@ -182,7 +188,7 @@ def getProbableLabels(image, image_text, xaxis, yaxis):
 	x_labels = []
 	legends = []
 	y_text_list = []
-	
+		
 	height, width, channels = image.shape
 	
 	(x1, y1, x2, y2) = xaxis
@@ -192,7 +198,10 @@ def getProbableLabels(image, image_text, xaxis, yaxis):
 	
 	for text, (textx, texty, w, h) in image_text:
 		text = text.strip()
-			
+		# print(f"Text is {text}, textx is {textx}, texty is {texty}, and w h is {w,h}")
+		# print(f"First number is {np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1))}")
+		# print(f"Second number is {np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11)) }")
+		
 		# To the left of y-axis and top of x-axis
 		if (np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1)) == -1 and
 			np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11)) == 1):
@@ -291,13 +300,12 @@ def getProbableLabels(image, image_text, xaxis, yaxis):
 	# bottom and also from left to right.
 	
 	legends_and_numbers = mergeTextBoxes(legends)
-	
+		
 	legends = []
 	for text, (textx, texty, w, h) in legends_and_numbers:
 		if not re.search(r'^([(+-]*?(\d+)?(?:\.\d+)*?[-%) ]*?)*$', text):
 			legends.append((text, (textx, texty, w, h)))
-	
-	
+		
 	def canMerge(group, candidate):
 		candText, candRect = candidate
 		candx, candy, candw, candh = candRect
@@ -324,7 +332,6 @@ def getProbableLabels(image, image_text, xaxis, yaxis):
 		else:
 			legend_groups.append([(text, rect)])
 	
-	#print(legend_groups)
 	#print("\n\n")
 	
 	maxList = []
@@ -335,7 +342,7 @@ def getProbableLabels(image, image_text, xaxis, yaxis):
 	legends = []
 	for text, (textx, texty, w, h) in maxList:
 		legends.append(text)
-		
+			
 	return image, x_labels, x_labels_list, x_text, y_labels, y_labels_list, y_text_list, legends, maxList
 
 # Getting the Ratio for y-value matching
@@ -357,6 +364,8 @@ def getRatio(path, image_text, xaxis, yaxis):
 	filepath = path
 	
 	image = cv2.imread(filepath)
+	image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+		
 	image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 	height, width, channels = image.shape
 	
@@ -414,8 +423,14 @@ def getRatio(path, image_text, xaxis, yaxis):
 
 
 
-def reject_outliers(data, m=1):
-	return data[abs(data - np.mean(data)) <= m * np.std(data)]
+# def reject_outliers(data, m=1):
+# 	return data[abs(data - np.mean(data)) <= m * np.std(data)]
+
+#This version base on percentiles is better:
+def reject_outliers(data, lower_percentile=5, upper_percentile=95):
+    lower_bound = np.percentile(data, lower_percentile)
+    upper_bound = np.percentile(data, upper_percentile)
+    return data[(data >= lower_bound) & (data <= upper_bound)]
 
 
 def getTextFromImageArray(image, mode):
@@ -449,10 +464,12 @@ def getTextFromImageArray(image, mode):
 
 def maskImageForwardPass(filepath, start_idx):
 	image = cv2.imread(filepath)
+	image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+		
 	height, width, channels = image.shape
 	
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
+		
 	start_idx = 1
 	while start_idx <= width:
 		if sum(gray[:, start_idx] < 200) != 0:
@@ -478,6 +495,8 @@ def maskImageBackwardPass(filepath, end_idx):
 	# if path.name.endswith('.png') or path.name.endswith('.jpg') or path.name.endswith('.jpeg'):
 	# 	filepath = img_dir + "/" + path.name
 	image = cv2.imread(filepath)
+	image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+		
 	height, width, channels = image.shape
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 	
@@ -742,6 +761,8 @@ def expand(points, margin):
 def getYVal(index, path, yValueDict, image_text, texts, image_extensions):
 	filepath = path
 	img = cv2.imread(filepath)
+	img = cv2.resize(img, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+		
 	img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 	img_height, img_width, _ = img.shape
 	
@@ -750,6 +771,7 @@ def getYVal(index, path, yValueDict, image_text, texts, image_extensions):
 	
 	for (x1, y1, x2, y2) in [xaxis]:
 		xaxis = (x1, y1, x2, y2)
+		
 	for (x1, y1, x2, y2) in [yaxis]:
 		yaxis = (x1, y1, x2, y2)
 		
@@ -767,6 +789,7 @@ def getYVal(index, path, yValueDict, image_text, texts, image_extensions):
 				vertices = np.array(vertices, np.int32)
 				vertices = vertices.reshape((-1, 1, 2))
 				img = cv2.fillPoly(img, [expand(vertices, 1)], (255, 255, 255))
+		
 		gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 		threshold = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY)[1]
 		
@@ -805,6 +828,8 @@ def getYVal(index, path, yValueDict, image_text, texts, image_extensions):
 				
 		for i in range(len(groups)):
 			img = cv2.imread(filepath)
+			img = cv2.resize(img, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+		
 			img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 			legendtext = legendtexts[i]
 			

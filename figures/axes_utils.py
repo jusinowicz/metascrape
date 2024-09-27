@@ -30,6 +30,7 @@ def detectAxes(filepath, threshold=None, debug=False):
 		threshold = 10
 		
 	image = cv2.imread(filepath)
+	#image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
 	height, width, channels = image.shape
 	
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

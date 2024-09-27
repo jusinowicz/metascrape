@@ -1,9 +1,14 @@
-import cv2, json
-import pytesseract
+import cv2, json, os, sys, re
+import pytesseract, easyocr
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 from matplotlib import rcParams
+
+#the custom modules
+sys.path.append(os.path.abspath('./'))
+from text_utils import getYVal, getProbableLabels, addToExcel, findMaxConsecutiveOnes, detectAxes
+
 
 #Definitions of images
 image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.pdf']  # Add more as needed
@@ -19,107 +24,9 @@ def expand(points, margin = 1):
 		[[points[3][0][0] - margin, points[3][0][1] + margin]]])
 
 
-def detectText(path, image, image_text, img_text):
-	# Get image dimensions
-	img_height, img_width, _ = image.shape
-	
-	# Convert image to grayscale (optional, improves accuracy)
-	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-	
-	# Detect text using Tesseract
-	custom_config = r'--oem 3 --psm 6'  # Default OCR settings, you can tweak as needed
-	data = pytesseract.image_to_data(gray, config=custom_config, output_type=pytesseract.Output.DICT)
-	
-	if path.name not in image_text:
-		image_text[path.name] = {}
-		image_text[path.name]['TextDetections'] = []
-		
-	if path.name not in img_text:
-		img_text[path.name] = []
-		
-	# Iterate over detected text blocks
-	n_boxes = len(data['text'])
-	for i in range(n_boxes):
-		if int(data['conf'][i]) >= 80:  # Filter low-confidence detections
-			detected_text = data['text'][i]
-			(x, y, w, h) = (data['left'][i], data['top'][i], data['width'][i], data['height'][i])
-			
-			# Store the detected text and its bounding box
-			image_text[path.name]['TextDetections'].append({
-				'DetectedText': detected_text,
-				'BoundingBox': (x, y, w, h),
-				'Confidence': data['conf'][i]
-			})
-			
-			# Draw a rectangle around the detected text
-			vertices = np.array([[[x, y], [x + w, y], [x + w, y + h], [x, y + h]]], np.int32)
-			image = cv2.fillPoly(image, vertices, (255, 255, 255))
-			
-			# Append to img_text for further processing
-			img_text[path.name].append(
-				(
-					detected_text,
-					(x, y, w, h)
-				)
-			)
-			
-	return image
-
-
-
-def detect_text_opencv(image_path):
+def detectText_easyocr(path, image, image_text, img_text):
 	# Load the image using OpenCV
-	img = cv2.imread(image_path)
-	
-	# Convert image to grayscale (optional, improves accuracy)
-	img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-	# Apply Gaussian Blur to reduce noise
-	#img = cv2.GaussianBlur(img, (5, 5), 0)
-	#Adaptive Thresholding
-	#img = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
-	#                          cv2.THRESH_BINARY, 11, 2)
-	
-	# Detect text using Tesseract
-	custom_config = r'--oem 3 --psm 11'  # Default OCR settings, you can tweak as needed
-	details= pytesseract.image_to_data(img, config=custom_config, output_type=pytesseract.Output.DICT)
-	
-	# Run Tesseract to detect text along with detailed data
-	# custom_config = r'--oem 3 --psm 6'  # OCR engine mode and page segmentation mode
-	# details = pytesseract.image_to_data(img, config=custom_config, output_type=Output.DICT)
-	
-	results = []
-	
-	for i in range(len(details['text'])):
-		if int(details['conf'][i]) > 0:  # Only include results with positive confidence
-			# Create a dictionary similar to the AWS output
-			detected_text_data = {
-				'DetectedText': details['text'][i],
-				'Type': 'LINE',  # Assuming line level detection, adjust if needed
-				'Id': i,
-				'Confidence': float(details['conf'][i]),
-				'Geometry': {
-					'BoundingBox': {
-						'Width': details['width'][i] / img.shape[1],  # Normalize width
-						'Height': details['height'][i] / img.shape[0],  # Normalize height
-						'Left': details['left'][i] / img.shape[1],  # Normalize left position
-						'Top': details['top'][i] / img.shape[0]  # Normalize top position
-					},
-					'Polygon': [
-						{'X': details['left'][i] / img.shape[1], 'Y': details['top'][i] / img.shape[0]},
-						{'X': (details['left'][i] + details['width'][i]) / img.shape[1], 'Y': details['top'][i] / img.shape[0]},
-						{'X': (details['left'][i] + details['width'][i]) / img.shape[1], 'Y': (details['top'][i] + details['height'][i]) / img.shape[0]},
-						{'X': details['left'][i] / img.shape[1], 'Y': (details['top'][i] + details['height'][i]) / img.shape[0]}
-					]
-				}
-			}
-			results.append(detected_text_data)
-	
-	return results
-
-
-def detect_text_opencv(image_path):
-	# Load the image using OpenCV
-	img = cv2.imread(image_path)
+	img = cv2.imread(path)
 	height, width, _ = img.shape
 	
 	#Try some things to enhance image readibility 
@@ -162,6 +69,13 @@ def detect_text_opencv(image_path):
 	details = horizontal_details #+ vertical_details
 	results = []
 	
+	if path.name not in image_text:
+		image_text[path.name] = {}
+		image_text[path.name]['TextDetections'] = []
+		
+	if path.name not in img_text:
+		img_text[path.name] = []
+	
 	# Assume result is the output from reader.readtext(image)
 	for i, (bbox, text, confidence) in enumerate(details):
 		print(f"This is the text: {text} with confidence {float(confidence)}")
@@ -181,7 +95,7 @@ def detect_text_opencv(image_path):
 			# Create a dictionary similar to the AWS output
 			detected_text_data = {
 				'DetectedText': text,
-				'Type': 'LINE',  # Assuming line level detection, adjust if needed
+				'Type': 'WORD',  # Assuming line level detection, adjust if needed
 				'Id': i,
 				'Confidence': float(confidence),
 				'Geometry': {
@@ -199,84 +113,24 @@ def detect_text_opencv(image_path):
 					]
 				}
 			}
-			results.append(detected_text_data)
-	return results
-		
-
-
-
-def detectText2(path, image, image_text, img_text):
-	# Get image dimensions
-	img_height, img_width, _ = image.shape
-	
-	#Try some things to enhance image readibility 
-	image = cv2.resize(image, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
-	
-	# Convert image to grayscale (optional, improves accuracy)
-	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-	
-	# Detect text using Tesseract
-	custom_config = r'--oem 3 --psm 11'  # Default OCR settings, you can tweak as needed
-	data = pytesseract.image_to_data(gray, config=custom_config, output_type=pytesseract.Output.DICT)
-	
-	if path.name not in image_text:
-		image_text[path.name] = {}
-		image_text[path.name]['TextDetections'] = []
-		
-	if path.name not in img_text:
-		img_text[path.name] = []
-		
-	# Iterate over detected text blocks
-	results = []
-	n_boxes = len(data['text'])
-	for i in range(n_boxes):
-		if int(data['conf'][i]) >= 0:  # Filter low-confidence detections
 			
-			detected_text = data['text'][i]
-			(x, y, w, h) = (data['left'][i], data['top'][i], data['width'][i], data['height'][i])
-			
-			# Create a dictionary similar to the AWS output
-			details = data
-			print(f"This is the text: {detected_text} with confidence {float(details['conf'][i])}")
-			
-			print()
-			detected_text_data = {
-				'DetectedText': details['text'][i],
-				'Type': 'LINE',  # Assuming line level detection, adjust if needed
-				'Id': i,
-				'Confidence': float(details['conf'][i]),
-				'Geometry': {
-					'BoundingBox': {
-						'Width': details['width'][i] / image.shape[1],  # Normalize width
-						'Height': details['height'][i] / image.shape[0],  # Normalize height
-						'Left': details['left'][i] / image.shape[1],  # Normalize left position
-						'Top': details['top'][i] / image.shape[0]  # Normalize top position
-					},
-					'Polygon': [
-						{'X': details['left'][i] / image.shape[1], 'Y': details['top'][i] / image.shape[0]},
-						{'X': (details['left'][i] + details['width'][i]) / image.shape[1], 'Y': details['top'][i] / image.shape[0]},
-						{'X': (details['left'][i] + details['width'][i]) / image.shape[1], 'Y': (details['top'][i] + details['height'][i]) / image.shape[0]},
-						{'X': details['left'][i] / image.shape[1], 'Y': (details['top'][i] + details['height'][i]) / image.shape[0]}
-					]
-				}
-			}
 			results.append(detected_text_data)
 			# Store the detected text and its bounding box
 			image_text[path.name]['TextDetections'].append(detected_text_data)
 			
-			# Draw a rectangle around the detected text
-			vertices = np.array([[[x, y], [x + w, y], [x + w, y + h], [x, y + h]]], np.int32)
-			image = cv2.fillPoly(image, vertices, (255, 255, 255))
+			# Draw a rectangle around the detected text (optional for visualization)
+			vertices = np.array([[[left, top], [left + width, top], [left + width, top + height], [left, top + height]]], np.int32)
+			img = cv2.fillPoly(img, vertices, (255, 255, 255))
 			
 			# Append to img_text for further processing
 			img_text[path.name].append(
 				(
-					detected_text,
-					(x, y, w, h)
+					text,
+					(left, top, width, height)
 				)
 			)
 			
-	return results
+	return image
 
 
 # Directory of images to run the code on
@@ -288,9 +142,6 @@ save_dir = './../output/figures'
 #Definitions of images
 image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.pdf']  # Add more as needed
 
-image_text = {}
-img_text = {}     
-
 a1 = Path(img_dir).iterdir() 
 file = next(a1)
 filepath = file
@@ -300,14 +151,36 @@ list(bb1)[2]
 for_comparison = bb1[list(bb1)[2]]
 print(filepath)
 
-results = detect_text_opencv(filepath)
+#results = detect_text_opencv(filepath)
+
+image_text = {}
+img_text = {}     
 
 image = cv2.imread(filepath)
-#image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-img_height, img_width, _ = image.shape
-#image = detectText(filepath, image, image_text, img_text)
-#image2 = detectText2(filepath, image, image_text, img_text)
-img=image
+image = detectText_easyocr(filepath, image, image_text, img_text)
+
+texts = []
+yValueDict = {}
+
+images_text = img_text.copy() 
+bbox_text = image_text.copy()
+image_text = images_text[filepath.name]
+texts = bbox_text[filepath.name]['TextDetections']
+img = cv2.imread(filepath)                                                                       
+img = cv2.resize(img, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC) 
+xaxis, yaxis = detectAxes(filepath)
+yValueDict = getYVal(index, filepath, yValueDict, image_text, texts, image_extensions)
+
+
+img, x_labels, x_labels_list, _, _, _, _, legends, legendBoxes = getProbableLabels(img, image_text, xaxis, yaxis)
+actual_image = img.copy()
+
+for text, (textx, texty, w, h) in image_text:
+    text = text.strip()
+    print(f"Text is {text}, textx is {textx}, texty is {texty}, and w h is {w,h}")
+    print(f"First number is {np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1))}")
+    print(f"Second number is {np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11)) }")
+
 
 #The right way
 texts = bb1[filepath.name]['TextDetections']
@@ -322,8 +195,92 @@ for text in texts:
 #The new way
 texts = image_text[filepath.name]['TextDetections']
 for text in texts:
-	if text['Type'] == 'WORD' and text['Confidence'] >= 80:
+	if text['Type'] == 'WORD' and text['Confidence'] >= 0.5:
+		print(f"This is the word {text['DetectedText']}")
 		vertices = [[vertex['X'] * img_width, vertex['Y'] * img_height] for vertex in text['Geometry']['Polygon']]
 		vertices = np.array(vertices, np.int32)
 		vertices = vertices.reshape((-1, 1, 2))
 		img = cv2.fillPoly(img, [expand(vertices, 1)], (255, 255, 255))
+		
+
+#def getProbableLabels(image, image_text, xaxis, yaxis):
+y_labels = []
+x_labels = []
+legends = []
+y_text_list = []
+
+height, width, channels = image.shape
+
+(x1, y1, x2, y2) = xaxis
+(x11, y11, x22, y22) = yaxis
+
+image_text = cleanText(image_text)
+
+for text, (textx, texty, w, h) in image_text:
+	text = text.strip()
+	print(f"Text is {text}, textx is {textx}, texty is {texty}, and w h is {w,h}")
+	print(f"First number is {np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1))}")
+	print(f"Second number is {np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11))}")
+	
+	# To the left of y-axis and top of x-axis
+	if (np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1)) == -1 and
+		np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11)) == 1):
+		
+		numbers = re.findall(r'^[+-]?\d+(?:\.\d+)?[%-]?$', text)
+		if bool(numbers):
+			y_labels.append((text, (textx, texty, w, h)))
+		else:
+			y_text_list.append((text, (textx, texty, w, h)))
+		
+	# To the right of y-axis and bottom of x-axis
+	elif (np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1)) == 1 and
+		np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11)) == -1):
+		x_labels.append((text, (textx, texty, w, h)))
+		
+	# Top of x-axis and to the right of y-axis
+	elif (np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1)) == -1 and
+		np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11)) == -1):
+		
+		# Consider non-numeric only for legends
+		legends.append((text, (textx, texty, w, h)))
+
+
+def canMerge(group, candidate):
+	candText, candRect = candidate
+	candx, candy, candw, candh = candRect
+	
+	for memText, memRect in group:
+		memx, memy, memw, memh = memRect
+			
+		if abs(candy - memy) <= 5 and abs(candy + candh - memy - memh) <= 5:
+			return True
+		elif abs(candx - memx) <= 5:
+			return True
+			
+	return False
+
+# Grouping Algorithm
+legend_groups = []
+for index, (text, rect) in enumerate(legends):
+	#print("text: {0}, rect: {1}\n".format(text, rect))
+	
+	for groupid, group in enumerate(legend_groups):
+		if canMerge(group, (text, rect)):
+			group.append((text, rect))
+			break
+	else:
+		legend_groups.append([(text, rect)])
+
+#print(legend_groups)
+#print("\n\n")
+
+maxList = []
+
+if len(legend_groups) > 0:
+	maxList = max(legend_groups, key = len)
+	
+legends = []
+for text, (textx, texty, w, h) in maxList:
+	legends.append(text)
+	
+return image, x_labels, x_labels_list, x_text, y_labels, y_labels_list, y_text_list, legends, maxList
