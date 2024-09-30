@@ -414,8 +414,8 @@ def getRatio(path, image_text, xaxis, yaxis):
 	print("[get text-to-tick ratio] ticks_diff: {0}, text_diff: {1}".format(ticks_diff, text_diff))
 	
 	# Detected text may not be perfect! Remove the outliers.
-	ticks_diff = reject_outliers(np.array(ticks_diff), m=1)
-	text_diff = reject_outliers(np.array(text_diff), m=1)
+	ticks_diff = reject_outliers(np.array(ticks_diff))
+	text_diff = reject_outliers(np.array(text_diff))
 	print("[reject_outliers] ticks_diff: {0}, text_diff: {1}".format(ticks_diff, text_diff))
 	
 	normalize_ratio = np.array(text_diff).mean() / np.array(ticks_diff).mean()
@@ -428,9 +428,9 @@ def getRatio(path, image_text, xaxis, yaxis):
 
 #This version base on percentiles is better:
 def reject_outliers(data, lower_percentile=5, upper_percentile=95):
-    lower_bound = np.percentile(data, lower_percentile)
-    upper_bound = np.percentile(data, upper_percentile)
-    return data[(data >= lower_bound) & (data <= upper_bound)]
+	lower_bound = np.percentile(data, lower_percentile)
+	upper_bound = np.percentile(data, upper_percentile)
+	return data[(data >= lower_bound) & (data <= upper_bound)]
 
 
 def getTextFromImageArray(image, mode):
@@ -719,7 +719,7 @@ def RectDist(rectA, rectB):
 	(rectAx, rectAy, rectAw, rectAh) = rectA
 	(rectBx, rectBy, rectBw, rectBh) = rectB
 	
-	return abs(rectAx + rectAx / 2 - rectBx - rectBx / 2)
+	return abs(rectAx + rectAw / 2 - rectBx - rectBw / 2)
 
 def getProbableYLabels(image, contours, xaxis, yaxis):
 	y_labels = []
@@ -756,6 +756,70 @@ def expand(points, margin):
 		[[points[3][0][0] - margin, points[3][0][1] + margin]]])
 	
 
+def filterBbox(rects, legendBox):
+	text, (textx, texty, width, height) = legendBox
+	
+	filtered = []
+	for rect in rects:
+		(x, y, w, h) = rect
+		if abs(y - texty) <= 10 and abs(y - texty + h - height) <= 10:
+			filtered.append(rect)
+	filtered = mergeRects(filtered, 'rects')
+	
+	closest = None
+	dist = sys.maxsize
+	for rect in filtered:
+		(x, y, w, h) = rect
+		if abs(x + w - textx) <= dist:
+			dist = abs(x + w - textx)
+			closest = rect
+	
+	return closest
+
+
+
+def boxGroup(img, box):
+	(x, y, w, h) = box
+	image = img[y:y+h, x:x+w].reshape((h * w, 3))
+	values, counts = np.unique(image, axis = 0, return_counts = True)
+	
+	# Remove white and near-by pixels
+	threshold = 5
+	for r in range(255 - threshold, 256):
+		for g in range(255 - threshold, 256):
+			for b in range(255 - threshold, 256):
+				image = image[np.where((image != [r, g, b]).any(axis = 1))]
+	values, counts = np.unique(image, axis = 0, return_counts = True)
+				
+	sort_indices = np.argsort(-counts)
+	values, counts = values[sort_indices], counts[sort_indices]
+	groups = []
+	groupcounts = []
+	for idx, value in enumerate(values):
+		grouped = False
+		for groupid, group in enumerate(groups):
+			for member in group:
+				r, g, b = member
+				vr, vg, vb = value
+				if (abs(vr.astype(np.int16) - r.astype(np.int16)) <= 5 and
+					abs(vg.astype(np.int16) - g.astype(np.int16)) <= 5 and
+					abs(vb.astype(np.int16) - b.astype(np.int16)) <= 5):
+						group.append(value)
+						groupcounts[groupid] += counts[idx]
+						grouped = True
+						break
+			if grouped:
+				break
+		if not grouped:
+			groups.append([value])
+			groupcounts.append(counts[idx])
+	groupcounts = np.array(groupcounts)
+	sort_indices = np.argsort(-groupcounts)
+	new_groups = [groups[i] for i in sort_indices]
+	groups = new_groups
+	
+	return groups
+
 
 #Saving y-values in our data excel sheet
 def getYVal(index, path, yValueDict, image_text, texts, image_extensions):
@@ -784,7 +848,7 @@ def getYVal(index, path, yValueDict, image_text, texts, image_extensions):
 		print("[{0}] path: {1}, ratio: {2}".format(index, path.name, normalize_ratio), end='\n\n')
 		
 		for text in texts:
-			if text['Type'] == 'WORD' and text['Confidence'] >= 80:
+			if text['Type'] == 'WORD' and text['Confidence'] >= 0:
 				vertices = [[vertex['X'] * img_width, vertex['Y'] * img_height] for vertex in text['Geometry']['Polygon']]
 				vertices = np.array(vertices, np.int32)
 				vertices = vertices.reshape((-1, 1, 2))
@@ -902,66 +966,4 @@ def getYVal(index, path, yValueDict, image_text, texts, image_extensions):
 	return yValueDict
 
 
-def filterBbox(rects, legendBox):
-	text, (textx, texty, width, height) = legendBox
-	
-	filtered = []
-	for rect in rects:
-		(x, y, w, h) = rect
-		if abs(y - texty) <= 10 and abs(y - texty + h - height) <= 10:
-			filtered.append(rect)
-	filtered = mergeRects(filtered, 'rects')
-	
-	closest = None
-	dist = sys.maxsize
-	for rect in filtered:
-		(x, y, w, h) = rect
-		if abs(x + w - textx) <= dist:
-			dist = abs(x + w - textx)
-			closest = rect
-	
-	return closest
 
-
-
-def boxGroup(img, box):
-	(x, y, w, h) = box
-	image = img[y:y+h, x:x+w].reshape((h * w, 3))
-	values, counts = np.unique(image, axis = 0, return_counts = True)
-	
-	# Remove white and near-by pixels
-	threshold = 5
-	for r in range(255 - threshold, 256):
-		for g in range(255 - threshold, 256):
-			for b in range(255 - threshold, 256):
-				image = image[np.where((image != [r, g, b]).any(axis = 1))]
-	values, counts = np.unique(image, axis = 0, return_counts = True)
-				
-	sort_indices = np.argsort(-counts)
-	values, counts = values[sort_indices], counts[sort_indices]
-	groups = []
-	groupcounts = []
-	for idx, value in enumerate(values):
-		grouped = False
-		for groupid, group in enumerate(groups):
-			for member in group:
-				r, g, b = member
-				vr, vg, vb = value
-				if (abs(vr.astype(np.int16) - r.astype(np.int16)) <= 5 and
-					abs(vg.astype(np.int16) - g.astype(np.int16)) <= 5 and
-					abs(vb.astype(np.int16) - b.astype(np.int16)) <= 5):
-						group.append(value)
-						groupcounts[groupid] += counts[idx]
-						grouped = True
-						break
-			if grouped:
-				break
-		if not grouped:
-			groups.append([value])
-			groupcounts.append(counts[idx])
-	groupcounts = np.array(groupcounts)
-	sort_indices = np.argsort(-groupcounts)
-	new_groups = [groups[i] for i in sort_indices]
-	groups = new_groups
-	
-	return groups

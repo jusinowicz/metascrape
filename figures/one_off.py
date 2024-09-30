@@ -4,10 +4,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 from matplotlib import rcParams
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 #the custom modules
 sys.path.append(os.path.abspath('./'))
 from text_utils import getYVal, getProbableLabels, addToExcel, findMaxConsecutiveOnes, detectAxes
+from text_utils import getRatio 
+from text_utils import filterBbox, boxGroup, mergeRects, RectDist
 
 
 #Definitions of images
@@ -169,17 +173,52 @@ texts = bbox_text[filepath.name]['TextDetections']
 img = cv2.imread(filepath)                                                                       
 img = cv2.resize(img, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC) 
 xaxis, yaxis = detectAxes(filepath)
+index = 0
 yValueDict = getYVal(index, filepath, yValueDict, image_text, texts, image_extensions)
 
 
-img, x_labels, x_labels_list, _, _, _, _, legends, legendBoxes = getProbableLabels(img, image_text, xaxis, yaxis)
-actual_image = img.copy()
+y_text = []
+
+for (x1, y1, x2, y2) in [xaxis]:
+	xaxis = (x1, y1, x2, y2)
+
+for (x1, y1, x2, y2) in [yaxis]:
+	yaxis = (x1, y1, x2, y2)
+
+img, x_labels, _, x_text, y_labels, y_labels_list, y_text_list, legends, _ = getProbableLabels(img,
+																								  image_text,
+																								  xaxis,
+																								  yaxis)
+		   
+
+# Sort bounding rects by y coordinate
+def getYFromRect(item):
+	return item[1][1]
+
+y_labels_list.sort(key = getYFromRect)
+y_text_list.sort(key = getYFromRect, reverse=True)
+
+for text, (textx, texty, w, h) in y_text_list:
+	y_text.append(text)
+
+data = yValueDict[filepath.name]
+
+# Print the output here!
+print("file name    :  ", filepath.name)
+print("x-text       :  ", x_text)
+print("x-labels     :  ", x_labels)
+print("y-text       :  ", y_text)
+print("y-labels     :  ", y_labels)
+print("legends      :  ", legends)
+print("data         :  ", data, end= "\n\n")
+
+
 
 for text, (textx, texty, w, h) in image_text:
-    text = text.strip()
-    print(f"Text is {text}, textx is {textx}, texty is {texty}, and w h is {w,h}")
-    print(f"First number is {np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1))}")
-    print(f"Second number is {np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11)) }")
+	text = text.strip()
+	print(f"Text is {text}, textx is {textx}, texty is {texty}, and w h is {w,h}")
+	print(f"First number is {np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1))}")
+	print(f"Second number is {np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11)) }")
 
 
 #The right way
@@ -203,84 +242,329 @@ for text in texts:
 		img = cv2.fillPoly(img, [expand(vertices, 1)], (255, 255, 255))
 		
 
-#def getProbableLabels(image, image_text, xaxis, yaxis):
-y_labels = []
-x_labels = []
-legends = []
-y_text_list = []
+list_text = []
+list_ticks = []
 
+image = cv2.imread(filepath)
+image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 height, width, channels = image.shape
-
-(x1, y1, x2, y2) = xaxis
-(x11, y11, x22, y22) = yaxis
-
-image_text = cleanText(image_text)
 
 for text, (textx, texty, w, h) in image_text:
 	text = text.strip()
-	print(f"Text is {text}, textx is {textx}, texty is {texty}, and w h is {w,h}")
-	print(f"First number is {np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1))}")
-	print(f"Second number is {np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11))}")
+				
+	(x1, y1, x2, y2) = xaxis
+	(x11, y11, x22, y22) = yaxis
 	
 	# To the left of y-axis and top of x-axis
 	if (np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1)) == -1 and
 		np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11)) == 1):
 		
-		numbers = re.findall(r'^[+-]?\d+(?:\.\d+)?[%-]?$', text)
+		# Consider numeric only for ticks on y-axis
+		numbers = re.findall(r'\d+(?:\.\d+)?', text)
 		if bool(numbers):
-			y_labels.append((text, (textx, texty, w, h)))
-		else:
-			y_text_list.append((text, (textx, texty, w, h)))
-		
-	# To the right of y-axis and bottom of x-axis
-	elif (np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1)) == 1 and
-		np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11)) == -1):
-		x_labels.append((text, (textx, texty, w, h)))
-		
-	# Top of x-axis and to the right of y-axis
-	elif (np.sign((x2 - x1) * (texty - y1) - (y2 - y1) * (textx - x1)) == -1 and
-		np.sign((x22 - x11) * (texty - y11) - (y22 - y11) * (textx - x11)) == -1):
-		
-		# Consider non-numeric only for legends
-		legends.append((text, (textx, texty, w, h)))
-
-
-def canMerge(group, candidate):
-	candText, candRect = candidate
-	candx, candy, candw, candh = candRect
-	
-	for memText, memRect in group:
-		memx, memy, memw, memh = memRect
+			list_text.append((numbers[0], (textx, texty, w, h)))
 			
-		if abs(candy - memy) <= 5 and abs(candy + candh - memy - memh) <= 5:
-			return True
-		elif abs(candx - memx) <= 5:
-			return True
-			
-	return False
 
-# Grouping Algorithm
-legend_groups = []
-for index, (text, rect) in enumerate(legends):
-	#print("text: {0}, rect: {1}\n".format(text, rect))
-	
-	for groupid, group in enumerate(legend_groups):
-		if canMerge(group, (text, rect)):
-			group.append((text, rect))
-			break
-	else:
-		legend_groups.append([(text, rect)])
-
-#print(legend_groups)
-#print("\n\n")
-
+# Get the y-labels by finding the maximum
+# intersections with the sweeping line
+maxIntersection = 0
 maxList = []
+for i in range(x11):
+	count = 0
+	current = []
+	for index, (text, rect) in enumerate(list_text):
+		if lineIntersectsRectX(i, rect):
+			count += 1
+			current.append(list_text[index])
+						
+	if count > maxIntersection:
+		maxIntersection = count
+		maxList = current
 
-if len(legend_groups) > 0:
-	maxList = max(legend_groups, key = len)
-	
-legends = []
+# Get list of text and ticks
+list_text = []
 for text, (textx, texty, w, h) in maxList:
-	legends.append(text)
+	list_text.append(float(text))
+	list_ticks.append(float(texty + h))
 	
-return image, x_labels, x_labels_list, x_text, y_labels, y_labels_list, y_text_list, legends, maxList
+text_sorted = (sorted(list_text))
+ticks_sorted  = (sorted(list_ticks))
+
+ticks_diff = ([ticks_sorted[i] - ticks_sorted[i-1] for i in range(1, len(ticks_sorted))])
+text_diff = ([text_sorted[i] - text_sorted[i-1] for i in range(1, len(text_sorted))])
+print("[get text-to-tick ratio] ticks_diff: {0}, text_diff: {1}".format(ticks_diff, text_diff))
+
+# Detected text may not be perfect! Remove the outliers.
+ticks_diff = reject_outliers(np.array(ticks_diff))
+text_diff = reject_outliers(np.array(text_diff))
+print("[reject_outliers] ticks_diff: {0}, text_diff: {1}".format(ticks_diff, text_diff))
+
+normalize_ratio = np.array(text_diff).mean() / np.array(ticks_diff).mean()
+
+
+
+img = cv2.imread(filepath)
+img = cv2.resize(img, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img_height, img_width, _ = img.shape
+
+# Axes detection
+xaxis, yaxis = detectAxes(filepath)
+
+for (x1, y1, x2, y2) in [xaxis]:
+	xaxis = (x1, y1, x2, y2)
+
+for (x1, y1, x2, y2) in [yaxis]:
+	yaxis = (x1, y1, x2, y2)
+
+img, x_labels, x_labels_list, _, _, _, _, legends, legendBoxes = getProbableLabels(img, image_text, xaxis, yaxis)
+actual_image = img.copy()
+
+
+list_text, normalize_ratio = getRatio(filepath, image_text, xaxis, yaxis)
+print("[getYVal] legends: {0}".format(legends))
+print("[{0}] path: {1}, ratio: {2}".format(index, filepath.name, normalize_ratio), end='\n\n')
+
+for text in texts:
+	if text['Type'] == 'WORD' and text['Confidence'] >= 0:
+		vertices = [[vertex['X'] * img_width, vertex['Y'] * img_height] for vertex in text['Geometry']['Polygon']]
+		vertices = np.array(vertices, np.int32)
+		vertices = vertices.reshape((-1, 1, 2))
+		img = cv2.fillPoly(img, [expand(vertices, 1)], (255, 255, 255))
+
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+threshold = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY)[1]
+
+contours, _ = cv2.findContours(threshold, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+contours = [contour for contour in contours if cv2.contourArea(contour) < 0.01 * img_height * img_width]
+contours = [cv2.approxPolyDP(contour, 3, True) for contour in contours]
+rects = [cv2.boundingRect(contour) for contour in contours]
+groups = []
+legendtexts = []
+legendrects = []
+
+
+
+for box in legendBoxes:
+	text, (textx, texty, width, height) = box
+	bboxes = filterBbox(rects, box)
+	
+	if bboxes is not None:
+		for rect in [bboxes]:
+			(x, y, w, h) = rect
+			legendrects.append(rect)
+			
+			group = boxGroup(actual_image, rect)[0]
+			group = [arr.tolist() for arr in group]
+			
+			groups.append(group)
+			legendtexts.append(text)
+			
+			cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 3)
+		cv2.rectangle(img, (textx, texty), (textx + width, texty + height), (255, 0, 0), 2)
+				 
+
+data = {}
+for legend in legends:
+	data[legend] = {}
+	
+	for x_label, box in x_labels_list:
+		data[legend][x_label] = 0.0
+
+##		
+for i in range(len(groups)):
+	##
+	img = cv2.imread(filepath)
+	img = cv2.resize(img, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	
+	img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+	legendtext = legendtexts[i]
+		
+	for box in legendrects:
+		(textx, texty, width, height) = box
+		cv2.rectangle(img, (textx, texty), (textx + width, texty + height), (255, 255, 255), cv2.FILLED)
+		
+	mask = None
+	for value in groups[i]:
+		COLOR_MIN = np.array([value[0], value[1], value[2]], np.uint8)
+		COLOR_MAX = np.array([value[0], value[1], value[2]], np.uint8)
+		if mask is None:
+			mask = cv2.inRange(img, COLOR_MIN, COLOR_MAX)
+		else:
+			mask = mask | cv2.inRange(img, COLOR_MIN, COLOR_MAX)
+	image = cv2.bitwise_and(img, img, mask = mask)
+	image = cv2.morphologyEx(image, cv2.MORPH_CLOSE, (3, 3))
+	edged = cv2.Canny(image, 0, 250)
+	contours, _ = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	contours = [contour for contour in contours if cv2.contourArea(contour) > 0.]
+	# Remove noisy ones!
+	# if len(contours) == 0 or len(contours) > 100:
+	# 	continue
+		
+	contours = [cv2.approxPolyDP(contour, 3, True) for contour in contours]
+	rects = mergeRects(contours)
+	textBoxes = []
+	labels = []
+		
+	for rectBox in rects:
+		min_distance = sys.maxsize
+		closestBox = None
+		labeltext = None
+		for text, textBox in x_labels_list:
+			if RectDist(rectBox, textBox) < min_distance:
+				closestBox = textBox
+				min_distance = RectDist(rectBox, textBox)
+				labeltext = text
+		textBoxes.append(closestBox)
+		labels.append(labeltext)
+		
+	list_len = []
+		
+	for rect in rects:
+		list_len.append((rect, float(rect[3])))
+		
+	# y-values will be a product of the normalize ratio and each length              
+	y_val = [(rect, round(l* normalize_ratio, 4)) for rect, l in list_len]
+	
+	# Create a figure and axis to plot
+	fig, ax = plt.subplots(1)
+	
+	# Display the image
+	ax.imshow(img)
+	
+	for x_label, box in x_labels_list:
+		(x, y, w, h) = box
+		value = 0.0
+		closest = None
+		dist = sys.maxsize
+		# Create a rectangle patch for the bounding box
+		rect1 = patches.Rectangle((x, y), w, h, linewidth=2, edgecolor='r', facecolor='none')
+		# Add the rectangle patch to the plot
+		ax.add_patch(rect1)
+		# Optionally, add the label for each box
+		ax.text(x, y - 5, x_label, color='r', fontsize=12, backgroundcolor='w')
+		
+		for index, item in enumerate(y_val):
+			if labels[index] == x_label:
+				(vx, vy, vw, vh) = item[0]
+				# Create a rectangle patch for the bounding box
+				
+				if abs(x + w/2 - vx - vw/2) < dist:
+					print(f"This is index {index} and item {item} with coords {(vx, vy, vw, vh)}")
+					print(f"This is the condition:{abs(x + w/2 - vx - vw/2)} and {dist}")
+					dist = abs(x + w/2 - vx - vw/2)
+					closest = item[0]
+					value = item[1]
+					
+		rect2 = patches.Rectangle((vx, vy), vw, vh, linewidth=2, edgecolor='b', facecolor='none')
+		# Add the rectangle patch to the plot
+		ax.add_patch(rect2)
+		# Optionally, add the label for each y_val box
+		ax.text(vx, vy - 5, f"Value: {item[1]}", color='b', fontsize=10, backgroundcolor='w')
+		plt.draw()
+		plt.pause(3)
+		
+		#rect1.remove()
+		#rect2.remove()			  
+		data[legendtext][x_label] = value
+	
+yValueDict[path.name] = data
+
+
+
+# Iterate through the list_len, which contains tuples of (rect, l)
+# for rect, l in list_len:
+# 	# Print the original values for debugging
+# 	print(f"Original rect: {rect}, Original l: {l}")
+	
+# 	# Calculate l * normalize_ratio
+# 	scaled_value = l * normalize_ratio
+# 	print(f"Scaled value (l * normalize_ratio): {scaled_value}")
+	
+# 	# Round the scaled value to 1 decimal place
+# 	rounded_value = round(scaled_value, 1)
+# 	print(f"Rounded value: {rounded_value}")
+	
+# 	# Create a tuple with the rect and the rounded value, and append it to y_val
+# 	y_val.append((rect, rounded_value))
+
+
+
+
+
+#####
+# Create a figure and axis to plot
+fig, ax = plt.subplots(1)
+
+# Display the image
+ax.imshow(image_rgb)
+
+# Plot bounding boxes from x_labels_list
+for x_label, box in x_labels_list:
+	(x, y, w, h) = box
+	# Create a rectangle patch for the bounding box
+	rect = patches.Rectangle((x, y), w, h, linewidth=2, edgecolor='r', facecolor='none')
+	# Add the rectangle patch to the plot
+	ax.add_patch(rect)
+	# Optionally, add the label for each box
+	ax.text(x, y - 5, x_label, color='r', fontsize=12, backgroundcolor='w')
+
+# Plot bounding boxes from y_val (if they contain bounding boxes as well)
+for index, item in enumerate(y_val):
+	(vx, vy, vw, vh) = item[0]  # Assuming item[0] contains the bounding box
+	# Create a rectangle patch for the bounding box
+	rect = patches.Rectangle((vx, vy), vw, vh, linewidth=2, edgecolor='b', facecolor='none')
+	# Add the rectangle patch to the plot
+	ax.add_patch(rect)
+	# Optionally, add the label for each y_val box
+	ax.text(vx, vy - 5, f"Value: {item[1]}", color='b', fontsize=10, backgroundcolor='w')
+
+# Show the final plot with bounding boxes
+plt.show()
+
+
+
+######################
+###########################
+
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+import cv2
+
+def plot_bounding_boxes(img_path, x_labels_list, rects):
+	# Load and resize the image
+	img = cv2.imread(img_path)
+	img = cv2.resize(img, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+	
+	# Create a figure and axis to plot
+	fig, ax = plt.subplots(1, figsize=(10, 10))
+	
+	# Display the image
+	ax.imshow(img)
+	
+	# Plot x_labels bounding boxes
+	for x_label, box in x_labels_list:
+		(x, y, w, h) = box
+		rect = patches.Rectangle((x, y), w, h, linewidth=2, edgecolor='r', facecolor='none')
+		ax.add_patch(rect)
+		ax.text(x, y - 5, x_label, color='r', fontsize=12, backgroundcolor='w')  # Add x-axis labels in red
+	
+	# Plot bounding rectangles for detected bars
+	for (x, y, w, h) in rects:
+		rect = patches.Rectangle((x, y), w, h, linewidth=2, edgecolor='b', facecolor='none')
+		ax.add_patch(rect)
+	
+	# Optionally, you can label the detected bounding boxes
+	for i, (x, y, w, h) in enumerate(rects):
+		ax.text(x + w / 2, y - 5, f'Bar {i}', color='b', fontsize=10, backgroundcolor='w')  # Add bar labels in blue
+	
+	# Show the plot
+	plt.show()
+
+# Example usage
+plot_bounding_boxes(filepath, x_labels_list, rects)
