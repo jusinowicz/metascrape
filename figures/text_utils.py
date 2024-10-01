@@ -20,7 +20,7 @@ def findMaxConsecutiveOnes(nums) -> int:
 	return max(count, maxCount)
 
 
-def detectAxes(filepath, threshold=None, debug=False):
+def detectAxes(filepath, threshold=None, debug=False, scl=3):
 	if filepath is None:
 		return None, None
 		
@@ -28,7 +28,7 @@ def detectAxes(filepath, threshold=None, debug=False):
 		threshold = 10
 		
 	image = cv2.imread(filepath)
-	image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	image = cv2.resize(image, None, fx=scl, fy=scl, interpolation=cv2.INTER_CUBIC)
 	
 	height, width, channels = image.shape
 	
@@ -100,11 +100,11 @@ def canMerge(group, candidate):
 	return False
 
 
-def getTextFromImage(filepath, bw=False, debug=False):
+def getTextFromImage(filepath, bw=False, debug=False, scl = 3):
 	image_text = []
 	
 	image = cv2.imread(filepath)
-	image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	image = cv2.resize(image, None, fx=scl, fy=scl, interpolation=cv2.INTER_CUBIC)
 		
 	height, width, _ = image.shape
 		
@@ -138,7 +138,7 @@ def getTextFromImage(filepath, bw=False, debug=False):
 	 
 	if bw:  
 		image = cv2.imread(filepath)
-		image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+		image = cv2.resize(image, None, fx=scl, fy=scl, interpolation=cv2.INTER_CUBIC)
 
 		image_text = list(set(image_text))
 		white_bg = 255 * np.ones_like(image)
@@ -357,14 +357,14 @@ def getProbableLabels(image, image_text, xaxis, yaxis):
 #Finally, the value-tick ratio to normalize the heights of the bounding boxes is calculated by:
 
 
-def getRatio(path, image_text, xaxis, yaxis):
+def getRatio(path, image_text, xaxis, yaxis, scl=3):
 	list_text = []
 	list_ticks = []
 	
 	filepath = path
 	
 	image = cv2.imread(filepath)
-	image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	image = cv2.resize(image, None, fx=scl, fy=scl, interpolation=cv2.INTER_CUBIC)
 		
 	image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 	height, width, channels = image.shape
@@ -462,9 +462,9 @@ def getTextFromImageArray(image, mode):
 
 
 
-def maskImageForwardPass(filepath, start_idx):
+def maskImageForwardPass(filepath, start_idx, scl=3):
 	image = cv2.imread(filepath)
-	image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	image = cv2.resize(image, None, fx=scl, fy=scl, interpolation=cv2.INTER_CUBIC)
 		
 	height, width, channels = image.shape
 	
@@ -491,11 +491,11 @@ def maskImageForwardPass(filepath, start_idx):
 
 
 
-def maskImageBackwardPass(filepath, end_idx):
+def maskImageBackwardPass(filepath, end_idx, scl=3):
 	# if path.name.endswith('.png') or path.name.endswith('.jpg') or path.name.endswith('.jpeg'):
 	# 	filepath = img_dir + "/" + path.name
 	image = cv2.imread(filepath)
-	image = cv2.resize(image, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	image = cv2.resize(image, None, fx=scl, fy=scl, interpolation=cv2.INTER_CUBIC)
 		
 	height, width, channels = image.shape
 	gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -822,10 +822,10 @@ def boxGroup(img, box):
 
 
 #Saving y-values in our data excel sheet
-def getYVal(index, path, yValueDict, image_text, texts, image_extensions):
+def getYVal(index, path, yValueDict, image_text, texts, image_extensions, scl = 3):
 	filepath = path
 	img = cv2.imread(filepath)
-	img = cv2.resize(img, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+	img = cv2.resize(img, None, fx=scl, fy=scl, interpolation=cv2.INTER_CUBIC)
 		
 	img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 	img_height, img_width, _ = img.shape
@@ -892,7 +892,7 @@ def getYVal(index, path, yValueDict, image_text, texts, image_extensions):
 				
 		for i in range(len(groups)):
 			img = cv2.imread(filepath)
-			img = cv2.resize(img, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
+			img = cv2.resize(img, None, fx=scl, fy=scl, interpolation=cv2.INTER_CUBIC)
 		
 			img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 			legendtext = legendtexts[i]
@@ -939,7 +939,7 @@ def getYVal(index, path, yValueDict, image_text, texts, image_extensions):
 			for rect in rects:
 				list_len.append((rect, float(rect[3])))
 			# y-values will be a product of the normalize ratio and each length              
-			y_val = [(rect, round(l* normalize_ratio, 1)) for rect, l in list_len]
+			y_val = [(rect, round(l* normalize_ratio, 5)) for rect, l in list_len]
 			
 			for x_label, box in x_labels_list:
 				(x, y, w, h) = box
