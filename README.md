@@ -6,7 +6,11 @@ The goal of this project is to use existing studies to:
 This repository is structured to reflect the workflow of the project. Each folder contains its own Readme with more details.  
 
 ## Main workflow 
-**Note: Each folder contains a config_*text*.csv, where *text* is the pipeline folder. The config file controls file and folder locations, names and certain other configuration components**
+**Note**: Each folder contains its own README, which contains detailed information and tutorials on running the modules. The suggested order of modules and READMEs is: 
+1. abstracs
+2. fulltext
+3. tables
+4. figures. 
 
 **abstracts**: This folder contains the initial database-building arm of the project. It is built on a series of python scripts that scrape abstracts from [NCBI](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6821292/), train an NER utilizing [spaCy](https://spacy.io/usage/spacy-101) and [label-studio](https://labelstud.io/), provides the pipeline for initial NER training and updating, and creates a table of useful keywords from the categories used to train the NER. 
 
@@ -15,6 +19,8 @@ This repository is structured to reflect the workflow of the project. Each folde
 **fulltext**: The main code to download and parse PDFs, identify and separate text from tables and figures, and automate an initial extractions of TREATMENT and RESPONSE data from the text into tables for the analysis. The modules to train/update a second NER based on Methods sections exists here. The purpose of this second NER is largely to add in Latitude and Longitude categories and automate site extraction information from the Methods of each paper. 
 
 **tables**: Once the fulltexts have been downloaded and parsed, identify tables, identify tables that relate to TREATMENT and RESPONSE data, and extract/convert them to the meta analysis format. 
+
+ **Note**: Each folder contains a config_*text*.csv, where *text* is the pipeline folder. The config file controls file and folder locations, names and certain other configuration components
 
 ## Other folders
 **analysis_in_R**: Various R code to help parse and analyse output from scraping. This folder contains the R scripts to analyze the database, assuming it is available as several csv files. It creates output ranging from figures of variable importance (RandomForests), covariate significance and effect size (mixed-effect models), and various saved models. 
