@@ -60,7 +60,7 @@ def shutdown():
     return jsonify({"status": "shutting down"})
 
 def run_app():
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug = True)
 
-# if __name__ == '__main__':
-#     run_app()
+if __name__ == '__main__':
+    run_app()

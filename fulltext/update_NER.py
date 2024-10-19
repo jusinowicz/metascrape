@@ -37,7 +37,7 @@ def main():
 	parser.add_argument('--new', action='store_true', help='Create a new NER instead of retraining an existing one.')
 	args = parser.parse_args()
 	#Open config file
-	config_file_path = './config_abstracts.csv'
+	config_file_path = './config_fulltext.csv'
 	try:
 		config = load_config(config_file_path)
 		model_load_dir = get_config_param(config, 'model_load_dir', required=True)
@@ -79,30 +79,31 @@ def main():
 		# Prepare the data for spaCy
 		examples = []
 		for text, annotations in cleaned_data:
-		    doc = nlp.make_doc(text)
-		    example = Example.from_dict(doc, annotations)
-		    examples.append(example)
+			#print(f"This is text{text}")
+			doc = nlp.make_doc(text)
+			example = Example.from_dict(doc, annotations)
+			examples.append(example)
 
 		# Add the new labels to the NER component
 		ner = nlp.get_pipe("ner")
 		labels = set(label for _, anns in cleaned_data for _, _, label in anns["entities"])
 		for label in labels:
-		    ner.add_label(label)
+			ner.add_label(label)
 
 		# Disable other pipes for training
 		print("Annotations parsed. Begin training: ")
 		unaffected_pipes = [pipe for pipe in nlp.pipe_names if pipe != "ner"]
 		with nlp.disable_pipes(*unaffected_pipes):
-		    optimizer = nlp.resume_training()
-		    for i in range(50):  # Number of iterations
-		        print(f"Iteration {i+1}")
-		        losses = {}
-		        nlp.update(
-		            examples,
-		            drop=0.35,  # Dropout - make it harder to memorize data
-		            losses=losses,
-		        )
-		        print(losses)
+			optimizer = nlp.resume_training()
+			for i in range(50):  # Number of iterations
+				print(f"Iteration {i+1}")
+				losses = {}
+				nlp.update(
+					examples,
+					drop=0.35,  # Dropout - make it harder to memorize data
+					losses=losses,
+				)
+				print(losses)
 
 		# Save the model
 		nlp.to_disk(model_save_dir)
@@ -112,4 +113,4 @@ def main():
 		print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    main()
+	main()
