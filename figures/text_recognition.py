@@ -76,6 +76,45 @@ def detectText(path, image, image_text, img_text):
 			)
 			
 	return image
+	
+
+def detect_text_opencv(image_path):
+	# Load the image using OpenCV
+	img = cv2.imread(image_path)
+	
+	# Run Tesseract to detect text along with detailed data
+	custom_config = r'--oem 3 --psm 6'  # OCR engine mode and page segmentation mode
+	details = pytesseract.image_to_data(img, config=custom_config, output_type=Output.DICT)
+	
+	results = []
+	
+	for i in range(len(details['text'])):
+		if int(details['conf'][i]) > 0:  # Only include results with positive confidence
+			# Create a dictionary similar to the AWS output
+			detected_text_data = {
+				'DetectedText': details['text'][i],
+				'Type': 'LINE',  # Assuming line level detection, adjust if needed
+				'Id': i,
+				'Confidence': float(details['conf'][i]),
+				'Geometry': {
+					'BoundingBox': {
+						'Width': details['width'][i] / img.shape[1],  # Normalize width
+						'Height': details['height'][i] / img.shape[0],  # Normalize height
+						'Left': details['left'][i] / img.shape[1],  # Normalize left position
+						'Top': details['top'][i] / img.shape[0]  # Normalize top position
+					},
+					'Polygon': [
+						{'X': details['left'][i] / img.shape[1], 'Y': details['top'][i] / img.shape[0]},
+						{'X': (details['left'][i] + details['width'][i]) / img.shape[1], 'Y': details['top'][i] / img.shape[0]},
+						{'X': (details['left'][i] + details['width'][i]) / img.shape[1], 'Y': (details['top'][i] + details['height'][i]) / img.shape[0]},
+						{'X': details['left'][i] / img.shape[1], 'Y': (details['top'][i] + details['height'][i]) / img.shape[0]}
+					]
+				}
+			}
+			results.append(detected_text_data)
+	
+	return results
+
 
 image_text = {}
 img_text = {}
@@ -96,7 +135,7 @@ for subfolder in Path(img_dir).iterdir():
 				detectText(path, image, img_text)
 	
 with open('./json/pytess-image-text.json', 'w') as out:
-    json.dump(image_text, out)
+	json.dump(image_text, out)
 
 with open('./json/ocr-image-text.json', 'w') as out:
 	json.dump(img_text, out)

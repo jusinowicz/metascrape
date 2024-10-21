@@ -5,7 +5,7 @@
 This is a step-by-step example of how the contents of this folder (the module) can be utilized.
 
 ### 1. Keyword search
-The config_abstracts.csv file has a line *query* where the keyword query should be followed. By default, this queries the NCBI data so be sure to follow their search style. YOU WILL NEED AN NCBI KEY. The code accesses the API, for which you will need to go to the NCBI website, set up an account (it's free), and then find the access key under your account profile and enter it into the config file (ncbi_api_key). Then you can run **abstract_doi.py** which will create a table of DOIs for all of the relevant abstracts it finds (saved by default at ./../output/all_DOIs.csv).
+The config_abstracts.csv file has a line *query* where the keyword query should be entered. By default, this queries the NCBI data so be sure to follow their search style. YOU WILL NEED AN NCBI KEY. The code accesses the API, for which you will need to go to the NCBI website, set up an account (it's free), and then find the access key under your account profile and enter it into the config file (ncbi_api_key). Then you can run **abstract_doi.py** which will create a table of DOIs for all of the relevant abstracts it finds (saved by default at ./../output/all_DOIs.csv).
 
 ### 2. Create a Label Studio Project. 
 Label Studio is the core tool used in this project for training NERs. It is free to use and can be downloaded and installed on any system. Once you have made a Label Studio account and installed it, you will again need the API key which will be entered into the config file under *ls_api_key*. Before you run any of the following code to initialize, edit, or interface with your Label Studio project make sure it is running on your machine. 
@@ -35,3 +35,6 @@ The final step is to generate data with **scrape_abstracts.py,** which will run 
 
 ### 6. Analyze Abstracts
 The table of words taken from the abstracts is already useful for helping us sort and categorize papers in a more refined way. See the code in *analysis_in_R.* In particular at this stage, **abstract_table_summary.R** contains example R code that will plot papers according to certain key words. At the moment, most of the code here is used to distinguish papers that are more ecological in nature from those that are focused on agricultural or soil remediation practices. 
+
+If you would like to use the results of analyzing the abstracts to create a subset of papers which are analyzed in subsequent steps, then
+

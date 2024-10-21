@@ -20,6 +20,9 @@ save_dir = './../output/figures'
 #Definitions of images
 image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.pdf']  # Add more as needed
 
+with open('./aws-rekognition-output.json') as awshandler:
+    bb1 = json.load(awshandler)
+
 images = []
 texts = []
 yValueDict = {}
