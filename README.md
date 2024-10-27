@@ -7,7 +7,7 @@ This repository is structured to reflect the workflow of the project. Each folde
 
 ## Main workflow 
 **Note**: Each folder contains its own README, which contains detailed information and tutorials on running the modules. The suggested order of modules and READMEs is: 
-1. abstracs
+1. abstracts
 2. fulltext
 3. tables
 4. figures. 

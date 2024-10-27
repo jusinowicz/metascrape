@@ -50,7 +50,7 @@ def main():
 		PROJECT_ID = get_config_param(config, 'project_id', required=True)
 		ntasks = get_config_param(config, 'ntasks', required=True)
 		ntasks = int(ntasks)
-		print("Config_abstracts successfully loaded")
+		print("Config_fulltext successfully loaded")
 	except ConfigError as e:
 		print(f"Configuration error: {e}")
 	except Exception as e:

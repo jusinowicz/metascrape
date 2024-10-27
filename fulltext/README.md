@@ -30,7 +30,7 @@ My recommendation is to annotate at least 20 of these the first time, if you are
 
 Run **update_NER.py** which will retrain your NER on the new annotations. 
 
-Then, you can run **ls_predict_labels.py** to generate new predictions. This calls **host_NER_model.py**, which starts an instance of your NER model on the machine, then feeds the fresh text to it for predictions. Once it has made predictions, **ls_predict_labels.py** automatically uploads these to your Label Studio project for your convenience. 
+Then, you can run the updated NER model to generate predictions. Open another terminal or command window and run **host_NER_model.py** (i.e. py -3.8 host_NER_model.py). Then, once the server has been started (you will see output in the terminal), switch to your original terminal and run **ls_predict_labels.py** to generate new predictions. This feeds the fresh text to the NER for predictions. Once it has made predictions, **ls_predict_labels.py** automatically uploads these to your Label Studio project for your convenience. 
 
 The models in *models/* have been trained on 200+ Methods sections in addition to the 800+ that the abstracts NER starts with. Its error rate is fairly low already at this threshold (<10%). 
 
