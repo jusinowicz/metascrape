@@ -1,295 +1,46 @@
-# ChartReader
-Fully automated end-to-end framework to extract data from bar plots and other figures in scientific research papers using modules such as OpenCV, AWS-Rekognition for text detection in images.
+# Fulltext scraping
+**This folder contains**: code for downloading full text PDFs from WOS and NCBI, parsing full text PDFs into text blocks by section, figures, and tables, parsing text based on labels defined in Label Studio, training an NER, updating an NER, and attempting to scrape variable TREATMENT and RESPONSE data from the main text which is output as a csv table in output, e.g. /output/extract_from_text1.csv (see config_fulltext.csv to change this). 
 
-## Figure extraction
-pdffigures2 is used to extract/download images (charts + tables) from the research papers.
+## How to use this module
+This is a step-by-step example of how the contents of this folder (the module) can be utilized.
 
-## Image set
-Bar plots used are here: https://drive.google.com/drive/u/1/folders/154sgx3M49NoKOoOjoppsSuvqd2WzqZqX
+### 1.Keyword search and get full texts
+The config_fulltext.csv file has a line *query* where the keyword query should be entered. By default, this queries the NCBI data so be sure to follow their search style. YOU WILL NEED AN NCBI KEY. The code accesses the API, for which you will need to go to the NCBI website, set up an account (it's free), and then find the access key under your account profile and enter it into the config file (ncbi_api_key). Then you can run **get_fulltexts.py** which will create a table of DOIs for all of the relevant abstracts it finds (saved by default at ./../output/all_DOIs.csv).
 
-## Chart classification (Accuracy: 84.08%)
-### Data preparation
-<b> Step 1: </b> ``google_images_download`` python module is used to download google images for each type of chart: Area chart, Line chart, bar plot, pie chart, venn diagram etc. based on their corresponding keywords.
+There is an alternative file for Web of Science (WOS) called **get_fulltexts_WOS.R** to try the same search. This is more effective if you are on internet with institutional access. 
 
-```
-$ git clone https://github.com/Joeclinton1/google-images-download.git
-$ cd google-images-download && python setup.py install
-```
+### 2. Create a Label Studio Project. 
+Even if you have already done this for the Abstracts you should do it a second time here. This is to pull labeled text from sections of the full text that are not likely to appear in abstracts. For example, I have discovered that site Lat/Lon almost never appears in the abstract, yet this can often be an important category of information to extract from a study. For the purpose of the study here, the second Label Studio project is almost identical to the first one created for Abstracts, but contains the two additonal labels LAT and LON. 
 
-<b> Step 2: </b> The downloaded images are carefully reviewed and the incorrect images are removed.
+As with the abstracts, Label Studio is the core tool used in this project for training NERs. It is free to use and can be downloaded and installed on any system. Follow the general information for Label Studio found in the README in the **abstracts** folder. 
 
-The following are the training data used, and model files.
-<br>training corpus: https://drive.google.com/drive/u/1/folders/1M8kwdQE7bpjpdT08ldBURFdzLaQR9n5h
-<br>model: https://drive.google.com/drive/u/1/folders/1GVW_MtFFYT-Tj44p0_QLKM7hVnn_AcKI
+Create a second Label Studio project and name it, and then make sure you keep track of the project ID. Then in the config file, find the *project_id* line and enter it here. This will be different than the ID you created for the Abstracts. 
 
-Below is the count of images for each type:
-<table>
-<tr>
-<td>
+The file *label_config.xml* again needs to be set up for the labels in your project. The default one for this project is already configured. Feel free to use it, or use it as a template by adding or removing entries. 
 
-| Plot type     | Count         |
-| ------------- |:-------------:|
-| BarGraph      |   528         |
-| VennDiagram   |   364         |
-| PieChart      |   355         |
-| ScatterGraph  |   335         |
+The first time that you run this module, run **ls_make_labels.py** which needs the LS_API_KEY, LABEL_STUDIO_URL, PROJECT_ID so be sure these are set. Running this for the first time will create the label structure in your Label Studio project. You should see this once you refresh the project. 
 
-</td>
-<td>
+### 3. Add fulltext sections to Label Studio
+Next, run **ls_new_sections.py** which will access the downloaded PDFs, parse them into sections, identify the sections you want to use/train the NER on (only using the Methods by default), and finally upload these text blocks to your Label Studio project. 
 
-| Plot type     | Count         |
-| ------------- |:-------------:|
-| TreeDiagram   |   297         |
-| FlowChart     |   293         |
-| Map           |   276         |
-| ParetoChart   |   329         |
+Now switch over again to the Label Studio project. Again, if you have not annotated before I suggest you check out a brief tutorial on using Label Studio. Now you will annotate the blocks of Methods text that should now appear in your project. As you scroll through a text block, highlight words that you would like the model to recognize as one of your chosen labels. Note, the models only work with 1:1 correspondence, so don't try to label a word with multiple labels. 
 
-</td>
-<td>
+### 4. Label, update NER, predict labels, repeat
+My recommendation is to annotate at least 20 of these the first time, if you are starting from scratch. Be default, starting from scratch actually means that you are training from the NER model trained on Abstracts. So for the most part training should proceed much faster. Train/update the first Methods NER. Then use the trained NER  for labelling by generating predictions, which will appear in label studio. As you continue to label more text you will see the predictions get better and better, and as they get better you will spend less of your own time correcting the labels. 
 
-| Plot type     | Count         |
-| ------------- |:-------------:|
-| BubbleChart   |   311         |
-| LineGraph     |   300         |
-| AreaGraph     |   299         |
-| NetworkDiagram|   321         |
-| BoxPlot       |   312         |
+Run **update_NER.py** which will retrain your NER on the predictions. 
 
-</td>
-</tr>
-</table>
+Then, you can run **ls_predict_labels.py** to generate new predictions. This calls **host_NER_model.py**, which starts an instance of your NER model on the machine, then feeds the fresh text to it for predictions. Once it has made predictions, **ls_predict_labels.py** automatically uploads these to your Label Studio project for your convenience. 
 
-### Training phase:
-pretrained models VGG-19, ResNet152V2, InceptionV3, EfficientNetB3 are used to train the images, and is run on the test images to classify the images to 13 different types such as Bar chart, Line graph, Pie chart etc.
+The models in *models/* have been trained on 200+ Methods sections in addition to the 800+ that the abstracts NER starts with. Its error rate is fairly low already at this threshold (<10%). 
 
-The accuracy is calculated using stratified five-fold cross validation. The accuracy of the models are given below in the table. We see that the accuracy is around 84% for all the models used to train the data. The following are the training accuracy and loss curves captured during the training phase for each fold of cross validation.
+### 5. Scrape Treatments and Responses
+The final step is to generate data with **scrape_responses.py,** which will run through the fulltext, label words, categorize them and attempt to identify response and treatment relationships through analysis of sentence syntax. The code attempts to automatically sort the extracted data into a table and output to /output/extracted_from_text1.csv  
 
-<table>
-  <tr>
-    <td>Model</td>
-    <td>Training parameters</td>
-    <td>Accuracy</td>
-  </tr>
-  <tr>
-    <td>VGG-19</td>
-    <td>47,736,845</td>
-    <td>84.08% (+/- 0.49%)</td>
-  </tr>
-  <tr>
-    <td>ResNet152V2</td>
-    <td>143,428,621</td>
-    <td>83.54% (+/- 1.19%)</td>
-  </tr>
-  <tr>
-    <td>InceptionV3</td>
-    <td>91,358,605</td>
-    <td>84.53% (+/- 1.61%)</td>
-  </tr>
-  <tr>
-    <td>EfficientNetB3</td>
-    <td>107,331,693</td>
-    <td>84.53% (+/- 0.92%)</td>
-  </tr>
-</table>
+Here is an overview of the table: 
+- The final output is a df/CSV with columns STUDY, TREATMENT, RESPONSE, CARDINAL, PERCENTAGE, SENTENCE, ISTABLE. There are separate columns for CARDINAL (a numeric) response) and PERCENTAGE because the NER recognizes them separately. This is useful because it helps determine whether actual units of biomass response are being identified or the ratio of response (percentage). 
 
-<h3 align="center">
-  <img src="images/accuracy-curve1.png" width="800">
-</h3>
+- SENTENCE is the sentence that was parsed for the information in the table ISTABLE is a numeric ranking from 0-2 which suggests how likely it is that the the parsed information came from a table that the pdf-parsing grabbed. If the text is grabbed from a table the results are most definitely not to be trusted. So anything that is a 2 should be a hard reject, a 0 is fairly trustoworthy, and a 1 will probably require human assessment. 
 
-<h3 align="center">
-  <img src="images/accuracy-curve2.png" width="800">
-</h3>
+- This table is meant to help determine what information is available in the paper and indicate whether further downstream extraction is necessary. 
 
-<h3 align="center">
-  <img src="images/accuracy-curve3.png" width="800">
-</h3>
-
-<h3 align="center">
-  <img src="images/accuracy-curve4.png" width="800">
-</h3>
-
-<h3 align="center">
-  <img src="images/accuracy-curve5.png" width="800">
-</h3>
-
-### Results (predictions on test data)
-The following are 100 randonly picked images which are predicted as bar plots. Highlighted images (6 in number out of 100 randomly picked) are incorrectly classified as bar plots.
-
-<h3 align="center">
-  <img src="images/BarplotPrediction.png" width="1000">
-</h3>
-
-## Axes Detection (Accuracy: 80.22%) [1006/1254 correct]
-1. Firstly, the image is converted into black and white image, then the max-continuous ones along each row and each column are obtained.
-2. Next, for all columns, the maximum value of the max-continuous 1s is picked.
-3. A certain threshold (=10) is assumed, and the first column where the max-continuous 1s falls in the region [max - threshold, max + threshold] is the y-axis.
-4. Similar approach is followed for the x-axis, but the last row is picked where the max-continuous 1s fall in the region [max - threshold, max + threshold]
-
-
-We experimented with threshold values of 0, 5, 10, 12 and found that threshold value of 10 gives better results for axes detection. Table below shows the accuracy of axes detection with varying threshold values.
-
-<table>
-  <tr>
-    <td>Threshold</td>
-    <td>0</td>
-    <td>5</td>
-    <td>10</td>
-    <td>12</td>
-  </tr>
-  <tr>
-    <td>Accuracy (%)</td>
-    <td>73.2</td>
-    <td>78.8</td>
-    <td>80.22</td>
-    <td>79.26</td>
-  </tr>
-</table>
-
-<h3 align="center">
-  <img src="images/AxesDetectionExample1.png" width="800">
-</h3>
-<h3 align="center">
-  <img src="images/AxesDetectionExample2.png" width="800">
-</h3>
-
-### Results
-Both x and y axes are detected correctly for 1006 images out of 1254 images (test data set). Below are some of the failed cases in axes detection.
-
-<h3 align="center">
-  <img src="images/AxesDetectionResult.png" width="800">
-</h3>
-
-## Text detection
-Amazon Rekognition is used to detect text in the image. [DetectText](https://docs.aws.amazon.com/rekognition/latest/dg/API_DetectText.html) API is used for detecting text. Only the text with confidence >= 80 are considered.
-
-### Double-pass algorithm for text detection
-To improve text detection, double-pass algorithm is employed.
-1. Text detection using detect_text AWS Rekognition API, and considered only the text boxes for which confidence >= 80
-2. Fill the polygons corresponding to these text with white color
-3. Run text detection (2nd pass) on the new image, and consider only the ones with confidence >= 80
-
-<h3 align="center">
-  <img src="images/DoublePassAlgorithm.png" width="800">
-</h3>
-
-### Bounding Box calculation
-There is an [issue](https://forums.aws.amazon.com/thread.jspa?threadID=325482&tstart=0) with bounding box for vertical text or text with an angle. Therefore, bounding box is calculated from the polygon coordinates (or vertices) from the AWS Rekognition output. 
-
-## Label Detection
-### X-labels:
-1. Filter the text boxes which are below the x-axis(, and to the right of y-axis).
-2. Run a sweeping line from x-axis (detected by axes detection algorithm) to the bottom of the image, and check when the sweeping line intersects with the maximum number of text boxes.
-3. This maximum intersection gives the bounding boxes for all of the x-labels.
-    
-![](images/LabelDetectionExample.gif)
-
-### X-text
-1. Filter the text boxes which are below the x-labels
-2. Run a sweeping line from x-labels to the bottom of the image, and check when the sweeping line intersects with the maximum number of text boxes.
-3. This maximum intersection gives all the bounding boxes for all the x-text.
-
-### Y-labels:
-1. Filter the text boxes which are to the left of y-axis.
-2. Run a sweeping line from y-axis and start moving towards the left, and check when the sweeping line intersects with the maximum number of text boxes.
-3. Pick these text boxes where there was maximum intersection, and filter them further using python regex to detect only numeric values.
-
-### Y-text:
-1. Filter the text boxes which are to the left of y-axis.
-2. The remaining text boxes that are not classified as y-labels will be considered as y-text.
-
-## Legend detection
-1. Filter the text boxes that are above the x-axis, and to the right of y-axis.
-2. Clean the text to remove 'I'. These are obtained since error bars in the charts are detected as 'I' by AWS Rekognition OCR API(s).
-3. Use an appropriate regex to disregard the numerical values. These are mostly the ones which are there on top of the bars to denote the bar value.
-4. Now merge the remaining text boxes (with x-value threshold of 10) to make sure all the multi-word legends are part of a single bounding box.
-5. Group bounding-boxes in such a way that each member in the group is either horizontally or vertically aligned to atleast one other member in the group.
-6. The maximum length group from all the groups obtained in Step 5 gives the bounding boxes for all the legends.
-7. Legend text can be parsed and obtained from these bounding boxes.
-
-## Data extraction
-### Value-tick ratio calculation: 
-This ratio is used to calculate the y-values from each bar-plot using the pixel projection method. Y-axis ticks are detected by left-bounding boxes to the y-axis.
-
-Since the text detection (numeric values) isn't perfect, once the pixel values for the ticks and actual y-label texts are obtained, the outliers are removed by assuming a normal distribution and whether the values deviate very much. Then, the mean distance between the ticks is calculated. Further, the mean value of the actual y-label ticks is calculated. Finally, the value-tick ratio is calculated by:
-
-<h3 align="center">
-  <img src="images/equation2.gif">
-</h3>
-
-### Pattern (or color) estimation
-1. As an initial step, all the bounding boxes for the text in the image are whitened.
-2. Convert the resulting image into a binary image.
-3. Find contours (and bounding rectangles) in the resulting image.
-4. For each legend, find the nearest bounding box to the left and on the same height as the legend.
-5. Now in the original image, find the major color (or pattern) from the nearest bounding box obtained for each legend in Step 4.
-
-### Getting bar plot for each legend
-1. All the pixel values of the image are divided into clusters. Prior to clustering, all the white pixels are removed, and the bounding boxes found by above procedure for each legend are whitened. 
-2. The number of clusters are determined by the number of legends detected. The colors finalized in the above procedure form the initial clusters.
-3. We then simplify the given plot into multiple plots (one per each cluster). These plots would be a simple bar plot. i.e.., by clustering we convert a stacked bar chart into multiple simpler bar plots.
-4. We then get the contours for the plot, and subsequently bounding rectangles for the contours determined.
-5. For each label, the closest bounding rectangle is picked.
-6. The height of each bounding box is recorded by the help of the merging rectangles obtained by the above procedure. This ratio is used to further calculate the y-values :
-
-<h3 align="center">
-  <img src="images/equation1.gif">
-</h3>
-
-Below shows data extraction results on an image.
-
-<h3 align="center">
-  <img src="images/DataExtractionExample.png">
-</h3>
-
-## Reporting results
-The results (axes, legends, labels, values, captions and file-names) are written to the Excel sheet.
-
-Table below shows the evaluation metrics.
-
-<table>
-  <tr>
-    <td>Parameter</td>
-    <td>Accuracy</td>
-    <td>True Positive Rate</td>
-  </tr>
-  <tr>
-    <td>Legends</td>
-    <td>0.8054</td>
-    <td>0.8054</td>
-  </tr>
-  <tr>
-    <td>X-axis ticks</td>
-    <td>0.9755</td>
-    <td>0.9755</td>
-  </tr>
-  <tr>
-    <td>Y-axis ticks</td>
-    <td>0.6815</td>
-    <td>0.6815</td>
-  </tr>
-  <tr>
-    <td>height/value ratio</td>
-    <td>0.8919</td>
-    <td>0.8919</td>
-  </tr>
-  <tr>
-    <td>Y-axis label</td>
-    <td>0.7758</td>
-    <td>0.7758</td>
-  </tr>
-  <tr>
-    <td>X-axis label</td>
-    <td>0.7129</td>
-    <td>0.7129</td>
-  </tr>
-  <tr>
-    <td>Data correlation</td>
-    <td>0.6470</td>
-    <td>0.7504</td>
-  </tr>
-  <tr>
-    <td>Data values</td>
-    <td>0.2158</td>
-    <td>0.4095</td>
-  </tr>
-</table>

@@ -26,9 +26,9 @@ Next, run **ls_new_sections.py** which will access the downloaded PDFs, parse th
 Now switch over again to the Label Studio project. Again, if you have not annotated before I suggest you check out a brief tutorial on using Label Studio. Now you will annotate the blocks of Methods text that should now appear in your project. As you scroll through a text block, highlight words that you would like the model to recognize as one of your chosen labels. Note, the models only work with 1:1 correspondence, so don't try to label a word with multiple labels. 
 
 ### 4. Label, update NER, predict labels, repeat
-My recommendation is to annotate at least 20 of these the first time, if you are starting from scratch. Be default, starting from scratch actually means that you are training from the NER model trained on Abstracts. So for the most part training should proceed much faster. Train/update the first Methods NER. Then use the trained NER  for labelling by generating predictions, which will appear in label studio. As you continue to label more text you will see the predictions get better and better, and as they get better you will spend less of your own time correcting the labels. 
+My recommendation is to annotate at least 20 of these the first time, if you are starting from scratch. By default, starting from scratch actually means that you are training from the NER model trained on Abstracts. So for the most part training should proceed much faster. Train/update the first Methods NER. Then use the trained NER  for labelling by generating predictions, which will appear in label studio. As you continue to label more text you will see the predictions get better and better, and as they get better you will spend less of your own time correcting the labels. 
 
-Run **update_NER.py** which will retrain your NER on the predictions. 
+Run **update_NER.py** which will retrain your NER on the new annotations. 
 
 Then, you can run **ls_predict_labels.py** to generate new predictions. This calls **host_NER_model.py**, which starts an instance of your NER model on the machine, then feeds the fresh text to it for predictions. Once it has made predictions, **ls_predict_labels.py** automatically uploads these to your Label Studio project for your convenience. 
 

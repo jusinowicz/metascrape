@@ -24,7 +24,7 @@ Now switch over again to the Label Studio project. Here, I suggest you check out
 ### 4. Label, update NER, predict labels, repeat
 My recommendation is to annotate about 50 of these the first time, if you are starting from scratch. Then you can train/update your first NER. The trained NER is extremely helpful for labelling because you can use it to generate predictions, which will appear in label studio. Then as you continue to label more abstracts you will see the predictions get better and better, and as they get better you will spend less of your own time correcting the labels. 
 
-Run **update_NER.py** which will retrain your NER on the predictions. If this is the FIRST TIME you run this and you are not using the custom NERs here, or there is some other reason you would like to start from scratch, run update_NER.py with the *--new* flag (py -3.8 update_NER.py --new) to have the program start with a default, publicly available NER. 
+Run **update_NER.py** which will retrain your NER on the annotations. If this is the FIRST TIME you run this and you are not using the custom NERs here, or there is some other reason you would like to start from scratch, run update_NER.py with the *--new* flag (py -3.8 update_NER.py --new) to have the program start with a default, publicly available NER. 
 
 Then, you can run **ls_predict_labels.py** to generate new predictions. This calls **host_NER_model.py**, which starts an instance of your NER model on the machine, then feeds the fresh abstracts to it for predictions. Once it has made predictions, **ls_predict_labels.py** automatically uploads these to your Label Studio project for your convenience. 
 

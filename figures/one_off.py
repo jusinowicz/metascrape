@@ -18,7 +18,7 @@ from text_utils import filterBbox, boxGroup, mergeRects, RectDist, lineIntersect
 image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.pdf']  # Add more as needed
 
 #Default image scale
-scl = 5
+scl = 1
 
 with open('./aws-rekognition-output.json') as awshandler:
 	bb1 = json.load(awshandler)
@@ -281,13 +281,13 @@ for i in range(len(groups)):
 	# 	continue
 	
 	contours = [cv2.approxPolyDP(contour, 3, True) for contour in contours]
-	print(f"This is rects 1 {len(rects)}")
+	#print(f"This is rects 1 {len(rects)}")
 	rects = mergeRects(contours)
-	print(f"This is rects 2 {len(rects)}")
+	#print(f"This is rects 2 {len(rects)}")
 	#height_threshold = 0.5 * max([rect[3] for rect in rects])  # 20% of the max height
-	height_threshold = statistics.median([rect[3] for rect in rects])
-	rects = [rect for rect in rects if rect[3] >= height_threshold]	
-	print(f"This is rects 3{len(rects)}")
+	#height_threshold = statistics.median([rect[3] for rect in rects])
+	#rects = [rect for rect in rects if rect[3] >= height_threshold]	
+	#print(f"This is rects 3{len(rects)}")
 	
 	textBoxes = []
 	labels = []
@@ -397,7 +397,7 @@ def showRecs(filepath, legendtexts, groups, scl=scl):
 			# 		filtered_rects.append((x, y, w, h))
 					
 		# Post-process contours (e.g., mergeRects function)
-		rects = mergeRects(filtered_rects, mode='rects')
+		#rects = mergeRects(filtered_rects, mode='rects')
 		
 		# Sort rectangles by height (h), descending order
 		rects.sort(key=lambda rect: rect[3], reverse=True)
