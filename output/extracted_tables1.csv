@@ -1,0 +1,456 @@
+STUDY,TREATMENT,RESPONSE,CARDINAL,PERCENTAGE,SENTENCE,ISTABLE
+33143245.14,ck,dry weight,1.28  0.03,,root dry weight g,99
+33143245.14,m,dry weight,1.41  0.058,,root dry weight g,99
+33143245.14,ss,dry weight,0.71  0.029,,root dry weight g,99
+33143245.14,ms,dry weight,0.85  0.06,,root dry weight g,99
+33143245.14,ck,dry weight,0.18  0.02,,shoot dry weight g,99
+33143245.14,m,dry weight,0.22  0.048,,shoot dry weight g,99
+33143245.14,ss,dry weight,0.10  0.02,,shoot dry weight g,99
+33143245.14,ms,dry weight,0.14  0.03,,shoot dry weight g,99
+32046366.3,plant species x amf,biomass,0.62,,total biomass f 291.01 0.84 12.73 0.78,99
+32046366.3,earthworm x amf,biomass,0.34,,total biomass f 291.01 0.84 12.73 0.78,99
+32046366.3,plant species x earthworm x amf,biomass,1.83,,total biomass f 291.01 0.84 12.73 0.78,99
+32046366.3,residuals ms,biomass,0.05,,total biomass f 291.01 0.84 12.73 0.78,99
+32046366.3,plant species x amf,biomass,,,total biomass p oe ok a tr,99
+32046366.3,earthworm x amf,biomass,,,total biomass p oe ok a tr,99
+32046366.3,plant species x earthworm x amf,biomass,,,total biomass p oe ok a tr,99
+32046366.3,residuals ms,biomass,,,total biomass p oe ok a tr,99
+32046366.3,plant species x amf,biomass,,,total biomass nan pl t,99
+32046366.3,earthworm x amf,biomass,,,total biomass nan pl t,99
+32046366.3,plant species x earthworm x amf,biomass,,,total biomass nan pl t,99
+32046366.3,residuals ms,biomass,,,total biomass nan pl t,99
+32046366.3,plant species x amf,biomass,0.28,,root biomass f 4.4 0.41 13.29 0.19,99
+32046366.3,earthworm x amf,biomass,0.06,,root biomass f 4.4 0.41 13.29 0.19,99
+32046366.3,plant species x earthworm x amf,biomass,3.51,,root biomass f 4.4 0.41 13.29 0.19,99
+32046366.3,residuals ms,root biomass,0.2,,root biomass f 4.4 0.41 13.29 0.19,99
+32046366.3,plant species x amf,root biomass,,,root biomass p  or rk t 12.01,99
+32046366.3,earthworm x amf,root biomass,,,root biomass p  or rk t 12.01,99
+32046366.3,plant species x earthworm x amf,root biomass,,,root biomass p  or rk t 12.01,99
+32046366.3,residuals ms,root biomass,,,root biomass p  or rk t 12.01,99
+32046366.3,plant species x amf,root biomass,0.32,,shoot biomass f 532.75 1.01 1.11,99
+32046366.3,earthworm x amf,root biomass,0.04,,shoot biomass f 532.75 1.01 1.11,99
+32046366.3,plant species x earthworm x amf,root biomass,0.93,,shoot biomass f 532.75 1.01 1.11,99
+32046366.3,residuals ms,root biomass,0.04,,shoot biomass f 532.75 1.01 1.11,99
+32046366.3,plant species x amf,root biomass,,,shoot biomass p or obr,99
+32046366.3,earthworm x amf,biomass,,,shoot biomass p or obr,99
+32046366.3,plant species x earthworm x amf,biomass,,,shoot biomass p or obr,99
+32046366.3,residuals ms,biomass,,,shoot biomass p or obr,99
+32046366.3,plant species x amf,biomass,,,shoot biomass nan pl t,99
+32046366.3,earthworm x amf,biomass,,,shoot biomass nan pl t,99
+32046366.3,plant species x earthworm x amf,biomass,,,shoot biomass nan pl t,99
+32046366.3,residuals ms,biomass,,,shoot biomass nan pl t,99
+34068692.6,,albareda,maurice et al. 2001,,reference afzal et al. 2012ém 2001 amein and weber 2002 et al. 2004 et al. 2003 2004 et al. 2006 and kumar 2002 et al. 2001 2006 carrillogarcia et al. 2000 domingueznufiez et al. 2012 2007 et al. 2003 et al. albareda et al. 2008,99
+35958223,tl,dry weight,0.600.17,,root dry weight g,99
+35958223,t2,dry weight,0.80 0.05,,root dry weight g,99
+35958223,t3,dry weight,0.80 0.45,,root dry weight g,99
+35958223,t4,dry weight,2.2140.1,,root dry weight g,99
+35958223,ftest,dry weight,ak,,root dry weight g,99
+37367613.1,,biomass,1.96  0.05,,biomass gpot1 stem dry weight 1.55  0.06,99
+37367613.1,,biomass,1.15  0.06,,biomass gpot1 stem dry weight 1.55  0.06,99
+37367613.1,,biomass,3.60 0.10,,root dry weight 3.42  0.08,99
+37367613.1,,dry weight,2.60  0.06,,root dry weight 3.42  0.08,99
+37367613.1,,biomass,1.40  0.03,,biomass gpot1 stem dry weight 1.51  0.06,99
+37367613.1,,biomass,1.77  0.05,,biomass gpot1 stem dry weight 1.51  0.06,99
+37367613.1,,biomass,0.62  0.04,,biomass gpot1 stem dry weight 1.51  0.06,99
+37367613.1,,biomass,3.12  0.10,,root dry weight 3.13  0.07,99
+37367613.1,,dry weight,3.51  0.06,,root dry weight 3.13  0.07,99
+37367613.1,,dry weight,1.99  0.08,,root dry weight 3.13  0.07,99
+37367613.1,,biomass,0.55  0.02,,biomass gpot1 stem dry weight 1.27  0.06,99
+37367613.1,,biomass,1.38  0.06,,biomass gpot1 stem dry weight 1.27  0.06,99
+37367613.1,,biomass,1.86  0.07,,root dry weight 2.49 0.10,99
+37367613.1,,dry weight,2.63  0.08,,root dry weight 2.49 0.10,99
+37367613.1,as,biomass,0.806 0.588,,biomass,99
+37367613.1,mda,biomass,0.923,,biomass,99
+37367613.1,npt,biomass,0.584,,biomass,99
+37367613.1,cat,biomass,0.244,,biomass,99
+37367613.1,pod,biomass,0.537,,biomass,99
+37367613.1,sod,biomass,0.725,,biomass,99
+34579480.6,rizotech,yield,520.8,,marketable fruits yield g per plant mycorrhizalbased formulate,99
+34579480.6,myco apply,yield,536.2,,marketable fruits yield g per plant mycorrhizalbased formulate,99
+34579480.6,rizotech,yield,24.0,,nan mean weight g mycorrhizalbased formulate,99
+34579480.6,myco apply,mean weight,24.3,,nan mean weight g mycorrhizalbased formulate,99
+34579480.6,1.57,yield,373.6,,marketable fruits yield g per plant 395.8,99
+34579480.6,1.57,yield,21.3,,nan mean weight g 21.7,99
+34579480.6,4.57,yield,568.0,,marketable fruits yield g per plant 509.4,99
+34579480.6,6.07,yield,485.9,,marketable fruits yield g per plant 509.4,99
+34579480.6,4.57,yield,24.7,,nan mean weight g 24.0,99
+34579480.6,6.07,mean weight,23.2,,nan mean weight g 24.0,99
+32143469.4,annuals and biennials,biomass,61.699,,relative biomass ,99
+32143469.4,,biomass,0.084,,relative biomass ,99
+32143469.4,,biomass,0.024,,relative biomass ,99
+32143469.4,,biomass,0.018,,relative biomass ,99
+32143469.4,,biomass,0.014,,relative biomass ,99
+32143469.4,,biomass,0.001,,relative biomass ,99
+32143469.4,,biomass,0.391,,relative biomass ,99
+32143469.4,,biomass,0.216,,relative biomass ,99
+32143469.4,,biomass,0.001,,relative biomass ,99
+32143469.4,,biomass,1.838,,relative biomass ,99
+32143469.4,,biomass,0.343,,relative biomass ,99
+32143469.4,,biomass,0.032,,relative biomass ,99
+32143469.4,perennial forbs,biomass,1.115,,relative biomass ,99
+32143469.4,,biomass,0.719,,relative biomass ,99
+32143469.4,,biomass,0.023,,relative biomass ,99
+32143469.4,,biomass,0.262,,relative biomass ,99
+32143469.4,,biomass,0.192,,relative biomass ,99
+32143469.4,,biomass,1.096,,relative biomass ,99
+32143469.4,,biomass,0.202,,relative biomass ,99
+32143469.4,,biomass,0.067,,relative biomass ,99
+32143469.4,,biomass,0.001,,relative biomass ,99
+32143469.4,,biomass,0.001,,relative biomass ,99
+32143469.4,,biomass,4.079,,relative biomass ,99
+32143469.4,,biomass,0.053,,relative biomass ,99
+32143469.4,,biomass,0.082,,relative biomass ,99
+32143469.4,perennial rhizome grasses perennial bunch grasses shrubs and semishrubs,biomass,0.278 0.894 23.215 0.445 1.987,,relative biomass ,99
+32143469.4,,biomass,0.617,,relative biomass ,99
+35615141,amf,biomass,3.60  0.79,,shoot biomass gpot,99
+35615141,ami,biomass,0.65  0.15,,shoot biomass gpot,99
+35615141,ck,biomass,0.04  0.01,,shoot biomass gpot,99
+35615141,amf,biomass,1.32  0.29,,root biomass gpot1,99
+35615141,ami,root biomass,0.29  0.09,,root biomass gpot1,99
+35615141,ck,root biomass,0.03  0.01,,root biomass gpot1,99
+35615141,amf,root biomass,4.9323  1.05,,individual plant biomass gpot,99
+35615141,ami,root biomass,0.9459  0.24,,individual plant biomass gpot,99
+35615141,ck,plant biomass,0.0684  0.02,,individual plant biomass gpot,99
+32604987.8,control,yield,110311.1,,yield kg ha soybean,99
+32604987.8,se as selenate,yield,145219.7,,yield kg ha soybean,99
+32604987.8,control,yield,347716.3,,yield kg ha potato dw,99
+32604987.8,se as selenate,yield,307122.1,,yield kg ha potato dw,99
+32604987.8,control,yield,213314.7,,yield kg ha canola,99
+32604987.8,se as selenate,yield,155822.5,,yield kg ha canola,99
+32604987.8,control,yield,267520.4,,yield kg ha cabbage dw,99
+32604987.8,se as selenate,yield,320518.9,,yield kg ha cabbage dw,99
+32604987.8,zn,yield,174927.0,,yield kg ha 119226.9,99
+32604987.8,i,yield,163621.6,,yield kg ha 119226.9,99
+32604987.8,sezni,yield,134424.6,,yield kg ha 119226.9,99
+32604987.8,zn,yield,342418.0,,yield kg ha 34619.5,99
+32604987.8,i,yield,319123.4,,yield kg ha 34619.5,99
+32604987.8,sezni,yield,316113.8,,yield kg ha 34619.5,99
+32604987.8,zn,yield,260412.8,,yield kg ha nan,99
+32604987.8,i,yield,228316.1,,yield kg ha nan,99
+32604987.8,sezni,yield,181520.3,,yield kg ha nan,99
+32604987.8,zn,yield,184115.4,,yield kg ha 364413.9,99
+32604987.8,i,yield,144125.2,,yield kg ha 364413.9,99
+32604987.8,sezni,yield,158714.7,,yield kg ha 364413.9,99
+32604987.8,,biomass,10080 13.2,,biomass kg ha,99
+32604987.8,4 0.23,biomass,8737 8.6,,biomass kg ha,99
+32604987.8,20  0.45,biomass,9314 6.4,,biomass kg ha,99
+32604987.8,30  0.68,biomass,10123 10.4,,biomass kg ha,99
+32604987.8,46 0.91,biomass,9538 9.4,,biomass kg ha,99
+32604987.8,60  1.14,biomass,9092 14.1,,biomass kg ha,99
+32604987.8,,biomass,4182 12.3,,grain yield kg ha,99
+32604987.8,4 0.23,yield,3658 9.8,,grain yield kg ha,99
+32604987.8,20  0.45,yield,3950 6.9,,grain yield kg ha,99
+32604987.8,30  0.68,yield,4278 9.2,,grain yield kg ha,99
+32604987.8,46 0.91,yield,4080 8.8,,grain yield kg ha,99
+32604987.8,60  1.14,yield,3846 13.6,,grain yield kg ha,99
+34209987.1,control,dry mass,1.19,,root dry mass g,99
+34209987.1,amf1,dry mass,1.23,,root dry mass g,99
+34209987.1,amef2,dry mass,1.26,,root dry mass g,99
+34209987.1,amef3,dry mass,1.29,,root dry mass g,99
+34209987.1,f,dry mass,1.08,,root dry mass g,99
+34209987.1,control,dry mass,4.978,,fresh weight g,99
+34209987.1,amf1,weight,4.748,,fresh weight g,99
+34209987.1,amef2,weight,4.8,,fresh weight g,99
+34209987.1,amef3,weight,499.0,,fresh weight g,99
+34209987.1,f,weight,1.71,,fresh weight g,99
+34209987.1,control,weight,2.01,,dry stem weight g,99
+34209987.1,amf1,weight,2.2,,dry stem weight g,99
+34209987.1,amef2,stem weight,2.3,,dry stem weight g,99
+34209987.1,amef3,stem weight,2.44,,dry stem weight g,99
+34209987.1,f,stem weight,19.7,,dry stem weight g,99
+34209987.1,amf20,dry mass,0.4935,,root dry mass g,99
+34209987.1,seedling index,dry mass,0.4462,,root dry mass g,99
+34209987.1,amf20,dry mass,0.1564 9,,fresh weight g,99
+34209987.1,seedling index,weight,0.4793,,fresh weight g,99
+34209987.1,amf20,weight,0.9019,,dry stem weight g,99
+34209987.1,seedling index,weight,0.6476,,dry stem weight g,99
+33143245.2,,biomass,,,introduction of symbiosis i nan biomass and,99
+33143245.2,,biomass,7.3.,,introduction of symbiosis i nan biomass and,99
+33143245.2,,biomass,,,introduction of symbiosis i nan biomass and,99
+33143245.2,,biomass,9.2.,,introduction of symbiosis i nan biomass and,99
+33143245.2,,biomass,eee ee ee 12,,introduction of symbiosis i nan biomass and,99
+33143245.2,,biomass,,,introduction of symbiosis i nan biomass and,99
+33143245.2,,biomass,,,introduction of symbiosis i nan biomass and,99
+33143245.2,,biomass,,,introduction of symbiosis i nan biomass and,99
+33143245.2,,biomass,references,,introduction of symbiosis i nan biomass and,99
+33143245.2,,growth,pathogen resistance,, growth and development,99
+33143245.2,atcngc3,growth,distribute and translocate ion from xylem translocate na within embryo pathogen resistance,, growth and development,99
+35335116.5,drough,responses,enhanced leaf proline photosynthesis leaf area index relative growth rate fresh weight and dry weight of seeds increased hyphal length hyphal water absorption rate and leaf water potential,,observed responses,99
+35335116.5,drough,responses,,,observed responses,99
+35335116.5,drough,responses,alleviated drought impact and increased turgor potential p and mineral uptake,,observed responses,99
+35335116.5,drough,responses,ncreased plant growth parameters and total chlorophyll pigments,,observed responses,99
+35335116.5,drough,responses,ncreased shoot dry matter stomatal conductance lipid peroxidation ho in shoot and root,,observed responses,99
+35335116.5,drough,responses,ncreased osmotic potential chlorophyll content and luorescence activities of antioxidant enzymes ascorbic acid enzymes of n and p metabolism and contents of n p and kk,,observed responses,99
+35335116.5,drought,responses,higher grain biomass and higher contents of copper iron manganese zinc and gliadins in grains,,observed responses,99
+35335116.5,drought,responses,proline and soluble sugars adjust osmotic potential,,observed responses,99
+35335116.5,drought,responses,ncreased leaf water uptake and levels of metabolites phenolics ascorbic acid glutathione antioxidant enzymes chlorophyll luorescence and plant biomass,,observed responses,99
+35335116.5,drough,responses,ncreased plant dry weight uptake of p n k and mg in shoot and water use efficiency,,observed responses,99
+35335116.5,drough,responses,ncreased biomass production efficiency of photosystem il aba accumulation and synthesis and strigolactone production,,observed responses,99
+35335116.5,drough,responses,mproved nutrient concentration plant biomass and essential oil content and glomalin related soil proteins grsp,,observed responses,99
+35335116.5,drough,responses,ncreased shoot and root fresh weights wue and plant survival,,observed responses,99
+35335116.5,drough,responses,ncreased dry biomass wue and net photosynthetic rate,,observed responses,99
+35335116.5,drough,responses,mproved water content and p and levels,,observed responses,99
+35335116.5,drough,responses,ncreased shoot and root diameter shoot length leaf area leaf number per plant water content chl content and proline,,observed responses,99
+35335116.5,drough,responses,content sugars and acid phosphatase but reduced proline conten,,observed responses,99
+35335116.5,drough,responses,ncreased root volume p content and activity of phosphatase enzyme,,observed responses,99
+35335116.5,high temperature,responses,increased leaf length plant height leaf number chlorophyll a photosynthetic rate stomatal conductance and transpiration rate,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+35335116.5,high temperature,responses,enhanced photosynthetic capacity root hydraulic conductivity or aquaporin abundance and,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+35335116.5,metal general,responses,stimulated formation of root nodules and increased n and p contents,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+35335116.5,metals cadmium,responses,ncreased antioxidant enzymes. activities and malondialdehyde,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+35335116.5,metals cadmium and zinc,responses,mproved root biomass nutrient status p n mg fe. and proline biosynthesis,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+35335116.5,salinity,responses,ncreased biomass photosynthetic pigment synthesis and enhanced antioxidant enzymes,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+35335116.5,salinity,responses,enhanced shoot fw leaf area leaf number root fw and levels of growth hormones,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+35335116.5,salinity,responses,mproved quantum yield of psii photochemistry net photosynthetic rate stomatal conductance,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+35335116.5,salinity,responses,ncreased shoot and root dry mass stomatal conductance soluble sugars free wamino acids and ja and k uptake,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+35335116.5,salinity,responses,mproved dry matter ion uptake growth parameters and chlorophyll content,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+35335116.5,salinity,responses,mproved root and shoot biomass as well as p zn and cu contents,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+35335116.5,salinityalkali,responses,ncreased colonization rate seedling weight water contents and both p and n.,,observed responses increased grain number nutrient allocation and nutrient composition in root,99
+36287853.1,,dry weight,,,dry weight g 0.08,99
+36287853.1,maize,dry weight,,,dry weight g 0.08,99
+36287853.1,,dry weight,,,dry weight g 0.08,99
+36287853.1,,dry weight,,,dry weight g 0.08,99
+36287853.1,,dry weight,,,dry weight g 0.08,99
+36287853.1,,dry weight,,,dry weight g 0.08,99
+36287853.1,,dry weight,,,dry weight g 0.08,99
+36287853.1,p. vittata,dry weight,,,dry weight g 0.08,99
+36287853.1,,dry weight,,,dry weight g 0.08,99
+36287853.1,,dry weight,0.36,,dry weight g 0.08,99
+28503185,,biomass,5.8,,biomass,99
+28503185,cv,biomass,30.6,,biomass,99
+28503185,,biomass,20.5,,biomass,99
+28503185,px cv,biomass,0.2,,biomass,99
+28503185,pxm,biomass,1.3,,biomass,99
+28503185,cvxm,biomass,12.5,,biomass,99
+28503185,px cvxm,biomass,1.5,,biomass,99
+34576699.3,,biomass,5.8,,biomass,99
+34576699.3,cv,biomass,30.6,,biomass,99
+34576699.3,,biomass,20.5,,biomass,99
+34576699.3,px cv,biomass,0.2,,biomass,99
+34576699.3,pxm,biomass,1.3,,biomass,99
+34576699.3,cvxm,biomass,12.5,,biomass,99
+34576699.3,px cvxm,biomass,1.5,,biomass,99
+34063150.1,,biomass,0.13  0.02,,nodule biomass g plant1 0.04  0.01 0.05  0.01 nan 0.07  0.00,99
+34063150.1,anova,biomass,anova,,nodule biomass g plant1 0.04  0.01 0.05  0.01 nan 0.07  0.00,99
+34063150.1,co amf,biomass,err,,nodule biomass g plant1 0.04  0.01 0.05  0.01 nan 0.07  0.00,99
+34063150.1,,biomass,,,nodule biomass g plant1 0.04  0.01 0.05  0.01 nan 0.07  0.00,99
+34063150.1,co x amf,biomass,br,,nodule biomass g plant1 0.04  0.01 0.05  0.01 nan 0.07  0.00,99
+34063150.1,,biomass,3.69  0.09,,shoot biomass g plant1 1.91  0.04 2.15  0.08 nan 3.24  0.09,99
+34063150.1,anova,biomass,anova,,shoot biomass g plant1 1.91  0.04 2.15  0.08 nan 3.24  0.09,99
+34063150.1,co amf,biomass,rt,,shoot biomass g plant1 1.91  0.04 2.15  0.08 nan 3.24  0.09,99
+34063150.1,,biomass,eh,,shoot biomass g plant1 1.91  0.04 2.15  0.08 nan 3.24  0.09,99
+34063150.1,co x amf,biomass,ns,,shoot biomass g plant1 1.91  0.04 2.15  0.08 nan 3.24  0.09,99
+34063150.1,,biomass,,,root biomass g plant1 1.01  0.09 1.13  0.08 1.26  0.05 1.39  0.14,99
+34063150.1,anova,biomass,anova,,root biomass g plant1 1.01  0.09 1.13  0.08 1.26  0.05 1.39  0.14,99
+34063150.1,co amf,root biomass,eh,,root biomass g plant1 1.01  0.09 1.13  0.08 1.26  0.05 1.39  0.14,99
+34063150.1,,root biomass,ns,,root biomass g plant1 1.01  0.09 1.13  0.08 1.26  0.05 1.39  0.14,99
+34063150.1,co x amf,root biomass,ns,,root biomass g plant1 1.01  0.09 1.13  0.08 1.26  0.05 1.39  0.14,99
+34063150.1,,root biomass,5.05  0.12,,total biomass g plant1 2.91  0.07 nan 4.50  0.08,99
+34063150.1,anova,root biomass,anova,,total biomass g plant1 2.91  0.07 nan 4.50  0.08,99
+34063150.1,co amf,root biomass,eh,,total biomass g plant1 2.91  0.07 nan 4.50  0.08,99
+34063150.1,,biomass,ee,,total biomass g plant1 2.91  0.07 nan 4.50  0.08,99
+34063150.1,co x amf,biomass,ns,,total biomass g plant1 2.91  0.07 nan 4.50  0.08,99
+25538696,,growth,stem diameter mm,,growth parameters,99
+25538696,wwamf,growth,3.45,,growth parameters,99
+25538696,wwamf,growth,3.61  0.08,,growth parameters,99
+25538696,dsamf,growth,3.12  0.12,,growth parameters,99
+25538696,dsamf,growth,3.44  0.09,,growth parameters,99
+25538696,,growth,,,growth parameters,99
+25538696,wwamf,growth,0.11,,growth parameters,99
+25538696,wwamf,growth,,,growth parameters,99
+25538696,dsamf,growth,,,growth parameters,99
+25538696,dsamf,growth,,,growth parameters,99
+25538696,,growth,leaf number per plant,,growth parameters,99
+25538696,wwamf,growth,37  2,,growth parameters,99
+25538696,wwamf,growth,43  2,,growth parameters,99
+25538696,dsamf,growth,344 1,,growth parameters,99
+25538696,dsamf,growth,37  1,,growth parameters,99
+21222096,allium cepa,dry weight,1.24,,total dry weight g nm experiment 2006,99
+21222096,allium fistulosum,dry weight,0.7,,total dry weight g nm experiment 2006,99
+21222096,allium roylei,dry weight,0.54,,total dry weight g nm experiment 2006,99
+21222096,rfhybrid,dry weight,1.2,,total dry weight g nm experiment 2006,99
+21222096,allium cepa,dry weight,2.79,,total dry weight g am experiment 2006,99
+21222096,allium fistulosum,dry weight,1.95,,total dry weight g am experiment 2006,99
+21222096,allium roylei,dry weight,1.58,,total dry weight g am experiment 2006,99
+21222096,rfhybrid,dry weight,2.88,,total dry weight g am experiment 2006,99
+21222096,allium cepa,dry weight,1.55,,total dry weight g r experiment 2006,99
+21222096,allium fistulosum,dry weight,1.25,,total dry weight g r experiment 2006,99
+21222096,allium roylei,dry weight,1.04,,total dry weight g r experiment 2006,99
+21222096,rfhybrid,dry weight,1.68,,total dry weight g r experiment 2006,99
+21222096,allium cepa,dry weight,2.01,,total dry weight g ap experiment 2006,99
+21222096,allium fistulosum,dry weight,1.33,,total dry weight g ap experiment 2006,99
+21222096,allium roylei,dry weight,1.06,,total dry weight g ap experiment 2006,99
+21222096,rfhybrid,dry weight,2.04,,total dry weight g ap experiment 2006,99
+21222096,mean,dry weight,1.29,,total dry weight g nm trihybrid genotypes n  77,99
+21222096,minimum,dry weight,0.45,,total dry weight g nm trihybrid genotypes n  77,99
+21222096,maximum,dry weight,2.58,,total dry weight g nm trihybrid genotypes n  77,99
+21222096,mean,dry weight,3.17,,total dry weight g am trihybrid genotypes n  77,99
+21222096,minimum,dry weight,1.3,,total dry weight g am trihybrid genotypes n  77,99
+21222096,maximum,dry weight,5.67,,total dry weight g am trihybrid genotypes n  77,99
+21222096,mean,dry weight,1.88,,total dry weight g r trihybrid genotypes n  77,99
+21222096,minimum,dry weight,0.23,,total dry weight g r trihybrid genotypes n  77,99
+21222096,maximum,dry weight,3.89,,total dry weight g r trihybrid genotypes n  77,99
+21222096,mean,dry weight,2.23,,total dry weight g ap trihybrid genotypes n  77,99
+21222096,minimum,dry weight,1.19,,total dry weight g ap trihybrid genotypes n  77,99
+21222096,maximum,dry weight,3.73,,total dry weight g ap trihybrid genotypes n  77,99
+21222096,allium cepa,dry weight,2.0,,total dry weight g nm experiment 2007,99
+21222096,allium fistulosum,dry weight,1.49,,total dry weight g nm experiment 2007,99
+21222096,allium roylei,dry weight,0.68,,total dry weight g nm experiment 2007,99
+21222096,rfhybrid,dry weight,1.53,,total dry weight g nm experiment 2007,99
+21222096,allium cepa,dry weight,6.164,,total dry weight g am experiment 2007,99
+21222096,allium fistulosum,dry weight,6.22,,total dry weight g am experiment 2007,99
+21222096,allium roylei,dry weight,3.45,,total dry weight g am experiment 2007,99
+21222096,rfhybrid,dry weight,5.63,,total dry weight g am experiment 2007,99
+21222096,allium cepa,dry weight,4.15,,total dry weight g r experiment 2007,99
+21222096,allium fistulosum,dry weight,4.73,,total dry weight g r experiment 2007,99
+21222096,allium roylei,dry weight,2.77,,total dry weight g r experiment 2007,99
+21222096,rfhybrid,dry weight,4.1,,total dry weight g r experiment 2007,99
+21222096,allium cepa,dry weight,4.09,,total dry weight g ap experiment 2007,99
+21222096,allium fistulosum,dry weight,3.85,,total dry weight g ap experiment 2007,99
+21222096,allium roylei,dry weight,2.06,,total dry weight g ap experiment 2007,99
+21222096,rfhybrid,dry weight,3.58,,total dry weight g ap experiment 2007,99
+21222096,mean,dry weight,1.97,,total dry weight g nm trihybrid genotypes n  83,99
+21222096,minimum,dry weight,0.37,,total dry weight g nm trihybrid genotypes n  83,99
+21222096,maximum,dry weight,5.34,,total dry weight g nm trihybrid genotypes n  83,99
+21222096,mean,dry weight,7.71,,total dry weight g am trihybrid genotypes n  83,99
+21222096,minimum,dry weight,1.18,,total dry weight g am trihybrid genotypes n  83,99
+21222096,maximum,dry weight,11.44,,total dry weight g am trihybrid genotypes n  83,99
+21222096,mean,dry weight,5.81,,total dry weight g r trihybrid genotypes n  83,99
+21222096,minimum,dry weight,0.68,,total dry weight g r trihybrid genotypes n  83,99
+21222096,maximum,dry weight,8.89,,total dry weight g r trihybrid genotypes n  83,99
+21222096,mean,dry weight,4.88,,total dry weight g ap trihybrid genotypes n  83,99
+21222096,minimum,dry weight,1.01,,total dry weight g ap trihybrid genotypes n  83,99
+21222096,maximum,dry weight,7.83,,total dry weight g ap trihybrid genotypes n  83,99
+21222096,am leaf dry,poor weight,1.82,,levels of bulbing poor weight g,99
+21222096,am leaf dry,poor weight,1.38,,nan medium weight g,99
+21222096,am bulb dry,poor weight,1.65,,levels of bulbing poor weight g,99
+21222096,weight g,poor weight,weight g,,levels of bulbing poor weight g,99
+21222096,nr of leaves,poor weight,7.3,,levels of bulbing poor weight g,99
+21222096,nr of roots,poor weight,24.4,,levels of bulbing poor weight g,99
+21222096,am bulb dry,poor weight,1.76,,nan medium weight g,99
+21222096,weight g,weight,weight g,,nan medium weight g,99
+21222096,nr of leaves,weight,7.2,,nan medium weight g,99
+21222096,nr of roots,weight,25.6,,nan medium weight g,99
+21222096,am leaf dry weight g,poor weight,5.38,,levels of bulbing poor weight g,99
+21222096,am bulb dry weight g,poor weight,2.55,,levels of bulbing poor weight g,99
+21222096,nr of leaves,poor weight,10.6,,levels of bulbing poor weight g,99
+21222096,nr of roots,poor weight,38.5,,levels of bulbing poor weight g,99
+21222096,r g,poor weight,6.0,,levels of bulbing poor weight g,99
+21222096,ap g,poor weight,49.0,,levels of bulbing poor weight g,99
+21222096,am leaf dry weight g,poor weight,4.78,,nan medium weight g,99
+21222096,am bulb dry weight g,weight,3.28,,nan medium weight g,99
+21222096,nr of leaves,weight,10.0,,nan medium weight g,99
+21222096,nr of roots,weight,40.4,,nan medium weight g,99
+21222096,r g,weight,6.2,,nan medium weight g,99
+21222096,ap g,weight,5.0,,nan medium weight g,99
+34500751.2,biomass cr,biomass,1.0 0.161,,biomass,99
+34500751.2,crd,biomass,0.245,,biomass,99
+34500751.2,ph,biomass,0.044,,biomass,99
+34500751.2,cu,biomass,0.077,,biomass,99
+34500751.2,cud,biomass,0.221,,biomass,99
+34500751.2,zn ,biomass,0.084,,biomass,99
+34500751.2,,biomass,0.145,,biomass,99
+34500751.2,ni,biomass,0.247,,biomass,99
+34500751.2,nid,biomass,0.236,,biomass,99
+34500751.2,biomass,mean square,655.196,,mean square,99
+34500751.2,cr,mean square,31.094,,mean square,99
+34500751.2,crb,mean square,1129.973,,mean square,99
+34500751.2,cr ,mean square,46.368,,mean square,99
+34500751.2,crd,mean square,17.585,,mean square,99
+34500751.2,ph,mean square,4.854,,mean square,99
+34500751.2,cu ,mean square,6.869,,mean square,99
+34500751.2,,mean square,0.975,,mean square,99
+34500751.2,zn ,mean square,9.493,,mean square,99
+34500751.2,,mean square,35.623,,mean square,99
+34500751.2,ni,mean square,1.852,,mean square,99
+34500751.2,ni4,mean square,0.008,,mean square,99
+25852664,,plant height,,, plant height cm,99
+25852664,,plant height,stem,, biomass g fwplant,99
+35009090.5,tan po,kg,2.06,, available p img kg,99
+35009090.5,tan p10,kg,5.0,, available p img kg,99
+35009090.5,tan po,kg,73.06,, total p img kg,99
+35009090.5,tan p10,kg,85.09,, total p img kg,99
+32604987.18,greenhouse,dry biomass,6.4,,lignin mass fraction of dry biomass  farming system rye,99
+32604987.18,planting time,dry biomass,planting time,,lignin mass fraction of dry biomass  farming system rye,99
+32604987.18,greenhouse,dry biomass,44.5,,total cellulose mass fraction of dry biomass  farming system 46.0,99
+32604987.18,planting time,dry biomass,planting time,,total cellulose mass fraction of dry biomass  farming system 46.0,99
+32604987.18,greenhouse,dry biomass,2.0 n.s,,crystalline cellulose mass fraction of dry biomass  farming system 2.0,99
+32604987.18,planting time,dry biomass,planting time,,crystalline cellulose mass fraction of dry biomass  farming system 2.0,99
+32604987.18,greenhouse,dry biomass,15.1,,hemicellulose mass fraction of dry biomass  farming system 13.9,99
+32604987.18,planting time,dry biomass,planting time,,hemicellulose mass fraction of dry biomass  farming system 13.9,99
+32604987.18,greenhouse,dry biomass,3.4,,pectin mass fraction of dry biomass  farming system 2.5,99
+32604987.18,planting time,dry biomass,planting time,,pectin mass fraction of dry biomass  farming system 2.5,99
+32604987.18,11 october,dry biomass,7.2,,lignin mass fraction of dry biomass  farming system 7.7,99
+32604987.18,25 october,dry biomass,6.1 45.9,,lignin mass fraction of dry biomass  farming system 7.7,99
+32604987.18,8 november,dry biomass,4.5,,lignin mass fraction of dry biomass  farming system 7.7,99
+32604987.18,22 november,dry biomass,3.7,,lignin mass fraction of dry biomass  farming system 7.7,99
+32604987.18,11 october,dry biomass,42.7,,total cellulose mass fraction of dry biomass  farming system 41.1,99
+32604987.18,25 october,dry biomass,,,total cellulose mass fraction of dry biomass  farming system 41.1,99
+32604987.18,8 november,dry biomass,47.8,,total cellulose mass fraction of dry biomass  farming system 41.1,99
+32604987.18,22 november,dry biomass,48.7,,total cellulose mass fraction of dry biomass  farming system 41.1,99
+32604987.18,11 october,dry biomass,1.3,,crystalline cellulose mass fraction of dry biomass  farming system 0.9,99
+32604987.18,25 october,dry biomass,2.0,,crystalline cellulose mass fraction of dry biomass  farming system 0.9,99
+32604987.18,8 november,dry biomass,2.8,,crystalline cellulose mass fraction of dry biomass  farming system 0.9,99
+32604987.18,22 november,dry biomass,3.0,,crystalline cellulose mass fraction of dry biomass  farming system 0.9,99
+32604987.18,11 october,dry biomass,14.6,,hemicellulose mass fraction of dry biomass  farming system 14.9,99
+32604987.18,25 october,dry biomass,14.5,,hemicellulose mass fraction of dry biomass  farming system 14.9,99
+32604987.18,8 november,dry biomass,14.3,,hemicellulose mass fraction of dry biomass  farming system 14.9,99
+32604987.18,22 november,dry biomass,14.2.,,hemicellulose mass fraction of dry biomass  farming system 14.9,99
+32604987.18,11 october,dry biomass,3.7,,pectin mass fraction of dry biomass  farming system 4.1,99
+32604987.18,25 october,dry biomass,3.2,,pectin mass fraction of dry biomass  farming system 4.1,99
+32604987.18,8 november,dry biomass,2.4,,pectin mass fraction of dry biomass  farming system 4.1,99
+32604987.18,22 november,dry biomass,1.5,,pectin mass fraction of dry biomass  farming system 4.1,99
+32604987.18,open field,dry biomass,0.52,,phosphorus dry biomass farming system,99
+32604987.18,greenhouse,dry biomass,0.53.,,phosphorus dry biomass farming system,99
+32604987.18,27.0,dry biomass,0.6,,phosphorus dry biomass planting time,99
+32604987.18,11 october,dry biomass,0.56,,phosphorus dry biomass september,99
+32604987.18,25 october,dry biomass,0.51,,phosphorus dry biomass september,99
+32604987.18,8.0,dry biomass,0.48,,phosphorus dry biomass september,99
+32604987.18,november,dry biomass,november,,phosphorus dry biomass september,99
+32604987.18,22 november,dry biomass,0.46,,phosphorus dry biomass september,99
+32604987.18,open field,mass,0.22,,fuc mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,0.32,,fuc mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,5.7,,gal a mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,5.0,,gal a mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,44.3,,glc mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,44.9 0.,,glc mass fraction of hemicellulose  farming system,99
+32604987.18,open field,glc mass,0.29,,glc a mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,glc mass,0.28,,glc a mass fraction of hemicellulose  farming system,99
+32604987.18,27 september,mass,0.32,,fuc mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,0.31,,fuc mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,4.5,,gal a mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,4.8,,gal a mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,45.9,,glc mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,45.3,,glc mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,glc mass,0.29,,glc a mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,glc mass,0.28,,glc a mass fraction of hemicellulose  planting time,99
+32604987.18,8 november,mass,0.23,,fuc mass fraction of hemicellulose  0.27,99
+32604987.18,22 november,mass,0.21,,fuc mass fraction of hemicellulose  0.27,99
+32604987.18,8 november,mass,5.7,,gal a mass fraction of hemicellulose  5.2,99
+32604987.18,22 november,mass,6.4,,gal a mass fraction of hemicellulose  5.2,99
+32604987.18,8 november,mass,44.0,,glc mass fraction of hemicellulose  44.5,99
+32604987.18,22 november,mass,43.2,,glc mass fraction of hemicellulose  44.5,99
+32604987.18,8 november,glc mass,0.28,,glc a mass fraction of hemicellulose  0.28,99
+32604987.18,22 november,glc mass,0.28,,glc a mass fraction of hemicellulose  0.28,99
+32604987.18,pretreatment type,dry biomass,,, from dry biomass g,99
+32604987.18,water,dry biomass,,, from dry biomass g,99
+32604987.18,acid,dry biomass,,, from dry biomass g,99
+32604987.18,alkaline,dry biomass,,, from dry biomass g,99
+32604987.18,planting time,dry biomass,,, from dry biomass g,99
+32604987.18,27.0,dry biomass,,, from dry biomass g,99
+32604987.18,11 october,dry biomass,,, from dry biomass g,99
+32604987.18,25 october,dry biomass,,, from dry biomass g,99
+32604987.18,8 november,dry biomass,ab,, from dry biomass g,99
+32604987.18,22 november,dry biomass,,, from dry biomass g,99
+32326329.4,,marmoricola,unclassified micromonosporaceae,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,66.0,marmoricola,unclassified bacteria,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,67.0,marmoricola,unclassified sphingomonadaceae,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,72.0,marmoricola,unclassified alphaproteobacteria,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,73.0,marmoricola,duganella massilia unclassified oxalobacteraceae,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,159.0,marmoricola,unclassified bacteria,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,163.0,marmoricola,methylobacterium,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,167.0,marmoricola,unclassified actinobacteria,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,187.0,marmoricola,unclassified rhizobiales,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,192.0,marmoricola,duganella,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,196197.0,marmoricola,unclassified rhizobiales duganella,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,197.0,marmoricola,unclassified oxalobacteraceae unclassified oxalobacteraceae,, rhodococcus marmoricola unclassified nocardioidaceae,99
+32326329.4,198.0,marmoricola,massilia unclassified oxalobacteraceae rhodoferax pseudomonas,, rhodococcus marmoricola unclassified nocardioidaceae,99
