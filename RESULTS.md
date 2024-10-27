@@ -7,6 +7,9 @@ There is a folder, [analysis_in_R](/analysis_in_R/) which contains R scripts to 
 The primary data object output in the [abstracts](/abstracts/) subsection is the table in [output](/output/) named [abstract_parsing1.csv](/output/abstract_parsing1.csv) (by default). It contains the columns DOI, TREATMENT, INOCTYPE, RESPONSE, SOILTYPE, FIELDGREENHOUSE, LANDUSE, ECOTYPE, ECOREGION, and LOCATION by default. These are labels that the NER model (Named Entity Recognition, a type of deep learning model in machine learning) has been trained to recognize (see the [abstracts README](/abstracts/README.md)). They are the categories created in the original meta analysis database (from Averil et al. 2022). Each row corresponds to one of the articles identified from the keyword search. Each entry is just a list of text showing all of the words or phrases that the NER model identified with the corresponding label.
 
 
-The R code in [abstract_table_summary.R](/analysis_in_R/abstract_table_summary.R) contains several ways to parse and sort through this table. For starters, I have tried to create lists of keyword identifies that can sort papers into three broad subject areas in which soil microbiome work seems to primarily be done: agriculture, disturbance (e.g. soil remediation, mine reclemation), and ecology. The studies can be further subdivided from there. This graphic is a summary of these paper groupings. 
+The R code in [abstract_table_summary.R](/analysis_in_R/abstract_table_summary.R) contains several ways to parse and sort through this table. For starters, I have tried to create lists of keyword identifies that can sort papers into three broad subject areas in which soil microbiome work seems to primarily be done: agriculture, disturbance (e.g. soil remediation, mine reclemation), and ecology. The studies can be further subdivided from there. This graphic is a summary of these paper groupings: 
 
-![alt text](/output/paper_summary.html)
+![alt text](/output/paper_summary.jpg)
+
+(Note: This image also exists as a dynamic html object of the same name that you can interact with )
+
