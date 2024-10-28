@@ -109,19 +109,19 @@ def main():
     try:
         #Load custom NER
         nlp = spacy.load(model_load_dir)
-        
+               
         #DD analyzer #default THRESHOLD_ROWS: 0.4
         #analyzer = dd.get_dd_analyzer(config_overwrite = ["SEGMENTATION.THRESHOLD_ROWS=0.01"])
         analyzer = dd.get_dd_analyzer()
-
+        
         # Get the list of current PDFs in the directory
         new_pdfs = {f for f in os.listdir(pdf_save_dir) if f.endswith('.pdf')}
-
+        
         # Process the PDFs
         # Load the column list to structure the final table
         with open(column_list, mode='r') as file:
             column_list = [value for row in csv.reader(file) for value in row]
-
+            
         data = pd.DataFrame(columns = column_list ) #Initialize final table
         index_p = 1
         for pdf in new_pdfs:
@@ -129,7 +129,7 @@ def main():
             pdf_path = pdf_save_dir + pdf
             print(f"PDF: {pdf} is {index_p} out of {len(new_pdfs)}")
             study_id = pdf_path.lstrip(pdf_save_dir).rstrip('.pdf')
-
+            
             # Pre-check if the PDF can be read
             if not pdf_try(pdf_path):
                 print(f"Skipping {pdf} as it is encrypted or unreadable.")
@@ -141,7 +141,7 @@ def main():
                 pages =[] #Get the pages in the PDF
                 for doc in df: 
                     pages.append(doc)
-
+                    
             	#2. Cycle through tables in the pages, look for responses, extract them if they are 
             	#there:
                 table_num = 1
@@ -189,11 +189,43 @@ def main():
                             data.to_csv(extracted_tables, index=False)
                     index_p +=1
                         #34797549.1_172.pdf
-
+                        
             except Exception as e:
                 print(f"An error occurred: {e}")
                 continue
-
+                        
+        #Clean up the table, add SE, link to DOIs
+        # Load the DOI mapping file
+        doi_mapping = pd.read_csv('all_DOIS.csv')
+        doi_mapping['PMID'] = doi_mapping['PMID'].astype(str)
+        
+        # Clean the STUDY ID to remove any tags (e.g., ".14")
+        data['STUDY_CLEAN'] = data['STUDY'].astype(str).str.split('.').str[0]
+        
+        # Merge the DOI information based on the cleaned STUDY ID
+        data = data.merge(doi_mapping, left_on='STUDY_CLEAN', right_on='PMID', how='left')
+        # Drop the STUDY and PMID columns
+        data = data.drop(columns=['STUDY', 'PMID'])
+        #Rename the STUDY_CLEAN column
+        data = data.rename(columns={'STUDY_CLEAN': 'STUDY'})
+        # Reorder the columns so that DOI is first and STUDY is second
+        columns_order = ['DOI', 'STUDY'] + [col for col in data.columns if col not in ['DOI', 'STUDY']]
+        data = data[columns_order]
+        
+        #When there is also an SE number that was grabbed (this is ideal when it happens) 
+        #Apply the split_cardinal function to the CARDINAL column and create the SE column
+        data[['CARDINAL', 'SE']] = data['CARDINAL'].apply(split_cardinal).apply(pd.Series)
+        
+        # Reorder the columns so that SE follows CARDINAL
+        columns_order = [col for col in data.columns if col != 'SE']
+        se_index = columns_order.index('CARDINAL') + 1
+        columns_order.insert(se_index, 'SE')
+        
+        # Reorder the DataFrame columns
+        data = data[columns_order]
+        
+        data.to_csv(extracted_tables, index=False)
+        
     except Exception as e:
         print(f"An error occurred: {e}")
 

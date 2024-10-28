@@ -310,6 +310,9 @@ def from_table(sent):
 	tabs = text.count('\n')
 	if(tabs > 10):
 		howtrue += 1
+	# Heuristic 4: Check for repeated patterns of numbers/units
+	if len(re.findall(r'\b\d+(\.\d+)?\s*±?\s*\d*(\.\d+)?\b', text)) > 5:
+    	howtrue += 1
 	return(howtrue)
 
 # Function to create a table of treatments and responses using syntactical
