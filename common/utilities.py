@@ -57,37 +57,37 @@ def upload_task(text, LABEL_STUDIO_URL, LS_API_KEY, project_id):
 #==============================================================================
 # Function to fetch and save full text articles
 def get_full_text(articles, save_directory):
-    # Ensure the save directory exists
-    os.makedirs(save_directory, exist_ok=True)
-    # # Create a PubMedFetcher instance
-    # fetcher = PubMedFetcher()
-    total_attempted = 0
-    total_successful = 0
-    for article in articles:
-        total_attempted += 1
-        try:
-            # Get the PMID of the article
-            pmid = article.pmid
-            # Use FindIt to get the URL of the free open access article full text
-            url = FindIt(pmid).url
-            if url:
-                # Get the full text content
-                response = requests.get(url)
-                response.raise_for_status()  # Raise an error for bad status codes
-                # Create a filename for the article based on its PMID
-                filename = f"{pmid}.pdf"
-                file_path = os.path.join(save_directory, filename)
-                # Save the full text to the specified directory
-                with open(file_path, 'wb') as file:
-                    file.write(response.content)
-                print(f"Downloaded full text for PMID {pmid} to {file_path}")
-                total_successful += 1
-            else:
-                print(f"No free full text available for PMID {pmid}")
-        except Exception as e:
-            print(f"An error occurred for PMID {pmid}: {e}")
-    print(f"Total articles attempted: {total_attempted}")
-    print(f"Total articles successfully retrieved: {total_successful}")
+	# Ensure the save directory exists
+	os.makedirs(save_directory, exist_ok=True)
+	# # Create a PubMedFetcher instance
+	# fetcher = PubMedFetcher()
+	total_attempted = 0
+	total_successful = 0
+	for article in articles:
+		total_attempted += 1
+		try:
+			# Get the PMID of the article
+			pmid = article.pmid
+			# Use FindIt to get the URL of the free open access article full text
+			url = FindIt(pmid).url
+			if url:
+				# Get the full text content
+				response = requests.get(url)
+				response.raise_for_status()  # Raise an error for bad status codes
+				# Create a filename for the article based on its PMID
+				filename = f"{pmid}.pdf"
+				file_path = os.path.join(save_directory, filename)
+				# Save the full text to the specified directory
+				with open(file_path, 'wb') as file:
+					file.write(response.content)
+				print(f"Downloaded full text for PMID {pmid} to {file_path}")
+				total_successful += 1
+			else:
+				print(f"No free full text available for PMID {pmid}")
+		except Exception as e:
+			print(f"An error occurred for PMID {pmid}: {e}")
+	print(f"Total articles attempted: {total_attempted}")
+	print(f"Total articles successfully retrieved: {total_successful}")
 
 #Test PDF viability before importing
 def pdf_try(pdf_path):
@@ -100,16 +100,16 @@ def pdf_try(pdf_path):
 
 #Extract Text from PDF
 def extract_text_from_pdf(pdf_path):
-    doc = fitz.open(pdf_path)
-    text = ""
-    for page_num in range(len(doc)):
-        page = doc.load_page(page_num)
-        text += page.get_text()
-    return text
+	doc = fitz.open(pdf_path)
+	text = ""
+	for page_num in range(len(doc)):
+		page = doc.load_page(page_num)
+		text += page.get_text()
+	return text
 
 #Preprocess Text
 def preprocess_text(text):
-    # Remove References/Bibliography and Acknowledgements sections
+	# Remove References/Bibliography and Acknowledgements sections
 	text = re.sub(r'\bREFERENCES\b.*', '', text, flags=re.DOTALL | re.IGNORECASE)
 	text = re.sub(r'\bACKNOWLEDGEMENTS\b.*', '', text, flags=re.DOTALL | re.IGNORECASE)
 	text = re.sub(r'\bBIBLIOGRAPHY\b.*', '', text, flags=re.DOTALL | re.IGNORECASE)
@@ -125,31 +125,44 @@ def preprocess_text(text):
 	return sentences
 
 def identify_sections(sentences, section_mapping):
-    sections = {'abstract','introduction','methods','results','discussion' }
-    # Initialize the sections dictionary with each section name as a key and an empty list as the value
-    sections = {section: [] for section in sections}
-    current_section = None
-
-    # Enhanced regex to match section headers
-    section_header_pattern = re.compile(r'\b(Abstract|Introduction|Methods|Materials and Methods|Results|Discussion|Conclusion|Background|Summary)\b', re.IGNORECASE)
-    for sentence in sentences:
-        # Check if the sentence is a section header
-        header_match = section_header_pattern.search(sentence)
-        if header_match:
-            section_name = header_match.group(1).lower()
-            normalized_section = section_mapping.get(section_name, section_name)
-            current_section = normalized_section
-            sections[current_section].append(sentence)
-            #print(f"Matched Section Header: {header_match}")  # Debugging line
-        elif current_section:
-            sections[current_section].append(sentence)
-    return sections
+	sections = {'doi','abstract','introduction','methods','results','discussion' }
+	# Initialize the sections dictionary with each section name as a key and an empty list as the value
+	sections = {section: [] for section in sections}
+	current_section = None
+	doi = None  # Variable to store the DOI
+	
+	# Enhanced regex to match section headers
+	section_header_pattern = re.compile(r'\b(DOI|Abstract|Introduction|Methods|Materials and Methods|Results|Discussion|Conclusion|Background|Summary)\b', re.IGNORECASE)
+	doi_pattern = re.compile(r'\b10\.\d{4,9}/[-._;()/:A-Z0-9]+\b', re.IGNORECASE)  # Regex pattern to match DOIs
+	
+	for sentence in sentences:
+		# Check for DOI in each sentence if not already found
+		if doi is None:
+			doi_match = doi_pattern.search(sentence)
+			if doi_match:
+				doi = doi_match.group()  # Store the first DOI only
+				print(f"DOI found: {doi}")
+							
+		# Check if the sentence is a section header
+		header_match = section_header_pattern.search(sentence)
+		if header_match:
+			section_name = header_match.group(1).lower()
+			normalized_section = section_mapping.get(section_name, section_name)
+			current_section = normalized_section
+			sections[current_section].append(sentence)
+			#print(f"Matched Section Header: {header_match}")  # Debugging line
+		elif current_section:
+			sections[current_section].append(sentence)
+			
+	# Optionally add DOI to sections dictionary for easy access
+	sections['doi'] = doi
+	return sections
 
 #The output is much higher quality if we only focus on sentences which have 
 #been labeled as containing RESPONSE variables. 
 def filter_sentences(sentences, keywords):
-    filtered_sentences = [sentence for sentence in sentences if any(keyword in sentence.lower() for keyword in keywords)]
-    return filtered_sentences
+	filtered_sentences = [sentence for sentence in sentences if any(keyword in sentence.lower() for keyword in keywords)]
+	return filtered_sentences
 
 #==============================================================================
 # Functions related to training, loading, and applying the NER based on spacy
@@ -160,28 +173,28 @@ def filter_sentences(sentences, keywords):
 #punctuation in the spans. 
 
 def clean_annotations(data):
-    cleaned_data = []
-    for item in data:
-        text = item['data']['text']
-        entities = []
-        for annotation in item['annotations']:
-            for result in annotation['result']:
-                value = result['value']
-                start, end, label = value['start'], value['end'], value['labels'][0]
-                entity_text = text[start:end]
-                # Remove leading/trailing whitespace from entity spans
-                while entity_text and entity_text[0].isspace():
-                    start += 1
-                    entity_text = text[start:end]
-                while entity_text and entity_text[-1].isspace():
-                    end -= 1
-                    entity_text = text[start:end]
-                # Check for misaligned entries and skip if misaligned
-                if entity_text == text[start:end]:
-                    entities.append((start, end, label))
-        if entities:
-            cleaned_data.append((text, {"entities": entities}))
-    return cleaned_data
+	cleaned_data = []
+	for item in data:
+		text = item['data']['text']
+		entities = []
+		for annotation in item['annotations']:
+			for result in annotation['result']:
+				value = result['value']
+				start, end, label = value['start'], value['end'], value['labels'][0]
+				entity_text = text[start:end]
+				# Remove leading/trailing whitespace from entity spans
+				while entity_text and entity_text[0].isspace():
+					start += 1
+					entity_text = text[start:end]
+				while entity_text and entity_text[-1].isspace():
+					end -= 1
+					entity_text = text[start:end]
+				# Check for misaligned entries and skip if misaligned
+				if entity_text == text[start:end]:
+					entities.append((start, end, label))
+		if entities:
+			cleaned_data.append((text, {"entities": entities}))
+	return cleaned_data
 
 
 #This function will return the text and the entities for processing
@@ -227,36 +240,36 @@ def find_entity_groups(doc, entities, label_type):
 #==============================================================================
 #Function just to find ancestors of a token. 
 def get_ancestors(token):
-    ancestors = []
-    while token.head != token:
-        ancestors.append(token.head)
-        token = token.head
-    return ancestors
+	ancestors = []
+	while token.head != token:
+		ancestors.append(token.head)
+		token = token.head
+	return ancestors
 
 # Function to find shortest path between two tokens in the
 # dependency tree based on the distance to a common ancestor
 # (least common ancestor, LCA)
 def find_shortest_path(token1, token2):
-    ancestors1 = get_ancestors(token1)
-    ancestors2 = get_ancestors(token2)
-    ancestors2.insert(0,token2)
-    #print(f"Ancestors 1 {ancestors1}")
-    #print(f"Ancestors 2 {ancestors2}")
-    # Find the lowest common ancestor
-    common_ancestor = None
-    for ancestor in ancestors1:
-        if ancestor in ancestors2:
-            common_ancestor = ancestor
-            break
-    if common_ancestor is None:
-        return float('inf')
-    # Calculate the distance as the number of nodes in the dependency tree
-    #print(f"Common ancestor {common_ancestor}")
-    distance1 = ancestors1.index(common_ancestor) + 1
-    distance2 = ancestors2.index(common_ancestor) + 1
-    #print(f"Distance1 = {distance1} and Distance2 = {distance2}")
-    distance = distance1 + distance2
-    return distance
+	ancestors1 = get_ancestors(token1)
+	ancestors2 = get_ancestors(token2)
+	ancestors2.insert(0,token2)
+	#print(f"Ancestors 1 {ancestors1}")
+	#print(f"Ancestors 2 {ancestors2}")
+	# Find the lowest common ancestor
+	common_ancestor = None
+	for ancestor in ancestors1:
+		if ancestor in ancestors2:
+			common_ancestor = ancestor
+			break
+	if common_ancestor is None:
+		return float('inf')
+	# Calculate the distance as the number of nodes in the dependency tree
+	#print(f"Common ancestor {common_ancestor}")
+	distance1 = ancestors1.index(common_ancestor) + 1
+	distance2 = ancestors2.index(common_ancestor) + 1
+	#print(f"Distance1 = {distance1} and Distance2 = {distance2}")
+	distance = distance1 + distance2
+	return distance
 
 #Function to trace syntactical dependency back to a specific label
 #Use this to find the TREATMENT corresponding to a CARDINAL or PERCENTAGE
@@ -288,11 +301,11 @@ def from_table(sent):
 	"""
 	Determine if a given sentence is likely from a table based on heuristic checks.
 	
-    Args:
-        sent: A spaCy Span object representing the sentence.
+	Args:
+		sent: A spaCy Span object representing the sentence.
 
-    Returns:
-        bool: True if the sentence is likely from a table, False otherwise.
+	Returns:
+		bool: True if the sentence is likely from a table, False otherwise.
 	"""
 	text = sent.text
 	howtrue = 0 #Make this a scale from 0 to MAX
@@ -312,7 +325,7 @@ def from_table(sent):
 		howtrue += 1
 	# Heuristic 4: Check for repeated patterns of numbers/units
 	if len(re.findall(r'\b\d+(\.\d+)?\s*±?\s*\d*(\.\d+)?\b', text)) > 5:
-    	howtrue += 1
+		howtrue += 1
 	return(howtrue)
 
 # Function to create a table of treatments and responses using syntactical

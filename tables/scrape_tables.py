@@ -199,8 +199,8 @@ def main():
         doi_mapping = pd.read_csv('all_DOIS.csv')
         doi_mapping['PMID'] = doi_mapping['PMID'].astype(str)
         
-        # Clean the STUDY ID to remove any tags (e.g., ".14")
-        data['STUDY_CLEAN'] = data['STUDY'].astype(str).str.split('.').str[0]
+        # # Clean the STUDY ID to remove any tags (e.g., ".14")
+        # data['STUDY_CLEAN'] = data['STUDY'].astype(str).str.split('.').str[0]
         
         # Merge the DOI information based on the cleaned STUDY ID
         data = data.merge(doi_mapping, left_on='STUDY_CLEAN', right_on='PMID', how='left')
