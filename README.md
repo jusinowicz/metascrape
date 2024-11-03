@@ -25,7 +25,6 @@ This repository is structured to reflect the workflow of the project. Each folde
 ## Other folders
 **analysis_in_R**: Various R code to help parse and analyse output from scraping. This folder contains the R scripts to analyze the database, assuming it is available as several csv files. It creates output ranging from figures of variable importance (RandomForests), covariate significance and effect size (mixed-effect models), and various saved models. 
 
-
 **common**: Shared modules used across the project
 
 **label_studio_projects**: These are the annotated files for Label Studio, and that are used to train the NERs

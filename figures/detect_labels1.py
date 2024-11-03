@@ -20,23 +20,23 @@ def getTextFromImage(filepath, bw=False, debug=False):
 		
 	if bw:
 		hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-
+		
 		# define range of black color in HSV
 		lower_val = np.array([0, 0, 0])
 		upper_val = np.array([179, 255, 179])
-
+		
 		# Threshold the HSV image to get only black colors
 		mask = cv2.inRange(hsv, lower_val, upper_val)
-
+		
 		# Bitwise-AND mask and original image
 		res = cv2.bitwise_and(image, image, mask = mask)
-
+		
 		# invert the mask to get black letters on white background
 		image = cv2.bitwise_not(mask)
 			
 	d = pytesseract.image_to_data(image, config = "-l eng --oem 1 --psm 11", output_type = Output.DICT)
 	n_boxes = len(d['text'])
-
+	
 	# Pick only the positive confidence boxes
 	for i in range(n_boxes):
 			
@@ -58,20 +58,22 @@ def getTextFromImage(filepath, bw=False, debug=False):
 		image_text = []
 		d = pytesseract.image_to_data(white_bg, config = "-l eng --oem 1 --psm 11", output_type = Output.DICT)
 		n_boxes = len(d['text'])
-
+		
 		# Pick only the positive confidence boxes
 		for i in range(n_boxes):
-
+			
 			if int(d['conf'][i]) >= 0:
-
+				
 				text = d['text'][i].strip()
 				(x, y, w, h) = (d['left'][i], d['top'][i], d['width'][i], d['height'][i])
 				image_text.append((d['text'][i], (x, y, w, h)))
 		
 	# Remove all the duplicates in (text, box) pairs
 	return list(set(image_text))
+	
 
-	def getProbableLabels(image, image_text, xaxis, yaxis):
+
+def getProbableLabels(image, image_text, xaxis, yaxis):
 	y_labels = []
 	x_labels = []
 	legends = []
@@ -116,7 +118,7 @@ def getTextFromImage(filepath, bw=False, debug=False):
 	# Sort bounding rects by x coordinate
 	def getYFromRect(item):
 		return item[1]
-
+		
 	maxList.sort(key = getYFromRect)
 	
 	x_labels = []
@@ -203,7 +205,7 @@ def getTextFromImageArray(image, mode):
 	d = pytesseract.image_to_data(image, config = config, output_type = Output.DICT)
 	
 	n_boxes = len(d['text'])
-
+	
 	# Pick only the positive confidence boxes
 	for i in range(n_boxes):
 			
@@ -221,13 +223,13 @@ def getTextFromImageArray(image, mode):
 
 def maskImageForwardPass(filepath, start_idx):
 	if path.name.endswith('.png') or path.name.endswith('.jpg') or path.name.endswith('.jpeg'):
-
+		
 		filepath = img_dir + "/" + path.name
 		image = cv2.imread(filepath)
 		height, width, channels = image.shape
 		
 		gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
+		
 		start_idx = 1
 		while start_idx <= width:
 			if sum(gray[:, start_idx] < 200) != 0:
@@ -271,7 +273,7 @@ def maskImageBackwardPass(filepath, end_idx):
 #Writing to Excel workbook
 def addToExcel(dataname, data, row):
 	col = 0
-
+	
 	worksheet.write(row, col, dataname)
 	for content in data:
 		col += 1
@@ -327,70 +329,70 @@ def nearbyRectangle(current, candidate, threshold):
 def mergeRects(contours):
 	rects = []
 	rectsUsed = []
-
+	
 	# Just initialize bounding rects and set all bools to false
 	for cnt in contours:
 		rects.append(cnt)
 		#rects.append(cv2.boundingRect(cnt))
 		rectsUsed.append(False)
-
+		
 	# Sort bounding rects by x coordinate
 	def getXFromRect(item):
 		return item[0]
-
+		
 	rects.sort(key = getXFromRect)
-
+	
 	# Array of accepted rects
 	acceptedRects = []
-
+	
 	# Merge threshold for x coordinate distance
 	xThr = 5
 	yThr = 5
-
+	
 	# Iterate all initial bounding rects
 	for supIdx, supVal in enumerate(rects):
 		if (rectsUsed[supIdx] == False):
-
+			
 			# Initialize current rect
 			currxMin = supVal[0]
 			currxMax = supVal[0] + supVal[2]
 			curryMin = supVal[1]
 			curryMax = supVal[1] + supVal[3]
-
+			
 			# This bounding rect is used
 			rectsUsed[supIdx] = True
-
+			
 			# Iterate all initial bounding rects
 			# starting from the next
 			for subIdx, subVal in enumerate(rects[(supIdx+1):], start = (supIdx+1)):
-
+				
 				# Initialize merge candidate
 				candxMin = subVal[0]
 				candxMax = subVal[0] + subVal[2]
 				candyMin = subVal[1]
 				candyMax = subVal[1] + subVal[3]
-
+				
 				# Check if x distance between current rect
 				# and merge candidate is small enough
 				if (candxMin <= currxMax + xThr):
-
+					
 					if not nearbyRectangle((candxMin, candyMin, candxMax - candxMin, candyMax - candyMin),
 										   (currxMin, curryMin, currxMax - currxMin, curryMax - curryMin), yThr):
 						break
-
+						
 					# Reset coordinates of current rect
 					currxMax = candxMax
 					curryMin = min(curryMin, candyMin)
 					curryMax = max(curryMax, candyMax)
-
+					
 					# Merge candidate (bounding rect) is used
 					rectsUsed[subIdx] = True
 				else:
 					break
-
+					
 			# No more merge candidates possible, accept current rect
 			acceptedRects.append([currxMin, curryMin, currxMax - currxMin, curryMax - curryMin])
-
+			
 	#for rect in acceptedRects:
 	#    img = cv2.rectangle(img, (rect[0], rect[1]), (rect[0] + rect[2], rect[1] + rect[3]), (121, 11, 189), 2)
 	
@@ -442,12 +444,13 @@ for subfolder in Path(img_dir).iterdir():
 				height, width, channels = image.shape
 				xaxis, yaxis = detectAxes(filepath)
 				y_text, y_labels = [], []
-				
+								
 				for (x1, y1, x2, y2) in [xaxis]:
 					xaxis = (x1, y1, x2, y2)
+					
 				for (x1, y1, x2, y2) in [yaxis]:
 					yaxis = (x1, y1, x2, y2)
-				
+								
 				rcParams['figure.figsize'] = 15, 4
 				fig, ax = plt.subplots(1, 3)
 				

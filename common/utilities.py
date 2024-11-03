@@ -133,6 +133,7 @@ def identify_sections(sentences, section_mapping):
 	
 	# Enhanced regex to match section headers
 	section_header_pattern = re.compile(r'\b(DOI|Abstract|Introduction|Methods|Materials and Methods|Results|Discussion|Conclusion|Background|Summary)\b', re.IGNORECASE)
+	# Regex to match DOI
 	doi_pattern = re.compile(r'\b10\.\d{4,9}/[-._;()/:A-Z0-9]+\b', re.IGNORECASE)  # Regex pattern to match DOIs
 	
 	for sentence in sentences:

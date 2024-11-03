@@ -2,10 +2,9 @@
 If the PMIDs are not known, extract DOIs from text and link them to file names.
 	- Check the configuration file config_abstracts.csv for configuration.
 	- Config needs: 
-		ncbi_api_key: The NCBI api key
-		cache_dir: Where the module stores the abstracts
+		pdf_save_dir: Where the PDFs live (i.e. ./../papers/) 
+		model_load_dir: Where the fitted/updated NER lives
 		doi_save: The output csv for PMIDs and DOIs
-		query: The query to PubMed, make sure it follows their rules! 
 """
 #libraries
 try:
