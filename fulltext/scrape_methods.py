@@ -61,6 +61,7 @@ try:
 	#the custom modules
 	sys.path.append(os.path.abspath('./../'))
 	from common.config import load_config, get_config_param, ConfigError
+	from common.utilities import extract_entities, find_entity_groups
 	from common.utilities import extract_text_from_pdf, preprocess_text, identify_sections, filter_sentences, create_table, extract_entities
 except ImportError as e:
 	print(f"Failed to import module: {e.name}. Please ensure it is installed.")
@@ -77,8 +78,8 @@ def main():
 		config = load_config(config_file_path)
 		pdf_save_dir = get_config_param(config, 'pdf_save_dir', required=True)
 		model_load_dir = get_config_param(config, 'model_load_dir', required=True)
-		results_keywords= get_config_param(config,'results_keywords',required=True)
-		response_table= get_config_param(config,'response_table',required=True)
+		label_list = get_config_param(config, 'label_list', required=True)
+		methods_table= get_config_param(config,'methods_table',required=True)
 		#Define a mapping for paper section variations
 		section_mapping = {
 			'doi':'doi',	
@@ -105,13 +106,19 @@ def main():
 		#Load custom NER
 		nlp = spacy.load(model_load_dir)
 
-		# Load the results keywords
-		with open(results_keywords, mode='r') as file:
-			keywords = [value for row in csv.reader(file) for value in row]
-
+		# Load the methods/results keywords
+		with open(label_list, mode='r') as file:
+			labels_use = [value for row in csv.reader(file) for value in row]
+		
+		# Create a DataFrame with columns for each label category, plus the DOI
+		columns = ["DOI"]+ labels_use
+		
+		# Initialize a list to collect rows
+		rows = []
+		
 		# Get the list of current PDFs in the directory
 		new_pdfs = {f for f in os.listdir(pdf_save_dir) if f.endswith('.pdf')}
-
+		
 		data = []
 		index_p = 1
 		# Process the new PDFs
@@ -126,23 +133,28 @@ def main():
 			#3. Put the sentences into their sections. 
 			sections = identify_sections(sentences,section_mapping)
 			#Filter sentences in the "Results" section
-			results_text = filter_sentences(sections["results"], keywords) 
+			#methods_text = filter_sentences(sections["methods"], keywords) 
 			#Extract entities from filtered text
-			results_text = " ".join(results_text)
+			methods_text = sections.get('methods')
+			methods_text = " ".join(methods_text)
 			# Remove remaining newline characters
-			results_text = re.sub(r'\n', ' ', results_text)
-			results_doc, results_entities = extract_entities(results_text, nlp)
-			table = create_table(results_doc, results_entities, study_id)
-			data.append(table)
+			methods_text = re.sub(r'\n', ' ', methods_text)
+			methods_doc, methods_entities = extract_entities(methods_text, nlp)
+			#print(entities)
+			row = {"DOI": sections.get('doi')}
+			#Cycle through the labels
+			for label in labels_use:
+				#Find the groups
+				entity_matches = find_entity_groups(methods_doc, methods_entities, label)
+				row[label] = "; ".join(entity_matches)  # Join matches with a separator, e.g., '; '
+			# Collect the row
+			rows.append(row)
 			index_p +=1
-
-		flattened_data = [item for sublist in data for item in sublist]
-		df = pd.DataFrame(flattened_data)
-
-		# Export DataFrame to a CSV file
-		df.to_csv(response_table, index=False)
-
-
+			
+		#Create and save the df
+		df = pd.DataFrame(rows, columns=columns)
+		df.to_csv(methods_table, index=False)
+		
 	except Exception as e:
 		print(f"An error occurred: {e}")
 

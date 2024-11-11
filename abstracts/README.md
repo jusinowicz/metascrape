@@ -39,7 +39,11 @@ The table of words taken from the abstracts is already useful for helping us sor
 If you would like to use the results of analyzing the abstracts to create a subset of papers which are analyzed in subsequent steps, then
 
 ### 7. Generate a list of DOIs and PMIDs
-The last step is to create an index file that links the two different ways of identifying docs: DOI and PMID. There are two files to do this in two different ways. **abstract_doi.py** uses the NBCI search engine with the same keyword search to generate the list. **abstract_doi_from_text.py** uses the PDF scraping tools to get the DOI directly from the PDF and then uses the names of the PDF as the idea. For some reason, the WOS code in R to autodownload fulltexts creates multiple versions of the same PMID with a "name.1, name.2..." naming scheme. The current version of the output, all_DOIs.csv, is this version. 
+The last step is to create an index file that links the two different ways of identifying docs: DOI and PMID. There are two files to do this in two different ways. 
+### 7A. 
+**abstract_doi.py** uses the NBCI search engine with the same keyword search to generate the list. 
+### 7B. 
+**abstract_doi_from_text.py** uses the PDF scraping tools to get the DOI directly from the PDF and then uses the names of the PDF as the idea. For some reason, the WOS code in R to autodownload fulltexts creates multiple versions of the same PMID with a "name.1, name.2..." naming scheme. The current version of the output, all_DOIs.csv, is this version. 
 
 
 

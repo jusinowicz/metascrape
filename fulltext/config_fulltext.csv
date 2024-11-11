@@ -11,6 +11,8 @@ latest_labels, ./../label_studio_projects/fulltext/
 pdf_save_dir, ./../papers/
 model_save_dir, ./../models/custom_sci_abs_met_v382
 model_load_dir, ./../models/custom_sci_abs_met_v382
-response_table, ./../output/extract_from_text2.csv
+response_table, ./../output/extract_from_text1.csv
+methods_table, ./../output/extract_from_methods1.csv
 results_keywords, results_keywords.csv
 sections_wanted, methods
+label_list, labels.csv
