@@ -1,5 +1,10 @@
+#=============================================================================
+# Using the table of words scraped from the results and methods of the 
+# fulltext and combined with abstract scraping to generate tables.
+#=============================================================================
 # Load necessary libraries
 library(dplyr)
+#=============================================================================
 
 # Read the ID key from 'all_DOIS.csv'
 allDOIs = read.csv("all_DOIS.csv")
@@ -8,9 +13,16 @@ colnames(allDOIs)[2] = "STUDY"
 # Read the abstrac data from 'abstract_parsing1.csv'
 abstracts = read.csv('./../output/abstract_parsing1.csv')
 
-# Read the data table from the output folder:
-data = read.csv("./../output/extract_from_text2.csv")
-data$STUDY = as.numeric(data$STUDY)
+# Read the fulltext data table from the output folder:
+data = read.csv("./../output/extract_from_text1.csv")
+#data$STUDY = as.numeric(data$STUDY)
+
+# #Read the data table scraped from methods in the output folder:
+methods_data = read.csv("./../output/extract_from_methods1.csv")
+
+#=============================================================================
+#Some cleaning
+#=============================================================================
 
 # Clean the CARDINAL column
 data$CARDINAL = data$CARDINAL %>%
@@ -24,6 +36,9 @@ data$CARDINAL = data$CARDINAL %>%
 #Remove things that are dates or other odd numbers, anything over 1900: 
 data$CARDINAL[data$CARDINAL>=900] = NA
 
+#=============================================================================
+#Data summaries
+#=============================================================================
 # Summarize CARDINAL: mean and median, excluding blanks (assuming blanks are represented by NA)
 cardinal_summary = data %>%
   filter(!is.na(CARDINAL)) %>%
@@ -46,21 +61,31 @@ print(cardinal_summary)
 print(response_counts)
 print(study_count)
 
-# Define criteria for high-quality data (example: ISTABLE == 0 and CARDINAL is not NA or text)
-high_quality_data = data %>%
-  filter(ISTABLE == 0 & !is.na(CARDINAL))
-
+#=============================================================================
+#Merge the data with some additional variables from abstracts and methods
+#=============================================================================
 
 # Merge high-quality data with 'allDOIs.csv' to get the 'DOI' column
-merged_data = high_quality_data %>%
+data = data %>%
   inner_join(allDOIs, by = "STUDY")
 
-# Merge high-quality data with 'abstract_parsing1.csv' based on the 'DOI' column
-merged_data = merged_data %>%
-  inner_join(abstracts, by = "DOI")
+#Add only the LAT/LON data from the methods
+data = data %>%
+  left_join(select(methods_data, DOI, LAT, LON), by = "DOI")
 
-# Display the merged data
-print(head(merged_data))
- 
+# Take the columns from the Abstracts that are not yet associated with the tables high-quality data with 'abstract_parsing1.csv' based on the 'DOI' column
+merged_data = data %>%
+  left_join(select(abstracts, DOI, INOCTYPE, SOILTYPE, FIELDGREENHOUSE, LANDUSE, ECOTYPE, ECOREGION, LOCATION), by = "DOI")
+
+# Define criteria for high-quality data (example: ISTABLE == 0 and CARDINAL is not NA or text)
+high_quality_data = merged_data %>%
+  filter(ISTABLE == 0 & !is.na(CARDINAL))
+
+# Display the high_quality data
+print(head(high_quality_data))
+
+#=============================================================================
 # Save the combined sheet
-write.csv(file = "./../output/fulltext_abstracts_comb.csv", merged_data) 
+write.csv(file = "./../output/fulltext_abstracts_comb.csv", high_quality_data) 
+
+

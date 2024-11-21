@@ -35,7 +35,7 @@ Then, you can run the updated NER model to generate predictions. Open another te
 The models in *models/* have been trained on 200+ Methods sections in addition to the 800+ that the abstracts NER starts with. Its error rate is fairly low already at this threshold (<10%). 
 
 ### 5. Scrape Treatments and Responses
-The final step is to generate data with **scrape_responses.py,** which will run through the fulltext, label words, categorize them and attempt to identify response and treatment relationships through analysis of sentence syntax. The code attempts to automatically sort the extracted data into a table and output to /output/extracted_from_text1.csv  
+The penultimate step is to generate data with **scrape_responses.py,** which will run through the fulltext, label words, categorize them and attempt to identify response and treatment relationships through analysis of sentence syntax. The code attempts to automatically sort the extracted data into a table and output to /output/extracted_from_text1.csv  
 
 Here is an overview of the table: 
 - The final output is a df/CSV with columns STUDY, TREATMENT, RESPONSE, CARDINAL, PERCENTAGE, SENTENCE, ISTABLE. There are separate columns for CARDINAL (a numeric) response) and PERCENTAGE because the NER recognizes them separately. This is useful because it helps determine whether actual units of biomass response are being identified or the ratio of response (percentage). 
@@ -44,3 +44,5 @@ Here is an overview of the table:
 
 - This table is meant to help determine what information is available in the paper and indicate whether further downstream extraction is necessary. 
 
+### 6. Scrape Methods
+Finally, scraping the methods for any additional useful data run **scrape_methods.py.** In particular the methods tend to contain the latitude and longitude of study sites. This produces output with the same stucture discussed in **5** in the file /output/extracted_from_responses1.csv   

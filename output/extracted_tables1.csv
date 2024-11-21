@@ -1,31 +1,314 @@
 STUDY,TREATMENT,RESPONSE,CARDINAL,PERCENTAGE,SENTENCE,ISTABLE
-34209987.4,control,dry weight,20.0,,dry weight g p,99
-34209987.4,disorder,dry weight,15.44,,dry weight g p,99
-34209987.4,,dry weight,ns,,dry weight g p,99
-34209987.4,control,dry weight,44.2,,dry weight g k,99
-34209987.4,disorder,dry weight,32.27,,dry weight g k,99
-34209987.4,,dry weight,ed,,dry weight g k,99
-34209987.4,control,dry weight,20.0,,dry weight g ca,99
-34209987.4,disorder,dry weight,16.63,,dry weight g ca,99
-34209987.4,,dry weight,ns,,dry weight g ca,99
-34209987.4,control,dry weight,20.0,,dry weight g s,99
-34209987.4,disorder,dry weight,18.01,,dry weight g s,99
-34209987.4,,dry weight,ns,,dry weight g s,99
-34209987.4,control,dry weight,20.0,,dry weight g nan,99
-34209987.4,disorder,dry weight,18.01,,dry weight g nan,99
-34209987.4,,dry weight,ns,,dry weight g nan,99
-34209987.4,control,dry weight,44.2,,dry weight g fe,99
-34209987.4,disorder,dry weight,43.42,,dry weight g fe,99
-34209987.4,,dry weight,ns,,dry weight g fe,99
-34209987.4,control,dry weight,13.46,,dry weight g mn,99
-34209987.4,disorder,dry weight,13.09,,dry weight g mn,99
-34209987.4,,dry weight,ns,,dry weight g mn,99
-34209987.4,control,dry weight,19.99,,dry weight g mn,99
-34209987.4,disorder,dry weight,18.7,,dry weight g mn,99
-34209987.4,,dry weight,ns,,dry weight g mn,99
-34209987.4,control,dry weight,44.2,,dry weight g mo,99
-34209987.4,disorder,dry weight,39.91,,dry weight g mo,99
-34209987.4,,dry weight,ns,,dry weight g mo,99
-34209987.4,control,dry weight,44.2,,dry weight g zn,99
-34209987.4,disorder,dry weight,43.23,,dry weight g zn,99
-34209987.4,,dry weight,ns,,dry weight g zn,99
+36778709,,plant growth,5.6,,plant growth traits height,99
+36778709,,plant growth,544.0,,plant growth traits height,99
+36778709,,plant growth,117.1,,plant growth traits height,99
+36778709,mxf,plant growth,1.95,,plant growth traits height,99
+36778709,mxw,plant growth,12.7,,plant growth traits height,99
+36778709,fxw,plant growth,7.26,,plant growth traits height,99
+36778709,mxfxw,plant growth,2.94,,plant growth traits height,99
+36778709,,plant growth,15.0,,plant growth traits leaf,99
+36778709,,plant growth,146.3,,plant growth traits leaf,99
+36778709,,plant growth,157.8,,plant growth traits leaf,99
+36778709,mxf,plant growth,3.95,,plant growth traits leaf,99
+36778709,mxw,plant growth,6.67,,plant growth traits leaf,99
+36778709,fxw,plant growth,6.07,,plant growth traits leaf,99
+36778709,mxfxw,plant growth,0.0,,plant growth traits leaf,99
+36778709,,plant growth,10.0,,plant growth traits stem,99
+36778709,,plant growth,119.0,,plant growth traits stem,99
+36778709,,plant growth,237.0,,plant growth traits stem,99
+36778709,mxf,plant growth,8.79,,plant growth traits stem,99
+36778709,mxw,plant growth,14.6,,plant growth traits stem,99
+36778709,fxw,plant growth,32.3,,plant growth traits stem,99
+36778709,mxfxw,plant growth,1.12,,plant growth traits stem,99
+36778709,,plant growth,1.11,,plant growth traits root,99
+36778709,,plant growth,14.0,,plant growth traits root,99
+36778709,,plant growth,94.6,,plant growth traits root,99
+36778709,mxf,plant growth,2.03,,plant growth traits root,99
+36778709,mxw,plant growth,1.03,,plant growth traits root,99
+36778709,fxw,plant growth,16.6,,plant growth traits root,99
+36778709,mxfxw,plant growth,0.36,,plant growth traits root,99
+36778709,,plant growth,448.0,,plant growth traits total,99
+36778709,,plant growth,60.0,,plant growth traits total,99
+36778709,,plant growth,162.7,,plant growth traits total,99
+36778709,mxf,plant growth,456.0,,plant growth traits total,99
+36778709,mxw,plant growth,2.68,,plant growth traits total,99
+36778709,fxw,plant growth,22.0,,plant growth traits total,99
+36778709,mxfxw,plant growth,0.36,,plant growth traits total,99
+32046366.3,plant species x amf,biomass,0.62,,total biomass f 291.01 0.84 12.73 0.78,99
+32046366.3,earthworm x amf,biomass,0.34,,total biomass f 291.01 0.84 12.73 0.78,99
+32046366.3,plant species x earthworm x amf,biomass,1.83,,total biomass f 291.01 0.84 12.73 0.78,99
+32046366.3,residuals ms,biomass,0.05,,total biomass f 291.01 0.84 12.73 0.78,99
+32046366.3,plant species x amf,biomass,,,total biomass p oe ok a tr,99
+32046366.3,earthworm x amf,biomass,,,total biomass p oe ok a tr,99
+32046366.3,plant species x earthworm x amf,biomass,,,total biomass p oe ok a tr,99
+32046366.3,residuals ms,biomass,,,total biomass p oe ok a tr,99
+32046366.3,plant species x amf,biomass,,,total biomass nan pl t,99
+32046366.3,earthworm x amf,biomass,,,total biomass nan pl t,99
+32046366.3,plant species x earthworm x amf,biomass,,,total biomass nan pl t,99
+32046366.3,residuals ms,biomass,,,total biomass nan pl t,99
+32046366.3,plant species x amf,biomass,0.28,,root biomass f 4.4 0.41 13.29 0.19,99
+32046366.3,earthworm x amf,biomass,0.06,,root biomass f 4.4 0.41 13.29 0.19,99
+32046366.3,plant species x earthworm x amf,biomass,3.51,,root biomass f 4.4 0.41 13.29 0.19,99
+32046366.3,residuals ms,root biomass,0.2,,root biomass f 4.4 0.41 13.29 0.19,99
+32046366.3,plant species x amf,root biomass,,,root biomass p  or rk t 12.01,99
+32046366.3,earthworm x amf,root biomass,,,root biomass p  or rk t 12.01,99
+32046366.3,plant species x earthworm x amf,root biomass,,,root biomass p  or rk t 12.01,99
+32046366.3,residuals ms,root biomass,,,root biomass p  or rk t 12.01,99
+32046366.3,plant species x amf,root biomass,0.32,,shoot biomass f 532.75 1.01 1.11,99
+32046366.3,earthworm x amf,root biomass,0.04,,shoot biomass f 532.75 1.01 1.11,99
+32046366.3,plant species x earthworm x amf,root biomass,0.93,,shoot biomass f 532.75 1.01 1.11,99
+32046366.3,residuals ms,root biomass,0.04,,shoot biomass f 532.75 1.01 1.11,99
+32046366.3,plant species x amf,root biomass,,,shoot biomass p or obr,99
+32046366.3,earthworm x amf,biomass,,,shoot biomass p or obr,99
+32046366.3,plant species x earthworm x amf,biomass,,,shoot biomass p or obr,99
+32046366.3,residuals ms,biomass,,,shoot biomass p or obr,99
+32046366.3,plant species x amf,biomass,,,shoot biomass nan pl t,99
+32046366.3,earthworm x amf,biomass,,,shoot biomass nan pl t,99
+32046366.3,plant species x earthworm x amf,biomass,,,shoot biomass nan pl t,99
+32046366.3,residuals ms,biomass,,,shoot biomass nan pl t,99
+33193464,c11,height,,,shoot height cm nan nan nan a,99
+33193464,c12 c2,height,af,,shoot height cm nan nan nan a,99
+33193464,c21,height,,,shoot height cm nan nan nan a,99
+33193464,c22,height,,,shoot height cm nan nan nan a,99
+33193464,a fa,height,1.3,,shoot height cm nan nan nan a,99
+33193464,a f11,height,,,shoot height cm nan nan nan a,99
+33193464,a f12 f11,height,,,shoot height cm nan nan nan a,99
+33193464,fic11,height,ac,,shoot height cm nan nan nan a,99
+33193464,f112 f12,height,,,shoot height cm nan nan nan a,99
+33193464,fic21,height,0.8,,shoot height cm nan nan nan a,99
+33193464,c11,height,25.0,,shoot height cm 25.0 21.140.6 23.4 23.0 nan,99
+33193464,c12 c2,height,26.6,,shoot height cm 25.0 21.140.6 23.4 23.0 nan,99
+33193464,c21,height,,,shoot height cm 25.0 21.140.6 23.4 23.0 nan,99
+33193464,c22,height,26.7,,shoot height cm 25.0 21.140.6 23.4 23.0 nan,99
+33193464,a fa,height,27.2,,shoot height cm 25.0 21.140.6 23.4 23.0 nan,99
+33193464,a f11,height,25.6,,shoot height cm 25.0 21.140.6 23.4 23.0 nan,99
+33193464,a f12 f11,height,26.4 27.64,,shoot height cm 25.0 21.140.6 23.4 23.0 nan,99
+33193464,fic11,height,,,shoot height cm 25.0 21.140.6 23.4 23.0 nan,99
+33193464,f112 f12,height,26.8 24.7,,shoot height cm 25.0 21.140.6 23.4 23.0 nan,99
+33193464,fic21,height,,,shoot height cm 25.0 21.140.6 23.4 23.0 nan,99
+33193464,c11,height,0.8,,shoot height cm fc 0.7 m mm,99
+33193464,c12 c2,height,b cm,,shoot height cm fc 0.7 m mm,99
+33193464,c21,height,,,shoot height cm fc 0.7 m mm,99
+33193464,c22,height,0.9,,shoot height cm fc 0.7 m mm,99
+33193464,a fa,height,0.5,,shoot height cm fc 0.7 m mm,99
+33193464,a f11,height,0.9,,shoot height cm fc 0.7 m mm,99
+33193464,a f12 f11,height,0.6,,shoot height cm fc 0.7 m mm,99
+33193464,fic11,height,1.1,,shoot height cm fc 0.7 m mm,99
+33193464,f112 f12,height,0.9 0.7,,shoot height cm fc 0.7 m mm,99
+33193464,fic21,height,0.7,,shoot height cm fc 0.7 m mm,99
+33193464,c11,height,26.7  1.1,,shoot height cm 75.0 21.9 0.6 25.2 26.34 nan,99
+33193464,c12 c2,height,26.6,,shoot height cm 75.0 21.9 0.6 25.2 26.34 nan,99
+33193464,c21,height,24.5,,shoot height cm 75.0 21.9 0.6 25.2 26.34 nan,99
+33193464,c22,height,28.7,,shoot height cm 75.0 21.9 0.6 25.2 26.34 nan,99
+33193464,a fa,height,,,shoot height cm 75.0 21.9 0.6 25.2 26.34 nan,99
+33193464,a f11,height,29.3,,shoot height cm 75.0 21.9 0.6 25.2 26.34 nan,99
+33193464,a f12 f11,height,29.2,,shoot height cm 75.0 21.9 0.6 25.2 26.34 nan,99
+33193464,fic11,height,29.5,,shoot height cm 75.0 21.9 0.6 25.2 26.34 nan,99
+33193464,f112 f12,height,28.2,,shoot height cm 75.0 21.9 0.6 25.2 26.34 nan,99
+33193464,fic21,height,,,shoot height cm 75.0 21.9 0.6 25.2 26.34 nan,99
+33193464,f2,height,aj,,shoot height cm nan nan nan ac,99
+33193464,f21,height,ah,,shoot height cm nan nan nan ac,99
+33193464,f22,height,,,shoot height cm nan nan nan ac,99
+33193464,f21,height,,,shoot height cm nan nan nan ac,99
+33193464,f211,height,,,shoot height cm nan nan nan ac,99
+33193464,f212,height,,,shoot height cm nan nan nan ac,99
+33193464,f22,height,ae,,shoot height cm nan nan nan ac,99
+33193464,a f221 f222,height,,,shoot height cm nan nan nan ac,99
+33193464,f2,height,,,shoot height cm 25.0 21.140.6 23.4 23.0 24.8,99
+33193464,f21,height,,,shoot height cm 25.0 21.140.6 23.4 23.0 24.8,99
+33193464,f22,height,,,shoot height cm 25.0 21.140.6 23.4 23.0 24.8,99
+33193464,f21,height,27.0,,shoot height cm 25.0 21.140.6 23.4 23.0 24.8,99
+33193464,f211,height,23.8,,shoot height cm 25.0 21.140.6 23.4 23.0 24.8,99
+33193464,f212,height,,,shoot height cm 25.0 21.140.6 23.4 23.0 24.8,99
+33193464,f22,height,26.8,,shoot height cm 25.0 21.140.6 23.4 23.0 24.8,99
+33193464,a f221 f222,height,27.3  25.3 ,,shoot height cm 25.0 21.140.6 23.4 23.0 24.8,99
+33193464,f2,height,,,shoot height cm fc 0.7 m 0.7,99
+33193464,f21,height,cm,,shoot height cm fc 0.7 m 0.7,99
+33193464,f22,height,0.6,,shoot height cm fc 0.7 m 0.7,99
+33193464,f21,height,0.7,,shoot height cm fc 0.7 m 0.7,99
+33193464,f211,height,0.7,,shoot height cm fc 0.7 m 0.7,99
+33193464,f212,height,0.8,,shoot height cm fc 0.7 m 0.7,99
+33193464,f22,height,0.4,,shoot height cm fc 0.7 m 0.7,99
+33193464,a f221 f222,height,0.9 0.5,,shoot height cm fc 0.7 m 0.7,99
+33193464,f2,height,28.8,,shoot height cm 75.0 21.9 0.6 25.2 26.34 29.0,99
+33193464,f21,height,,,shoot height cm 75.0 21.9 0.6 25.2 26.34 29.0,99
+33193464,f22,height,28.8,,shoot height cm 75.0 21.9 0.6 25.2 26.34 29.0,99
+33193464,f21,height,26.0,,shoot height cm 75.0 21.9 0.6 25.2 26.34 29.0,99
+33193464,f211,height,,,shoot height cm 75.0 21.9 0.6 25.2 26.34 29.0,99
+33193464,f212,height,,,shoot height cm 75.0 21.9 0.6 25.2 26.34 29.0,99
+33193464,f22,height,,,shoot height cm 75.0 21.9 0.6 25.2 26.34 29.0,99
+33193464,a f221 f222,height,26.5,,shoot height cm 75.0 21.9 0.6 25.2 26.34 29.0,99
+32604987.19,control,plant height,49.8,,nan nan second season,99
+32604987.19,,plant height,58.2,,nan nan second season,99
+32604987.19,,plant height,67.4,,nan nan second season,99
+32604987.19,selenium,plant height,70.1,,nan nan second season,99
+32604987.19,,plant height,53.9,,nan nan second season,99
+32604987.19,,plant height,47.8,,nan nan second season,99
+32604987.19,l.s.d. 0.05,plant height,8.19,,nan nan second season,99
+32604987.19,control,plant height,46.14,,morphological characters nan second season,99
+32604987.19,,dry weight,51.92,,morphological characters nan second season,99
+32604987.19,,dry weight,65.66,,morphological characters nan second season,99
+32604987.19,selenium,dry weight,77.42,,morphological characters nan second season,99
+32604987.19,,dry weight,57.11,,morphological characters nan second season,99
+32604987.19,,dry weight,43.84,,morphological characters nan second season,99
+32604987.19,l.s.d. 0.05,dry weight,7.72,,morphological characters nan second season,99
+32604987.19,,weight,73.38,,weight of 100 seeds g first season 71.54,99
+32604987.19,,weight,78.92,,weight of 100 seeds g first season 71.54,99
+32604987.19,selenium,weight,80.14,,weight of 100 seeds g first season 71.54,99
+32604987.19,,weight,74.29,,weight of 100 seeds g first season 71.54,99
+32604987.19,,weight,66.17,,weight of 100 seeds g first season 71.54,99
+32604987.19,l.s.d. 0.05,weight,5.09,,weight of 100 seeds g first season 71.54,99
+32604987.19,,weight,62.29,,seed yield g  plant first season 46.72,99
+32604987.19,,yield,97.15,,seed yield g  plant first season 46.72,99
+32604987.19,selenium,yield,108.75,,seed yield g  plant first season 46.72,99
+32604987.19,,yield,70.87,,seed yield g  plant first season 46.72,99
+32604987.19,,yield,31.23,,seed yield g  plant first season 46.72,99
+32604987.19,l.s.d. 0.05,yield,11.44,,seed yield g  plant first season 46.72,99
+38716345,,plant height,33.24  15.8,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,51.82  5.2,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,49.37  11.45,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,54  5.66,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,36.25  13.98,,plant height at 4 cm nan 43.54  8.27,99
+38716345,sl23,plant height,35  6.8,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,32.68  13.02,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,44.88  10.45,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,40.5  6.4,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,53.48  12.54,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,67.63  12.98,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,56.43  7.58,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,62.03  5.87,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,54.07  8.39,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,sl23,plant height,51.17  8.56,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,53.75  8.1,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,67.87  11.28,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,59.84  1.29,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,0.92  0.76,,shoot biomass g 0.95 0.23,99
+38716345,,plant height,1.4  0.18,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,1.09  0.34,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,1.56  0.14,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,0.82  0.37,,shoot biomass g 0.95 0.23,99
+38716345,sl23,biomass,0.98  0.45,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,0.99  0.57,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,1.65  0.62,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,1.52  0.58,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,0.6  0.45,,root biomass 2 nan 0.41  0.12,99
+38716345,,biomass,0.63  0.24,,root biomass 2 nan 0.41  0.12,99
+38716345,,biomass,0.62  0.32,,root biomass 2 nan 0.41  0.12,99
+38716345,,root biomass,0.45  0.19,,root biomass 2 nan 0.41  0.12,99
+38716345,,root biomass,0.7  0.27,,root biomass 2 nan 0.41  0.12,99
+38716345,sl23,root biomass,0.88  0.56,,root biomass 2 nan 0.41  0.12,99
+38716345,,root biomass,0.92  0.5,,root biomass 2 nan 0.41  0.12,99
+38716345,,root biomass,0.79  0.39,,root biomass 2 nan 0.41  0.12,99
+38716345,,root biomass,0.88  0.52,,root biomass 2 nan 0.41  0.12,99
+38716345,,plant height,39.2  6.65,,plant height at 4 cm nan 42.2  3.62,99
+38716345,sl423,plant height,35.68  13.78,,plant height at 4 cm nan 42.2  3.62,99
+38716345,,plant height,30.73  8.23,,plant height at 4 cm nan 42.2  3.62,99
+38716345,,plant height,40.52  5.89,,plant height at 4 cm nan 42.2  3.62,99
+38716345,,plant height,44.42  7.26,,plant height at 4 cm nan 42.2  3.62,99
+38716345,,plant height,56.9  6.84,,plant height at 8 cm 58.15  5.69 65.7  7.15,99
+38716345,sl423,plant height,54  11.47,,plant height at 8 cm 58.15  5.69 65.7  7.15,99
+38716345,,plant height,40.72  7.88,,plant height at 8 cm 58.15  5.69 65.7  7.15,99
+38716345,,plant height,59.28  6.58,,plant height at 8 cm 58.15  5.69 65.7  7.15,99
+38716345,,plant height,61.08  9.48,,plant height at 8 cm 58.15  5.69 65.7  7.15,99
+38716345,,plant height,1.03  0.29,,shoot biomass g 0.95 1204.0,99
+38716345,sl423,plant height,0.9  0.63,,shoot biomass g 0.95 1204.0,99
+38716345,,biomass,0.43  0.15,,shoot biomass g 0.95 1204.0,99
+38716345,,biomass,1.15  0.27,,shoot biomass g 0.95 1204.0,99
+38716345,,biomass,1.27  0.4,,shoot biomass g 0.95 1204.0,99
+38716345,,biomass,0.4  0.22,,root biomass 2 nan 0.6  0.34,99
+38716345,sl423,biomass,0.93  0.43,,root biomass 2 nan 0.6  0.34,99
+38716345,,biomass,0.66  0.15,,root biomass 2 nan 0.6  0.34,99
+38716345,,root biomass,0.53.1,,root biomass 2 nan 0.6  0.34,99
+38716345,,root biomass,0.53  0.19,,root biomass 2 nan 0.6  0.34,99
+38716345,,plant height,36.78  7.88,,plant height at 4 cm nan 42.3 5.44,99
+38716345,,plant height,48.92  7.96,,plant height at 8 cm 58.15  5.69 59.05  10.78,99
+38716345,,plant height,0.85  0.32,,shoot biomass g 0.95 1.13  0.13,99
+38716345,,plant height,0.57  0.22,,root biomass 2 nan 0.6  0.13,99
+38716345,,plant height,32.83  7.84,,plant height at 4 cm nan 29.93  14.4,99
+38716345,,plant height,41  15.19,,plant height at 4 cm nan 29.93  14.4,99
+38716345,,plant height,39.87  11.72,,plant height at 4 cm nan 29.93  14.4,99
+38716345,,plant height,46.25  10.13 43.37  5.59,,plant height at 4 cm nan 29.93  14.4,99
+38716345,,plant height,46.38  8.25,,plant height at 8 cm 58.15  5.69 42.92  11.12,99
+38716345,,plant height,62.62  9.02,,plant height at 8 cm 58.15  5.69 42.92  11.12,99
+38716345,,plant height,58.7  13.39,,plant height at 8 cm 58.15  5.69 42.92  11.12,99
+38716345,,plant height,67.55  12.0 60.03  5.12,,plant height at 8 cm 58.15  5.69 42.92  11.12,99
+38716345,,plant height,0.61  0.28,,shoot biomass g 0.95 0.62  0.31,99
+38716345,,plant height,1.37  0.5,,shoot biomass g 0.95 0.62  0.31,99
+38716345,,biomass,1.1  0.56,,shoot biomass g 0.95 0.62  0.31,99
+38716345,,biomass,1.77  0.87 1.09  0.09,,shoot biomass g 0.95 0.62  0.31,99
+38716345,,biomass,0.43  0.la,,root biomass 2 nan 0.67  0.28,99
+38716345,,biomass,0.5  0.25,,root biomass 2 nan 0.67  0.28,99
+38716345,,biomass,0.6  0.47,,root biomass 2 nan 0.67  0.28,99
+38716345,,root biomass,0.63  0.33 0.41  0.13,,root biomass 2 nan 0.67  0.28,99
+34063150.12,,yield,2.8,,grain yield t grain ha,99
+34063150.12,,yield,3.4,,grain yield t grain ha,99
+34063150.12,,yield,2.1,,grain yield t grain ha,99
+34063150.12,,yield,2.2,,grain yield t grain ha,99
+34063150.12,,yield,3.0,,grain yield t grain ha,99
+34063150.12,,yield,3.3,,grain yield t grain ha,99
+34063150.12,,yield,1.5,,grain yield t grain ha,99
+34063150.12,,yield,1.8,,grain yield t grain ha,99
+34063150.12,,yield,2.6,,grain yield t grain ha,99
+34063150.12,10.0,yield,2.5,,grain yield t grain ha,99
+34063150.12,11.0,yield,1.1,,grain yield t grain ha,99
+34063150.12,12.0,yield,1.3,,grain yield t grain ha,99
+36422357.1,cd  0.10 0.08 0.06 0.0. 3 0.02 0.00,biomass,,,biomass mgplant mycorrhizal rate   0.44 0.24  53.6 8.1  0.47 0.15  56.7 3.5  0.97 0.26 54.54  7.4  0.65 0.13  49.8 8.0  0.88 0.40 59.9 13  0.66 0.41  55.2 9.3 0.50 0.45 8 0.40 0.35 0.30. 0.25 0.20 0.15 0.10 d cd d 0.05 a 0.00 1,99
+36422357.1,,biomass,ni ni,,biomass mgplant mycorrhizal rate   0.44 0.24  53.6 8.1  0.47 0.15  56.7 3.5  0.97 0.26 54.54  7.4  0.65 0.13  49.8 8.0  0.88 0.40 59.9 13  0.66 0.41  55.2 9.3 0.50 0.45 8 0.40 0.35 0.30. 0.25 0.20 0.15 0.10 d cd d 0.05 a 0.00 1,99
+36422357.1,nonamended,biomass,nonamended,,biomass mgplant mycorrhizal rate   0.44 0.24  53.6 8.1  0.47 0.15  56.7 3.5  0.97 0.26 54.54  7.4  0.65 0.13  49.8 8.0  0.88 0.40 59.9 13  0.66 0.41  55.2 9.3 0.50 0.45 8 0.40 0.35 0.30. 0.25 0.20 0.15 0.10 d cd d 0.05 a 0.00 1,99
+36422357.1,cd  0.10 0.08 0.06 0.0. 3 0.02 0.00,biomass,,,biomass mgplant mycorrhizal rate  nan nan nan nan,99
+36422357.1,,biomass,ni ni,,biomass mgplant mycorrhizal rate  nan nan nan nan,99
+36422357.1,nonamended,biomass,compost sewage sludge,,biomass mgplant mycorrhizal rate  nan nan nan nan,99
+36422357.1,0.60 0.50 3 0.40  0.30 efg 0.20  0.10 0.00,biomass,0.6 z et 0.50 3  0.40  cd cd cd  0.30 2 020 e i e 3 010  0.00 ni i ni,,biomass mgplant mycorrhizal rate   0.44 0.24  53.6 8.1  0.47 0.15  56.7 3.5  0.97 0.26 54.54  7.4  0.65 0.13  49.8 8.0  0.88 0.40 59.9 13  0.66 0.41  55.2 9.3 d,99
+36422357.1,nonamended,biomass,nonamended,,biomass mgplant mycorrhizal rate   0.44 0.24  53.6 8.1  0.47 0.15  56.7 3.5  0.97 0.26 54.54  7.4  0.65 0.13  49.8 8.0  0.88 0.40 59.9 13  0.66 0.41  55.2 9.3 d,99
+36422357.1,0.60 0.50 3 0.40  0.30 efg 0.20  0.10 0.00,biomass,,,biomass mgplant mycorrhizal rate  nan nan nan nonvege tated ml vegetated,99
+36422357.1,nonamended,biomass,compost sewage sludg ne getate mvegetated,,biomass mgplant mycorrhizal rate  nan nan nan nonvege tated ml vegetated,99
+28503185,,biomass,5.8,,biomass,99
+28503185,cv,biomass,30.6,,biomass,99
+28503185,,biomass,20.5,,biomass,99
+28503185,px cv,biomass,0.2,,biomass,99
+28503185,pxm,biomass,1.3,,biomass,99
+28503185,cvxm,biomass,12.5,,biomass,99
+28503185,px cvxm,biomass,1.5,,biomass,99
+37367620.1,s1,height,9.86  0.41,,height cm 4.82  0.49,99
+37367620.1,s1,height,1.145  0.085,,shoot dry weight root dry weight gpot gpot 0.278  0.015,99
+37367620.1,,height,5.60  0.12,,height cm 9.21  0.13,99
+37367620.1,,height,0.425  0.032,,shoot dry weight root dry weight gpot gpot 1.178  0.066,99
+37367620.1,,height,8.47  0.41,,height cm 10.71  0.95,99
+37367620.1,,height,1.022  0.112,,shoot dry weight root dry weight gpot gpot 1.421  0.126,99
+37367620.1,53.0,height,12.68  0.51,,height cm 12.33  0.39,99
+37367620.1,,height,12.70  0.59,,height cm 12.33  0.39,99
+37367620.1,53.0,height,2.418  0.177,,shoot dry weight root dry weight gpot gpot 2.100  0.213,99
+37367620.1,,dry weight,2.191  0.125,,shoot dry weight root dry weight gpot gpot 2.100  0.213,99
+26698576,pb,height,0.0,,shoot height cm nan 37.943.16 45.53.40 43.643.14 35.343.30 43.95.87 39.843.47 20.342.37 31.342.95 34.142.16 16.642.71 23.842.22 28.143.36 significance,99
+26698576,amf,height,0.0,,shoot height cm nan 37.943.16 45.53.40 43.643.14 35.343.30 43.95.87 39.843.47 20.342.37 31.342.95 34.142.16 16.642.71 23.842.22 28.143.36 significance,99
+26698576,pb x amf,height,0.005,,shoot height cm nan 37.943.16 45.53.40 43.643.14 35.343.30 43.95.87 39.843.47 20.342.37 31.342.95 34.142.16 16.642.71 23.842.22 28.143.36 significance,99
+26698576,pb,height,0.0,,dry weight g shoot 5.260.32 6.530.52 6.3440.34 4.670.41 6.1240.41 6.200.34 3.360.30 4.740.28 5.3840.31 2.940.22 4.1340.32 4.800.31 significance,99
+26698576,amf,dry weight,0.0,,dry weight g shoot 5.260.32 6.530.52 6.3440.34 4.670.41 6.1240.41 6.200.34 3.360.30 4.740.28 5.3840.31 2.940.22 4.1340.32 4.800.31 significance,99
+26698576,pb x amf,dry weight,0.02,,dry weight g shoot 5.260.32 6.530.52 6.3440.34 4.670.41 6.1240.41 6.200.34 3.360.30 4.740.28 5.3840.31 2.940.22 4.1340.32 4.800.31 significance,99
+32143469.4,annuals and biennials,biomass,61.699,,relative biomass ,99
+32143469.4,,biomass,0.084,,relative biomass ,99
+32143469.4,,biomass,0.024,,relative biomass ,99
+32143469.4,,biomass,0.018,,relative biomass ,99
+32143469.4,,biomass,0.014,,relative biomass ,99
+32143469.4,,biomass,0.001,,relative biomass ,99
+32143469.4,,biomass,0.391,,relative biomass ,99
+32143469.4,,biomass,0.216,,relative biomass ,99
+32143469.4,,biomass,0.001,,relative biomass ,99
+32143469.4,,biomass,1.838,,relative biomass ,99
+32143469.4,,biomass,0.343,,relative biomass ,99
+32143469.4,,biomass,0.032,,relative biomass ,99
+32143469.4,perennial forbs,biomass,1.115,,relative biomass ,99
+32143469.4,,biomass,0.719,,relative biomass ,99
+32143469.4,,biomass,0.023,,relative biomass ,99
+32143469.4,,biomass,0.262,,relative biomass ,99
+32143469.4,,biomass,0.192,,relative biomass ,99
+32143469.4,,biomass,1.096,,relative biomass ,99
+32143469.4,,biomass,0.202,,relative biomass ,99
+32143469.4,,biomass,0.067,,relative biomass ,99
+32143469.4,,biomass,0.001,,relative biomass ,99
+32143469.4,,biomass,0.001,,relative biomass ,99
+32143469.4,,biomass,4.079,,relative biomass ,99
+32143469.4,,biomass,0.053,,relative biomass ,99
+32143469.4,,biomass,0.082,,relative biomass ,99
+32143469.4,perennial rhizome grasses perennial bunch grasses shrubs and semishrubs,biomass,0.278 0.894 23.215 0.445 1.987,,relative biomass ,99
+32143469.4,,biomass,0.617,,relative biomass ,99
