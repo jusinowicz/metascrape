@@ -1,0 +1,525 @@
+STUDY,TREATMENT,RESPONSE,CARDINAL,PERCENTAGE,SENTENCE,ISTABLE
+35630484.9,,dry weight,n,,dry weight,99
+35630484.9,mm nacl,dry weight,8.10.6,,dry weight,99
+35630484.9,,dry weight,5.20.3,,dry weight,99
+35630484.9,,dry weight,7.040.5,,dry weight,99
+35630484.9,,dry weight,4640.2,,dry weight,99
+35630484.9,250 nacl,dry weight,27.21.9,,dry weight,99
+35630484.9,,dry weight,13.741.1,,dry weight,99
+35630484.9,,dry weight,19.441.7,,dry weight,99
+35630484.9,,dry weight,11.040.8,,dry weight,99
+35630484.9,,dry weight,0.28,,dry weight,99
+35630484.9,,dry weight,pp,,dry weight,99
+35630484.9,mm nacl,dry weight,94.848.2,,dry weight,99
+35630484.9,,dry weight,142.0412.4,,dry weight,99
+35630484.9,,dry weight,116.7410.3,,dry weight,99
+35630484.9,,dry weight,159.6 413.5,,dry weight,99
+35630484.9,250 nacl,dry weight,26.242.3,,dry weight,99
+35630484.9,,dry weight,78.96.4,,dry weight,99
+35630484.9,,dry weight,65.36.1,,dry weight,99
+35630484.9,,dry weight,88.147.6,,dry weight,99
+35630484.9,,dry weight,2.14,,dry weight,99
+35630484.9,,dry weight,,,dry weight,99
+35630484.9,mm nacl,dry weight,1640.1,,dry weight,99
+35630484.9,,dry weight,1.840.1,,dry weight,99
+35630484.9,,dry weight,2.90.2,,dry weight,99
+35630484.9,,dry weight,3.20.2,,dry weight,99
+35630484.9,250 nacl,dry weight,0.6  0.04,,dry weight,99
+35630484.9,,dry weight,1.040.07,,dry weight,99
+35630484.9,,dry weight,1.240.1,,dry weight,99
+35630484.9,,dry weight,1.440.1,,dry weight,99
+35630484.9,,dry weight,0.16,,dry weight,99
+35694314,a.longrptsp,weight,,,weight g nan nan nan nan,99
+35694314,mnrptsp,weight,,,weight g nan nan nan nan,99
+35694314,mgrptsp g.sp1,weight,,,weight g nan nan nan nan,99
+35694314,g.sp2,weight,,,weight g nan nan nan nan,99
+35694314,a.longtsp,weight,,,weight g nan nan nan nan,99
+35694314,mntsp,weight,,,weight g nan nan nan nan,99
+35694314,g.sp1,weight,,,weight g nan nan nan nan,99
+35694314,g.sp2 a.longrp,weight,,,weight g nan nan nan nan,99
+35694314,mnrp mgrp,weight,,,weight g nan nan nan nan,99
+31203456,control,biomass,0.0780.0126,,shoot biomass g,99
+31203456,aca fra,biomass,0.1640.028,,shoot biomass g,99
+31203456,aca sac,biomass,0.3960.107,,shoot biomass g,99
+31203456,cla etu,biomass,0.4720.08,,shoot biomass g,99
+31203456,per sim,biomass,0.720.121,,shoot biomass g,99
+31203456,rhi neo,biomass,0.9480.148,,shoot biomass g,99
+31203456,scu ova,biomass,0.1740.029,,shoot biomass g,99
+31203456,mix 1,biomass,1.0510.099,,shoot biomass g,99
+31203456,mix 2,biomass,0.9890.217,,shoot biomass g,99
+31203456,mix 3,biomass,0.8820.107,,shoot biomass g,99
+31203456,mix 4,biomass,0.5860.105,,shoot biomass g,99
+31203456,mix 5,biomass,1.72540.112,,shoot biomass g,99
+31203456,mix 6,biomass,1.30140.084,,shoot biomass g,99
+31203456,control,biomass,0.0490.008,,roots biomass g,99
+31203456,aca fra,roots biomass,0.0710.012,,roots biomass g,99
+31203456,aca sac,roots biomass,0.2250.05,,roots biomass g,99
+31203456,cla etu,roots biomass,0.2140.032,,roots biomass g,99
+31203456,per sim,roots biomass,0.3610.049,,roots biomass g,99
+31203456,rhi neo,roots biomass,0.3390.051,,roots biomass g,99
+31203456,scu ova,roots biomass,0.1450.024,,roots biomass g,99
+31203456,mix 1,roots biomass,0.2990.036,,roots biomass g,99
+31203456,mix 2,roots biomass,0.3160.06,,roots biomass g,99
+31203456,mix 3,roots biomass,0.2670.022,,roots biomass g,99
+31203456,mix 4,roots biomass,0.2820.043,,roots biomass g,99
+31203456,mix 5,roots biomass,0.5810.045,,roots biomass g,99
+31203456,mix 6,roots biomass,0.3640.029,,roots biomass g,99
+34576699.1,inoculum,dry weight,3.06,,shoot dry weight f,99
+34576699.1,phytate,dry weight,8.018,,shoot dry weight f,99
+34576699.1,inoculum phytate,dry weight,0.983,,shoot dry weight f,99
+34576699.1,inoculum,dry weight,3.899,,root dry weight f,99
+34576699.1,phytate,dry weight,0.037,,root dry weight f,99
+34576699.1,inoculum phytate,dry weight,0.009,,root dry weight f,99
+38716345,,plant height,33.24  15.8,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,51.82  5.2,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,49.37  11.45,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,54  5.66,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,36.25  13.98,,plant height at 4 cm nan 43.54  8.27,99
+38716345,sl23,plant height,35  6.8,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,32.68  13.02,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,44.88  10.45,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,40.5  6.4,,plant height at 4 cm nan 43.54  8.27,99
+38716345,,plant height,53.48  12.54,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,67.63  12.98,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,56.43  7.58,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,62.03  5.87,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,54.07  8.39,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,sl23,plant height,51.17  8.56,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,53.75  8.1,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,67.87  11.28,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,59.84  1.29,,plant height at 8 cm 58.15  5.69 nan,99
+38716345,,plant height,0.92  0.76,,shoot biomass g 0.95 0.23,99
+38716345,,plant height,1.4  0.18,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,1.09  0.34,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,1.56  0.14,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,0.82  0.37,,shoot biomass g 0.95 0.23,99
+38716345,sl23,biomass,0.98  0.45,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,0.99  0.57,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,1.65  0.62,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,1.52  0.58,,shoot biomass g 0.95 0.23,99
+38716345,,biomass,0.6  0.45,,root biomass 2 nan 0.41  0.12,99
+38716345,,biomass,0.63  0.24,,root biomass 2 nan 0.41  0.12,99
+38716345,,biomass,0.62  0.32,,root biomass 2 nan 0.41  0.12,99
+38716345,,root biomass,0.45  0.19,,root biomass 2 nan 0.41  0.12,99
+38716345,,root biomass,0.7  0.27,,root biomass 2 nan 0.41  0.12,99
+38716345,sl23,root biomass,0.88  0.56,,root biomass 2 nan 0.41  0.12,99
+38716345,,root biomass,0.92  0.5,,root biomass 2 nan 0.41  0.12,99
+38716345,,root biomass,0.79  0.39,,root biomass 2 nan 0.41  0.12,99
+38716345,,root biomass,0.88  0.52,,root biomass 2 nan 0.41  0.12,99
+38716345,,plant height,39.2  6.65,,plant height at 4 cm nan 42.2  3.62,99
+38716345,sl423,plant height,35.68  13.78,,plant height at 4 cm nan 42.2  3.62,99
+38716345,,plant height,30.73  8.23,,plant height at 4 cm nan 42.2  3.62,99
+38716345,,plant height,40.52  5.89,,plant height at 4 cm nan 42.2  3.62,99
+38716345,,plant height,44.42  7.26,,plant height at 4 cm nan 42.2  3.62,99
+38716345,,plant height,56.9  6.84,,plant height at 8 cm 58.15  5.69 65.7  7.15,99
+38716345,sl423,plant height,54  11.47,,plant height at 8 cm 58.15  5.69 65.7  7.15,99
+38716345,,plant height,40.72  7.88,,plant height at 8 cm 58.15  5.69 65.7  7.15,99
+38716345,,plant height,59.28  6.58,,plant height at 8 cm 58.15  5.69 65.7  7.15,99
+38716345,,plant height,61.08  9.48,,plant height at 8 cm 58.15  5.69 65.7  7.15,99
+38716345,,plant height,1.03  0.29,,shoot biomass g 0.95 1204.0,99
+38716345,sl423,plant height,0.9  0.63,,shoot biomass g 0.95 1204.0,99
+38716345,,biomass,0.43  0.15,,shoot biomass g 0.95 1204.0,99
+38716345,,biomass,1.15  0.27,,shoot biomass g 0.95 1204.0,99
+38716345,,biomass,1.27  0.4,,shoot biomass g 0.95 1204.0,99
+38716345,,biomass,0.4  0.22,,root biomass 2 nan 0.6  0.34,99
+38716345,sl423,biomass,0.93  0.43,,root biomass 2 nan 0.6  0.34,99
+38716345,,biomass,0.66  0.15,,root biomass 2 nan 0.6  0.34,99
+38716345,,root biomass,0.53.1,,root biomass 2 nan 0.6  0.34,99
+38716345,,root biomass,0.53  0.19,,root biomass 2 nan 0.6  0.34,99
+38716345,,plant height,36.78  7.88,,plant height at 4 cm nan 42.3 5.44,99
+38716345,,plant height,48.92  7.96,,plant height at 8 cm 58.15  5.69 59.05  10.78,99
+38716345,,plant height,0.85  0.32,,shoot biomass g 0.95 1.13  0.13,99
+38716345,,plant height,0.57  0.22,,root biomass 2 nan 0.6  0.13,99
+38716345,,plant height,32.83  7.84,,plant height at 4 cm nan 29.93  14.4,99
+38716345,,plant height,41  15.19,,plant height at 4 cm nan 29.93  14.4,99
+38716345,,plant height,39.87  11.72,,plant height at 4 cm nan 29.93  14.4,99
+38716345,,plant height,46.25  10.13 43.37  5.59,,plant height at 4 cm nan 29.93  14.4,99
+38716345,,plant height,46.38  8.25,,plant height at 8 cm 58.15  5.69 42.92  11.12,99
+38716345,,plant height,62.62  9.02,,plant height at 8 cm 58.15  5.69 42.92  11.12,99
+38716345,,plant height,58.7  13.39,,plant height at 8 cm 58.15  5.69 42.92  11.12,99
+38716345,,plant height,67.55  12.0 60.03  5.12,,plant height at 8 cm 58.15  5.69 42.92  11.12,99
+38716345,,plant height,0.61  0.28,,shoot biomass g 0.95 0.62  0.31,99
+38716345,,plant height,1.37  0.5,,shoot biomass g 0.95 0.62  0.31,99
+38716345,,biomass,1.1  0.56,,shoot biomass g 0.95 0.62  0.31,99
+38716345,,biomass,1.77  0.87 1.09  0.09,,shoot biomass g 0.95 0.62  0.31,99
+38716345,,biomass,0.43  0.la,,root biomass 2 nan 0.67  0.28,99
+38716345,,biomass,0.5  0.25,,root biomass 2 nan 0.67  0.28,99
+38716345,,biomass,0.6  0.47,,root biomass 2 nan 0.67  0.28,99
+38716345,,root biomass,0.63  0.33 0.41  0.13,,root biomass 2 nan 0.67  0.28,99
+35335116.3,nsw,plant height,35.5,,plant height cm plant,99
+35335116.3,,plant height,46.1,,plant height cm plant,99
+35335116.3,swi,plant height,33.3,,plant height cm plant,99
+35335116.3,,plant height,39.3,,plant height cm plant,99
+35335116.3,sw2,plant height,30.5,,plant height cm plant,99
+35335116.3,,plant height,34.9,,plant height cm plant,99
+35335116.3,nsw,fruit yield,8.2,,fruit yield kg m7,99
+35335116.3,,fruit yield,il.3,,fruit yield kg m7,99
+35335116.3,swi,fruit yield,6.2,,fruit yield kg m7,99
+35335116.3,,fruit yield,8.8,,fruit yield kg m7,99
+35335116.3,ssww2,fruit yield,3.8,,fruit yield kg m7,99
+35335116.3,,fruit yield,48,,fruit yield kg m7,99
+35335116.3,nsw,fruit yield,132,,fruit weight g,99
+35335116.3,,fruit weight,l4,,fruit weight g,99
+35335116.3,swi,fruit weight,126,,fruit weight g,99
+35335116.3,,fruit weight,131,,fruit weight g,99
+35335116.3,ssww2,fruit weight,i15,,fruit weight g,99
+35335116.3,,fruit weight,121,,fruit weight g,99
+35335116.3,nsw,fruit yield,38,,fruit yield  nan,99
+35335116.3,swi,fruit yield,42,,fruit yield  nan,99
+35335116.3,sw2,fruit yield,26,,fruit yield  nan,99
+32604987.5,cultivar,yield,cultivar,,nan yield 10 ha 30.9 31.2 n.s.,99
+32604987.5,goliath,yield,31.1,,nan yield 10 ha 30.9 31.2 n.s.,99
+32604987.5,premier,yield,23.8 8,,nan yield 10 ha 30.9 31.2 n.s.,99
+32604987.5,bandit,yield,35,,nan yield 10 ha 30.9 31.2 n.s.,99
+32604987.5,kalambus,yield,24,,nan yield 10 ha 30.9 31.2 n.s.,99
+32604987.5,giraffe,yield,40.2,,nan yield 10 ha 30.9 31.2 26.9,99
+32604987.5,camus,yield,33.3 04,,nan yield 10 ha 30.9 31.2 26.9,99
+32604987.5,vesta,yield,29,,nan yield 10 ha 30.9 31.2 26.9,99
+32604987.5,summer breeze,yield,36.7,,nan yield 10 ha 30.9 31.2 26.9,99
+32604987.5,m,yield,31.1,,nan yield 10 ha 30.9 31.2 26.9,99
+32604987.5,cv ,yield,18.3,,nan yield 10 ha 30.9 31.2 nan,99
+32604987.5,concentration range,yield,,,nan yield 10 ha 30.9 31.2 nan,99
+36422357.1,cd  0.10 0.08 0.06 0.0. 3 0.02 0.00,biomass,,,biomass mgplant mycorrhizal rate   0.44 0.24  53.6 8.1  0.47 0.15  56.7 3.5  0.97 0.26 54.54  7.4  0.65 0.13  49.8 8.0  0.88 0.40 59.9 13  0.66 0.41  55.2 9.3 0.50 0.45 8 0.40 0.35 0.30. 0.25 0.20 0.15 0.10 d cd d 0.05 a 0.00,99
+36422357.1,,biomass,,,biomass mgplant mycorrhizal rate   0.44 0.24  53.6 8.1  0.47 0.15  56.7 3.5  0.97 0.26 54.54  7.4  0.65 0.13  49.8 8.0  0.88 0.40 59.9 13  0.66 0.41  55.2 9.3 0.50 0.45 8 0.40 0.35 0.30. 0.25 0.20 0.15 0.10 d cd d 0.05 a 0.00,99
+36422357.1,nonamended,biomass,nonamended,,biomass mgplant mycorrhizal rate   0.44 0.24  53.6 8.1  0.47 0.15  56.7 3.5  0.97 0.26 54.54  7.4  0.65 0.13  49.8 8.0  0.88 0.40 59.9 13  0.66 0.41  55.2 9.3 0.50 0.45 8 0.40 0.35 0.30. 0.25 0.20 0.15 0.10 d cd d 0.05 a 0.00,99
+36422357.1,cd  0.10 0.08 0.06 0.0. 3 0.02 0.00,biomass,,,biomass mgplant mycorrhizal rate  nan nan nan nan,99
+36422357.1,,biomass,ni 1,,biomass mgplant mycorrhizal rate  nan nan nan nan,99
+36422357.1,nonamended,biomass,compost sewage sludge,,biomass mgplant mycorrhizal rate  nan nan nan nan,99
+36422357.1,0.60 0.50 3 0.40  0.30 efg 0.20  0.10 0.00,biomass,0.6 z et 0.50 3  0.40  cd cd cd  0.30 2 020 e i e 3 010  0.00,,biomass mgplant mycorrhizal rate   0.44 0.24  53.6 8.1  0.47 0.15  56.7 3.5  0.97 0.26 54.54  7.4  0.65 0.13  49.8 8.0  0.88 0.40 59.9 13  0.66 0.41  55.2 9.3 d,99
+36422357.1,nonamended,biomass,nonamended,,biomass mgplant mycorrhizal rate   0.44 0.24  53.6 8.1  0.47 0.15  56.7 3.5  0.97 0.26 54.54  7.4  0.65 0.13  49.8 8.0  0.88 0.40 59.9 13  0.66 0.41  55.2 9.3 d,99
+36422357.1,0.60 0.50 3 0.40  0.30 efg 0.20  0.10 0.00,biomass,,,biomass mgplant mycorrhizal rate  nan nan nan nonvege tated ml vegetated,99
+36422357.1,nonamended,biomass,compost sewage sludg ne getate mvegetated,,biomass mgplant mycorrhizal rate  nan nan nan nonvege tated ml vegetated,99
+32604987.18,greenhouse,mass,6.4,,lignin mass fraction of dry biomass  farming system rye,99
+32604987.18,planting time,mass,planting time,,lignin mass fraction of dry biomass  farming system rye,99
+32604987.18,greenhouse,mass,44.5,,total cellulose mass fraction of dry biomass  farming system 46.0,99
+32604987.18,planting time,mass,planting time,,total cellulose mass fraction of dry biomass  farming system 46.0,99
+32604987.18,greenhouse,mass,2.0 n.s,,crystalline cellulose mass fraction of dry biomass  farming system 2.0,99
+32604987.18,planting time,mass,planting time,,crystalline cellulose mass fraction of dry biomass  farming system 2.0,99
+32604987.18,greenhouse,mass,15.1,,hemicellulose mass fraction of dry biomass  farming system 13.9,99
+32604987.18,planting time,mass,planting time,,hemicellulose mass fraction of dry biomass  farming system 13.9,99
+32604987.18,greenhouse,mass,3.4,,pectin mass fraction of dry biomass  farming system 2.5,99
+32604987.18,planting time,mass,planting time,,pectin mass fraction of dry biomass  farming system 2.5,99
+32604987.18,11 october,mass,7.2,,lignin mass fraction of dry biomass  farming system 7.7,99
+32604987.18,25 october,mass,6.1 45.9,,lignin mass fraction of dry biomass  farming system 7.7,99
+32604987.18,8 november,mass,4.5,,lignin mass fraction of dry biomass  farming system 7.7,99
+32604987.18,22 november,mass,3.7,,lignin mass fraction of dry biomass  farming system 7.7,99
+32604987.18,11 october,mass,42.7,,total cellulose mass fraction of dry biomass  farming system 41.1,99
+32604987.18,25 october,mass,,,total cellulose mass fraction of dry biomass  farming system 41.1,99
+32604987.18,8 november,mass,47.8,,total cellulose mass fraction of dry biomass  farming system 41.1,99
+32604987.18,22 november,mass,48.7,,total cellulose mass fraction of dry biomass  farming system 41.1,99
+32604987.18,11 october,mass,1.3,,crystalline cellulose mass fraction of dry biomass  farming system 0.9,99
+32604987.18,25 october,mass,2,,crystalline cellulose mass fraction of dry biomass  farming system 0.9,99
+32604987.18,8 november,mass,2.8,,crystalline cellulose mass fraction of dry biomass  farming system 0.9,99
+32604987.18,22 november,mass,3,,crystalline cellulose mass fraction of dry biomass  farming system 0.9,99
+32604987.18,11 october,mass,14.6,,hemicellulose mass fraction of dry biomass  farming system 14.9,99
+32604987.18,25 october,mass,14.5,,hemicellulose mass fraction of dry biomass  farming system 14.9,99
+32604987.18,8 november,mass,14.3,,hemicellulose mass fraction of dry biomass  farming system 14.9,99
+32604987.18,22 november,mass,14.2.,,hemicellulose mass fraction of dry biomass  farming system 14.9,99
+32604987.18,11 october,mass,3.7,,pectin mass fraction of dry biomass  farming system 4.1,99
+32604987.18,25 october,mass,3.2,,pectin mass fraction of dry biomass  farming system 4.1,99
+32604987.18,8 november,mass,2.4,,pectin mass fraction of dry biomass  farming system 4.1,99
+32604987.18,22 november,mass,1.5,,pectin mass fraction of dry biomass  farming system 4.1,99
+32604987.18,open field,nitrogen mass,2.64,,nitrogen mass fraction of farming system,99
+32604987.18,greenhouse,nitrogen mass,2.67,,nitrogen mass fraction of farming system,99
+32604987.18,open field,nitrogen mass,0.52,,phosphorus dry biomass farming system,99
+32604987.18,greenhouse,dry biomass,0.53.,,phosphorus dry biomass farming system,99
+32604987.18,27,nitrogen mass,3.18,,nitrogen mass fraction of planting time,99
+32604987.18,27,nitrogen mass,0.6,,phosphorus dry biomass planting time,99
+32604987.18,11 october,nitrogen mass,2.94,,nitrogen mass fraction of september,99
+32604987.18,25 october,nitrogen mass,2.54,,nitrogen mass fraction of september,99
+32604987.18,8,nitrogen mass,2.39,,nitrogen mass fraction of september,99
+32604987.18,november,nitrogen mass,november,,nitrogen mass fraction of september,99
+32604987.18,22 november,nitrogen mass,2.23,,nitrogen mass fraction of september,99
+32604987.18,11 october,nitrogen mass,0.56,,phosphorus dry biomass september,99
+32604987.18,25 october,dry biomass,0.51,,phosphorus dry biomass september,99
+32604987.18,8,dry biomass,0.48,,phosphorus dry biomass september,99
+32604987.18,november,dry biomass,november,,phosphorus dry biomass september,99
+32604987.18,22 november,dry biomass,0.46,,phosphorus dry biomass september,99
+32604987.18,open field,mass,6.3,,ara mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,6.8,,ara mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,,,nan mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,,,nan mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,0.22,,fuc mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,0.32,,fuc mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,9.5,,gal mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,9.7,,gal mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,5.7,,gal a mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,5,,gal a mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,44.3,,glc mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,44.9 0.,,glc mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,,,nan mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,,,nan mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,0.29,,glc a mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,glc mass,0.28,,glc a mass fraction of hemicellulose  farming system,99
+32604987.18,open field,glc mass,4.3,,man mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,glc mass,5,,man mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,,,nan mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,,,nan mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,2.9,,rha mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,2.3,,rha mass fraction of hemicellulose  farming system,99
+32604987.18,open field,mass,26.4,,xyl mass fraction of hemicellulose  farming system,99
+32604987.18,greenhouse,mass,25.5 0.,,xyl mass fraction of hemicellulose  farming system,99
+32604987.18,27 september,mass,6.8,,ara mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,6.8,,ara mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,,,nan mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,,,nan mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,0.32,,fuc mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,0.31,,fuc mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,9.8,,gal mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,9.8,,gal mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,4.5,,gal a mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,4.8,,gal a mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,45.9,,glc mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,45.3,,glc mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,,,nan mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,ab,,nan mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,0.29,,glc a mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,glc mass,0.28,,glc a mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,glc mass,3.9,,man mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,glc mass,4.1,,man mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,,,nan mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,cd,,nan mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,2.8,,rha mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,2.8,,rha mass fraction of hemicellulose  planting time,99
+32604987.18,27 september,mass,25.5,,xyl mass fraction of hemicellulose  planting time,99
+32604987.18,11 october,mass,25.8,,xyl mass fraction of hemicellulose  planting time,99
+32604987.18,8 november,mass,6.4,,ara mass fraction of hemicellulose  6.5,99
+32604987.18,22 november,mass,6.2,,ara mass fraction of hemicellulose  6.5,99
+32604987.18,8 november,mass,ab,,nan mass fraction of hemicellulose  ab,99
+32604987.18,22 november,mass,,,nan mass fraction of hemicellulose  ab,99
+32604987.18,8 november,mass,0.23,,fuc mass fraction of hemicellulose  0.27,99
+32604987.18,22 november,mass,0.21,,fuc mass fraction of hemicellulose  0.27,99
+32604987.18,8 november,mass,9.5,,gal mass fraction of hemicellulose  9.6,99
+32604987.18,22 november,mass,9.3,,gal mass fraction of hemicellulose  9.6,99
+32604987.18,8 november,mass,5.7,,gal a mass fraction of hemicellulose  5.2,99
+32604987.18,22 november,mass,6.4,,gal a mass fraction of hemicellulose  5.2,99
+32604987.18,8 november,mass,44,,glc mass fraction of hemicellulose  44.5,99
+32604987.18,22 november,mass,43.2,,glc mass fraction of hemicellulose  44.5,99
+32604987.18,8 november,mass,ed,,nan mass fraction of hemicellulose  be,99
+32604987.18,22 november,mass,,,nan mass fraction of hemicellulose  be,99
+32604987.18,8 november,mass,0.28,,glc a mass fraction of hemicellulose  0.28,99
+32604987.18,22 november,glc mass,0.28,,glc a mass fraction of hemicellulose  0.28,99
+32604987.18,8 november,glc mass,4.9,,man mass fraction of hemicellulose  4.6,99
+32604987.18,22 november,glc mass,5.5,,man mass fraction of hemicellulose  4.6,99
+32604987.18,8 november,mass,ab,,nan mass fraction of hemicellulose  be,99
+32604987.18,22 november,mass,,,nan mass fraction of hemicellulose  be,99
+32604987.18,8 november,mass,2.5 26.2,,rha mass fraction of hemicellulose  2.6 26.1,99
+32604987.18,22 november,mass,2.3,,rha mass fraction of hemicellulose  2.6 26.1,99
+32604987.18,8 november,mass,,,xyl mass fraction of hemicellulose  nan,99
+32604987.18,22 november,mass,26.3 0.,,xyl mass fraction of hemicellulose  nan,99
+32604987.18,pretreatment type,dry biomass,,, from dry biomass g,99
+32604987.18,water,dry biomass,,, from dry biomass g,99
+32604987.18,acid,dry biomass,,, from dry biomass g,99
+32604987.18,alkaline,dry biomass,,, from dry biomass g,99
+32604987.18,planting time,dry biomass,,, from dry biomass g,99
+32604987.18,27,dry biomass,,, from dry biomass g,99
+32604987.18,11 october,dry biomass,,, from dry biomass g,99
+32604987.18,25 october,dry biomass,,, from dry biomass g,99
+32604987.18,8 november,dry biomass,ab,, from dry biomass g,99
+32604987.18,22 november,dry biomass,,, from dry biomass g,99
+35454988.1,ospt2,growth,leaf toxic symptoms and growth retardation under hp condition,,growth performance,99
+35454988.1,ospt4,growth,ncreased 1000 weight and grain yield per plant,,growth performance,99
+35454988.1,ospt6,growth,ncreased biomass under both hp and lp conditions increased tillering number grain weight and grain yield per plant,,growth performance,99
+35454988.1,ospt6,growth,ncreased number of pods and seeds seed weight,,growth performance,99
+35454988.1,ospt8,growth,significant growth suppression under hp condition,,growth performance,99
+35454988.1,ospt910,growth,significant reduced biomass of shoots under hp condition,,growth performance,99
+35454988.1,tapht14,growth,increased shoot and root biomass under lp conditions,,growth performance,99
+35454988.1,ospht2114,growth,improved biomass under hp and lp conditions,,growth performance,99
+35454988.1,osarf12,growth,leaf tip necrosis accompanied by a large number of brown speckles and growth retardation,,growth performance,99
+35454988.1,osphr2,growth,with chlorosis or necrosis on the leaf margins predominantly in mature leaves under hp condition,,growth performance,99
+35454988.1,oswrky74,growth,increased shoot and root biomass grain weight tiller number and grain yield under lp conditions,,growth performance,99
+35454988.1,tanfyab1,growth,increased grain yield under normal lp and lownitrogen conditions,,growth performance,99
+35454988.1,taphr1,growth,increased grain yield per plant under both hp and lp conditions,,growth performance,99
+35454988.1,tapho21 high pi lr. low pi,growth,increased grain yield under lp conditions no adverse effect on grain yield under hp conditions,,growth performance,99
+32604987.1,14,yield,6.44,,seed yield tha experimental treatment planting time,99
+32604987.1,28,yield,4.29,,seed yield tha experimental treatment planting time,99
+32604987.1,14,yield,480.3,,1000 weight  experimental treatment planting time,99
+32604987.1,28,weight,384.7,,1000 weight  experimental treatment planting time,99
+32604987.1,14,weight,75.1,,seed pod weight  experimental treatment planting time,99
+32604987.1,28,weight,74.6,,seed pod weight  experimental treatment planting time,99
+32604987.1,amf  biofortification,yield,amf  biofortification,,seed yield tha experimental treatment ,99
+32604987.1,amf  biofortification,yield,amf  biofortification,,1000 weight  experimental treatment nan,99
+32604987.1,amf  biofortification,weight,amf  biofortification,,seed pod weight  experimental treatment n.s,99
+32604987.1,se,yield,,,seed yield tha experimental treatment nan,99
+32604987.1,i,yield,,,seed yield tha experimental treatment nan,99
+32604987.1,se i,yield,,,seed yield tha experimental treatment nan,99
+32604987.1,amf,yield,,,seed yield tha experimental treatment nan,99
+32604987.1,ame  se,yield,,,seed yield tha experimental treatment nan,99
+32604987.1,amf 1,yield,,,seed yield tha experimental treatment nan,99
+32604987.1, amf se  i,yield,,,seed yield tha experimental treatment nan,99
+32604987.1,se,yield,,,1000 weight  experimental treatment nan,99
+32604987.1,i,weight,,,1000 weight  experimental treatment nan,99
+32604987.1,se i,weight,,,1000 weight  experimental treatment nan,99
+32604987.1,amf,weight,,,1000 weight  experimental treatment nan,99
+32604987.1,ame  se,weight,,,1000 weight  experimental treatment nan,99
+32604987.1,amf 1,weight,,,1000 weight  experimental treatment nan,99
+32604987.1, amf se  i,weight,,,1000 weight  experimental treatment nan,99
+32604987.1,se,weight,74.8,,seed pod weight  experimental treatment 74.7,99
+32604987.1,i,weight,74.6,,seed pod weight  experimental treatment 74.7,99
+32604987.1,se i,weight,74.1,,seed pod weight  experimental treatment 74.7,99
+32604987.1,amf,weight,74.4,,seed pod weight  experimental treatment 74.7,99
+32604987.1,ame  se,weight,75.2,,seed pod weight  experimental treatment 74.7,99
+32604987.1,amf 1,weight,75.1,,seed pod weight  experimental treatment 74.7,99
+32604987.1, amf se  i,weight,76.1.s.,,seed pod weight  experimental treatment 74.7,99
+32604987.1,,dry weight,575,, seeds dry weight 2 perm,99
+32604987.1,28,dry weight,382.8,, seeds dry weight 2 perm,99
+32604987.1,,dry weight,190.6,, pods dry weight 2 perm,99
+32604987.1,28,dry weight,130.1,, pods dry weight 2 perm,99
+32604987.1,,dry weight,785.1,, shoots  leaves dry weight 2 perm,99
+32604987.1,28,dry weight,278.4,, shoots  leaves dry weight 2 perm,99
+32604987.1,,dry weight,1550.7,, plant dry weight 2 perm,99
+32604987.1,28,dry weight,791.3,, plant dry weight 2 perm,99
+27907023,sahel 108,yield,10,,potential yield t ha,99
+27907023,sahel 202,yield,11,,potential yield t ha,99
+27907023,ir 64,yield,45,,potential yield t ha,99
+27907023,wab 56104,yield,4,,potential yield t ha,99
+27907023,tog 5681,yield,nd,,potential yield t ha,99
+27907023,cg 14,yield,nd,,potential yield t ha,99
+27907023,nerica 4,yield,5,,potential yield t ha,99
+27907023,nerical 19,yield,,,potential yield t ha,99
+27907023,traitment,weight,18,,panicle weight mg,99
+27907023,control,weight,699.1,,panicle weight mg,99
+27907023,ors278,weight,1006.2,,panicle weight mg,99
+27907023,ors3454,weight,1134.8,,panicle weight mg,99
+27907023,ors2783454,weight,1129.9,,panicle weight mg,99
+27907023,ri,weight,1854.9,,panicle weight mg,99
+27907023,ri  ors278,weight,1647.3,,panicle weight mg,99
+27907023,ri  ors3454,weight,1733.5,,panicle weight mg,99
+27907023,ri  ors2783454,weight,1727.8,,panicle weight mg,99
+27907023,ga,weight,1872.7,,panicle weight mg,99
+27907023,ga  ors278,weight,1658.6,,panicle weight mg,99
+27907023,ga  ors3454,weight,2271.6,,panicle weight mg,99
+27907023,ga  ors2783454,weight,2134.1,,panicle weight mg,99
+27907023,ga  ri,weight,1942.2,,panicle weight mg,99
+27907023,ga  ri  ors278,weight,1709.4,,panicle weight mg,99
+27907023,ga  ri  ors3454,weight,2026.3,,panicle weight mg,99
+27907023,ga  ri  ors2783454,weight,2155.5,,panicle weight mg,99
+27907023,nerica4,yield,3730,,yield kg ha,99
+27907023,,yield,734,,yield kg ha,99
+27907023,wab56104,yield,2438,,yield kg ha,99
+27907023,,yield,1169,,yield kg ha,99
+27907023,cg14,yield,3646,,yield kg ha,99
+27907023,,yield,4355,,yield kg ha,99
+27907023,ir64,yield,4834,,yield kg ha,99
+27907023,,yield,5340,,yield kg ha,99
+27907023,sahel202,yield,4938,,yield kg ha,99
+27907023,,yield,5180,,yield kg ha,99
+27907023,sahel108,yield,4188,,yield kg ha,99
+27907023,,yield,4378,,yield kg ha,99
+27907023,nerical 19,yield,5625,,yield kg ha,99
+27907023,,yield,6440,,yield kg ha,99
+27907023,tog5681,yield,4334,,yield kg ha,99
+27907023,,yield,4905,,yield kg ha,99
+27907023,nerica4,yield,4631,,yield kg ha,99
+27907023,,yield,2862,,yield kg ha,99
+27907023,wab56104,yield,3283,,yield kg ha,99
+27907023,,yield,3290,,yield kg ha,99
+27907023,cg14,yield,5103,,yield kg ha,99
+27907023,,yield,3904,,yield kg ha,99
+27907023,ir64,yield,6104,,yield kg ha,99
+27907023,,yield,4236,,yield kg ha,99
+27907023,sahel202,yield,5234,,yield kg ha,99
+27907023,,yield,3953,,yield kg ha,99
+27907023,sahel108,yield,7692,,yield kg ha,99
+27907023,,yield,8959,,yield kg ha,99
+27907023,nerical 19,yield,2363,,yield kg ha,99
+27907023,,yield,4609,,yield kg ha,99
+27907023,tog5681,yield,3993,,yield kg ha,99
+27907023,,yield,4016,,yield kg ha,99
+27907023,nerica4,yield,8648,,biomass kg ha,99
+27907023,,biomass,5063,,biomass kg ha,99
+27907023,wab56104,biomass,5411,,biomass kg ha,99
+27907023,,biomass,4354,,biomass kg ha,99
+27907023,cg14,biomass,10252,,biomass kg ha,99
+27907023,,biomass,12646,,biomass kg ha,99
+27907023,ir64,biomass,12657,,biomass kg ha,99
+27907023,,biomass,13667,,biomass kg ha,99
+27907023,sahel202,biomass,17792,,biomass kg ha,99
+27907023,,biomass,15250,,biomass kg ha,99
+27907023,sahel108,biomass,11486,,biomass kg ha,99
+27907023,,biomass,10584,,biomass kg ha,99
+27907023,nerical 19,biomass,14709,,biomass kg ha,99
+27907023,,biomass,14084,,biomass kg ha,99
+27907023,tog5681,biomass,9623,,biomass kg ha,99
+27907023,,biomass,11855,,biomass kg ha,99
+27907023,nerica4,biomass,10906,,biomass kg ha,99
+27907023,,biomass,8079,,biomass kg ha,99
+27907023,wab56104,biomass,7810,,biomass kg ha,99
+27907023,,biomass,11378,,biomass kg ha,99
+27907023,cg14,biomass,12719,,biomass kg ha,99
+27907023,,biomass,18104,,biomass kg ha,99
+27907023,ir64,biomass,14263,,biomass kg ha,99
+27907023,,biomass,11525,,biomass kg ha,99
+27907023,sahel202,biomass,25274,,biomass kg ha,99
+27907023,,biomass,15028,,biomass kg ha,99
+27907023,sahel108,biomass,13756,,biomass kg ha,99
+27907023,,biomass,20868,,biomass kg ha,99
+27907023,nerical 19,biomass,21246,,biomass kg ha,99
+27907023,,biomass,26141,,biomass kg ha,99
+27907023,tog5681,biomass,10769,,biomass kg ha,99
+27907023,,biomass,13543,,biomass kg ha,99
+27907023,nerica4,biomass,102,,height cm,99
+27907023,,biomass,102,,height cm,99
+27907023,wab56104,height,87,,height cm,99
+27907023,,height,85,,height cm,99
+27907023,cg14,height,102,,height cm,99
+27907023,,height,106,,height cm,99
+27907023,ir64,height,78,,height cm,99
+27907023,,height,79,,height cm,99
+27907023,sahel202,height,78,,height cm,99
+27907023,,height,88,,height cm,99
+27907023,sahel108,height,78,,height cm,99
+27907023,,height,77,,height cm,99
+27907023,nerical 19,height,87,,height cm,99
+27907023,,height,82,,height cm,99
+27907023,tog5681,height,77,,height cm,99
+27907023,,height,71,,height cm,99
+27907023,nerica4,height,100,,height cm,99
+27907023,,height,103,,height cm,99
+27907023,wab56104,height,84,,height cm,99
+27907023,,height,88,,height cm,99
+27907023,cg14,height,99,,height cm,99
+27907023,,height,100,,height cm,99
+27907023,ir64,height,80,,height cm,99
+27907023,,height,81,,height cm,99
+27907023,sahel202,height,94,,height cm,99
+27907023,,height,84,,height cm,99
+27907023,sahel108,height,80,,height cm,99
+27907023,,height,79,,height cm,99
+27907023,nerical 19,height,85,,height cm,99
+27907023,,height,91,,height cm,99
+27907023,tog5681,height,81,,height cm,99
+27907023,,height,74,,height cm,99
+35615141,amf,biomass,3.60  0.79,,shoot biomass gpot,99
+35615141,ami,biomass,0.65  0.15,,shoot biomass gpot,99
+35615141,ck,biomass,0.04  0.01,,shoot biomass gpot,99
+35615141,amf,biomass,1.32  0.29,,root biomass gpot1,99
+35615141,ami,root biomass,0.29  0.09,,root biomass gpot1,99
+35615141,ck,root biomass,0.03  0.01,,root biomass gpot1,99
+35615141,amf,root biomass,4.9323  1.05,,individual plant biomass gpot,99
+35615141,ami,root biomass,0.9459  0.24,,individual plant biomass gpot,99
+35615141,ck,plant biomass,0.0684  0.02,,individual plant biomass gpot,99
+24728157.1,is,yield,17.9,,kangkong shoot yield fw. nan,99
+24728157.1,b,yield,37.7,,kangkong shoot yield fw. 14.0,99
+24728157.1,is,yield,30.9,,kangkong shoot yield fw. 14.0,99
+24728157.1,,yield,25.5,,kangkong shoot yield fw. 14.0,99
+28018420,,biomass,1.68  0.18,,biomass g plant nan maize 0.59  0.06 1.08  0.079 1.08  0.079 0.81  0.06 1.10  0.089 1.10  0.089 0.74  0.06 1.68  0.18,99
+28018420,,biomass,1.21,,biomass g plant intercropping soybean 0.83  0.06 1.26  0.10 1.38  0.13 0.87  0.07 1.51 0.13 1.91  0.07 0.97  0.05 1.385  0.11,99
+28018420,,biomass,2.01  0.21,,biomass g plant nan maize 0.66  0.08 0.90  0.049 0.88  0.064 0.81  0.059 0.95  0.079 1.22  0.109 1.02 40.114 1.93  0.09,99
+28018420,,biomass,6.48  0.348,,biomass g plant nan maize 0.59  0.06 1.08  0.079 1.08  0.079 0.81  0.06 1.10  0.089 1.10  0.089 0.74  0.06 2.44  0.07,99
+28018420,,biomass,6.48  0.348,,biomass g plant nan maize 0.59  0.06 1.08  0.079 1.08  0.079 0.81  0.06 1.10  0.089 1.10  0.089 0.74  0.06 2.44  0.07,99
+28018420,,biomass,3.24  0.078,,biomass g plant intercropping soybean 0.83  0.06 1.26  0.10 1.38  0.13 0.87  0.07 1.51 0.13 1.91  0.07 0.97  0.05 1.27  0.08,99
+28018420,,biomass,3.35  0.14,,biomass g plant intercropping soybean 0.83  0.06 1.26  0.10 1.38  0.13 0.87  0.07 1.51 0.13 1.91  0.07 0.97  0.05 1.27  0.08,99
+28018420,,biomass,5.77  0.35,,biomass g plant nan maize 0.66  0.08 0.90  0.049 0.88  0.064 0.81  0.059 0.95  0.079 1.22  0.109 1.02 40.114 2.29  0.21,99
+28018420,,biomass,7.60  0.29,,biomass g plant nan maize 0.66  0.08 0.90  0.049 0.88  0.064 0.81  0.059 0.95  0.079 1.22  0.109 1.02 40.114 2.29  0.21,99
+35630484.5,,nan biomass,,,introduction of symbiosis i nan biomass and,99
+35630484.5,,nan biomass,7.3.,,introduction of symbiosis i nan biomass and,99
+35630484.5,,nan biomass,,,introduction of symbiosis i nan biomass and,99
+35630484.5,,nan biomass,9.2.,,introduction of symbiosis i nan biomass and,99
+35630484.5,,nan biomass,eee ee ee 12,,introduction of symbiosis i nan biomass and,99
+35630484.5,,nan biomass,,,introduction of symbiosis i nan biomass and,99
+35630484.5,,nan biomass,,,introduction of symbiosis i nan biomass and,99
+35630484.5,,nan biomass,,,introduction of symbiosis i nan biomass and,99
+35630484.5,,nan biomass,references,,introduction of symbiosis i nan biomass and,99
+35630484.5,,growth,pathogen resistance,, growth and development,99
+35630484.5,atcngc3,growth,distribute and translocate ion from xylem translocate na within embryo pathogen resistance,, growth and development,99

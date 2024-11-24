@@ -260,15 +260,26 @@ def make_final_table(final_tables, study_id, nlp):
 			final_df=pd.concat([final_df, nr_melted[column_list] ], axis=0 )
 		#final_df=final_df.reset_index()        
 	return final_df
-
-
-# For the final table: 
+		
+		
+		
+# For the final table:
 # Split the CARDINAL column if it contains a response size and a standard error
 def split_cardinal(cardinal_value):
 	# Check if the cardinal_value is empty or contains non-numeric text
 	if pd.isna(cardinal_value) or not isinstance(cardinal_value, str):
 		return None, None
 		
+	# Check for cases where response size and SE are concatenated (e.g., 0.0780.0126)
+	concatenated_match = re.match(r'^(\d+\.\d+)(\d+\.\d+)$', cardinal_value)
+	if concatenated_match:
+		try:
+			response_size = float(concatenated_match.group(1))
+			standard_error = float(concatenated_match.group(2))
+			return response_size, standard_error
+		except ValueError:
+			return None, None
+			
 	# Try splitting the value and converting to float
 	parts = cardinal_value.split()
 	try:

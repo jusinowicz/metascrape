@@ -1,0 +1,259 @@
+STUDY,TREATMENT,RESPONSE,CARDINAL,PERCENTAGE,SENTENCE,ISTABLE
+27907023,sahel 108,yield,10.0,,potential yield t ha,99
+27907023,sahel 202,yield,11.0,,potential yield t ha,99
+27907023,ir 64,yield,45.0,,potential yield t ha,99
+27907023,wab 56104,yield,4.0,,potential yield t ha,99
+27907023,tog 5681,yield,nd,,potential yield t ha,99
+27907023,cg 14,yield,nd,,potential yield t ha,99
+27907023,nerica 4,yield,5.0,,potential yield t ha,99
+27907023,nerical 19,yield,,,potential yield t ha,99
+27907023,traitment,weight,18.0,,panicle weight mg,99
+27907023,control,weight,699.1,,panicle weight mg,99
+27907023,ors278,weight,1006.2,,panicle weight mg,99
+27907023,ors3454,weight,1134.8,,panicle weight mg,99
+27907023,ors2783454,weight,1129.9,,panicle weight mg,99
+27907023,ri,weight,1854.9,,panicle weight mg,99
+27907023,ri  ors278,weight,1647.3,,panicle weight mg,99
+27907023,ri  ors3454,weight,1733.5,,panicle weight mg,99
+27907023,ri  ors2783454,weight,1727.8,,panicle weight mg,99
+27907023,ga,weight,1872.7,,panicle weight mg,99
+27907023,ga  ors278,weight,1658.6,,panicle weight mg,99
+27907023,ga  ors3454,weight,2271.6,,panicle weight mg,99
+27907023,ga  ors2783454,weight,2134.1,,panicle weight mg,99
+27907023,ga  ri,weight,1942.2,,panicle weight mg,99
+27907023,ga  ri  ors278,weight,1709.4,,panicle weight mg,99
+27907023,ga  ri  ors3454,weight,2026.3,,panicle weight mg,99
+27907023,ga  ri  ors2783454,weight,2155.5,,panicle weight mg,99
+27907023,nerica4,yield,3730.0,,yield kg ha,99
+27907023,,yield,734.0,,yield kg ha,99
+27907023,wab56104,yield,2438.0,,yield kg ha,99
+27907023,,yield,1169.0,,yield kg ha,99
+27907023,cg14,yield,3646.0,,yield kg ha,99
+27907023,,yield,4355.0,,yield kg ha,99
+27907023,ir64,yield,4834.0,,yield kg ha,99
+27907023,,yield,5340.0,,yield kg ha,99
+27907023,sahel202,yield,4938.0,,yield kg ha,99
+27907023,,yield,5180.0,,yield kg ha,99
+27907023,sahel108,yield,4188.0,,yield kg ha,99
+27907023,,yield,4378.0,,yield kg ha,99
+27907023,nerical 19,yield,5625.0,,yield kg ha,99
+27907023,,yield,6440.0,,yield kg ha,99
+27907023,tog5681,yield,4334.0,,yield kg ha,99
+27907023,,yield,4905.0,,yield kg ha,99
+27907023,nerica4,yield,4631.0,,yield kg ha,99
+27907023,,yield,2862.0,,yield kg ha,99
+27907023,wab56104,yield,3283.0,,yield kg ha,99
+27907023,,yield,3290.0,,yield kg ha,99
+27907023,cg14,yield,5103.0,,yield kg ha,99
+27907023,,yield,3904.0,,yield kg ha,99
+27907023,ir64,yield,6104.0,,yield kg ha,99
+27907023,,yield,4236.0,,yield kg ha,99
+27907023,sahel202,yield,5234.0,,yield kg ha,99
+27907023,,yield,3953.0,,yield kg ha,99
+27907023,sahel108,yield,7692.0,,yield kg ha,99
+27907023,,yield,8959.0,,yield kg ha,99
+27907023,nerical 19,yield,2363.0,,yield kg ha,99
+27907023,,yield,4609.0,,yield kg ha,99
+27907023,tog5681,yield,3993.0,,yield kg ha,99
+27907023,,yield,4016.0,,yield kg ha,99
+27907023,nerica4,yield,8648.0,,biomass kg ha,99
+27907023,,biomass,5063.0,,biomass kg ha,99
+27907023,wab56104,biomass,5411.0,,biomass kg ha,99
+27907023,,biomass,4354.0,,biomass kg ha,99
+27907023,cg14,biomass,10252.0,,biomass kg ha,99
+27907023,,biomass,12646.0,,biomass kg ha,99
+27907023,ir64,biomass,12657.0,,biomass kg ha,99
+27907023,,biomass,13667.0,,biomass kg ha,99
+27907023,sahel202,biomass,17792.0,,biomass kg ha,99
+27907023,,biomass,15250.0,,biomass kg ha,99
+27907023,sahel108,biomass,11486.0,,biomass kg ha,99
+27907023,,biomass,10584.0,,biomass kg ha,99
+27907023,nerical 19,biomass,14709.0,,biomass kg ha,99
+27907023,,biomass,14084.0,,biomass kg ha,99
+27907023,tog5681,biomass,9623.0,,biomass kg ha,99
+27907023,,biomass,11855.0,,biomass kg ha,99
+27907023,nerica4,biomass,10906.0,,biomass kg ha,99
+27907023,,biomass,8079.0,,biomass kg ha,99
+27907023,wab56104,biomass,7810.0,,biomass kg ha,99
+27907023,,biomass,11378.0,,biomass kg ha,99
+27907023,cg14,biomass,12719.0,,biomass kg ha,99
+27907023,,biomass,18104.0,,biomass kg ha,99
+27907023,ir64,biomass,14263.0,,biomass kg ha,99
+27907023,,biomass,11525.0,,biomass kg ha,99
+27907023,sahel202,biomass,25274.0,,biomass kg ha,99
+27907023,,biomass,15028.0,,biomass kg ha,99
+27907023,sahel108,biomass,13756.0,,biomass kg ha,99
+27907023,,biomass,20868.0,,biomass kg ha,99
+27907023,nerical 19,biomass,21246.0,,biomass kg ha,99
+27907023,,biomass,26141.0,,biomass kg ha,99
+27907023,tog5681,biomass,10769.0,,biomass kg ha,99
+27907023,,biomass,13543.0,,biomass kg ha,99
+27907023,nerica4,biomass,102.0,,height cm,99
+27907023,,biomass,102.0,,height cm,99
+27907023,wab56104,height,87.0,,height cm,99
+27907023,,height,85.0,,height cm,99
+27907023,cg14,height,102.0,,height cm,99
+27907023,,height,106.0,,height cm,99
+27907023,ir64,height,78.0,,height cm,99
+27907023,,height,79.0,,height cm,99
+27907023,sahel202,height,78.0,,height cm,99
+27907023,,height,88.0,,height cm,99
+27907023,sahel108,height,78.0,,height cm,99
+27907023,,height,77.0,,height cm,99
+27907023,nerical 19,height,87.0,,height cm,99
+27907023,,height,82.0,,height cm,99
+27907023,tog5681,height,77.0,,height cm,99
+27907023,,height,71.0,,height cm,99
+27907023,nerica4,height,100.0,,height cm,99
+27907023,,height,103.0,,height cm,99
+27907023,wab56104,height,84.0,,height cm,99
+27907023,,height,88.0,,height cm,99
+27907023,cg14,height,99.0,,height cm,99
+27907023,,height,100.0,,height cm,99
+27907023,ir64,height,80.0,,height cm,99
+27907023,,height,81.0,,height cm,99
+27907023,sahel202,height,94.0,,height cm,99
+27907023,,height,84.0,,height cm,99
+27907023,sahel108,height,80.0,,height cm,99
+27907023,,height,79.0,,height cm,99
+27907023,nerical 19,height,85.0,,height cm,99
+27907023,,height,91.0,,height cm,99
+27907023,tog5681,height,81.0,,height cm,99
+27907023,,height,74.0,,height cm,99
+33121138.5,allium cepa,dry weight,1.24,,total dry weight g nm experiment 2006,99
+33121138.5,allium fistulosum,dry weight,0.7,,total dry weight g nm experiment 2006,99
+33121138.5,allium roylei,dry weight,0.54,,total dry weight g nm experiment 2006,99
+33121138.5,rfhybrid,dry weight,1.2,,total dry weight g nm experiment 2006,99
+33121138.5,allium cepa,dry weight,2.79,,total dry weight g am experiment 2006,99
+33121138.5,allium fistulosum,dry weight,1.95,,total dry weight g am experiment 2006,99
+33121138.5,allium roylei,dry weight,1.58,,total dry weight g am experiment 2006,99
+33121138.5,rfhybrid,dry weight,2.88,,total dry weight g am experiment 2006,99
+33121138.5,allium cepa,dry weight,1.55,,total dry weight g r experiment 2006,99
+33121138.5,allium fistulosum,dry weight,1.25,,total dry weight g r experiment 2006,99
+33121138.5,allium roylei,dry weight,1.04,,total dry weight g r experiment 2006,99
+33121138.5,rfhybrid,dry weight,1.68,,total dry weight g r experiment 2006,99
+33121138.5,allium cepa,dry weight,2.01,,total dry weight g ap experiment 2006,99
+33121138.5,allium fistulosum,dry weight,1.33,,total dry weight g ap experiment 2006,99
+33121138.5,allium roylei,dry weight,1.06,,total dry weight g ap experiment 2006,99
+33121138.5,rfhybrid,dry weight,2.04,,total dry weight g ap experiment 2006,99
+33121138.5,mean,dry weight,1.29,,total dry weight g nm trihybrid genotypes n  77,99
+33121138.5,minimum,dry weight,0.45,,total dry weight g nm trihybrid genotypes n  77,99
+33121138.5,maximum,dry weight,2.58,,total dry weight g nm trihybrid genotypes n  77,99
+33121138.5,mean,dry weight,3.17,,total dry weight g am trihybrid genotypes n  77,99
+33121138.5,minimum,dry weight,1.3,,total dry weight g am trihybrid genotypes n  77,99
+33121138.5,maximum,dry weight,5.67,,total dry weight g am trihybrid genotypes n  77,99
+33121138.5,mean,dry weight,1.88,,total dry weight g r trihybrid genotypes n  77,99
+33121138.5,minimum,dry weight,0.23,,total dry weight g r trihybrid genotypes n  77,99
+33121138.5,maximum,dry weight,3.89,,total dry weight g r trihybrid genotypes n  77,99
+33121138.5,mean,dry weight,2.23,,total dry weight g ap trihybrid genotypes n  77,99
+33121138.5,minimum,dry weight,1.19,,total dry weight g ap trihybrid genotypes n  77,99
+33121138.5,maximum,dry weight,3.73,,total dry weight g ap trihybrid genotypes n  77,99
+33121138.5,allium cepa,dry weight,2.0,,total dry weight g nm experiment 2007,99
+33121138.5,allium fistulosum,dry weight,1.49,,total dry weight g nm experiment 2007,99
+33121138.5,allium roylei,dry weight,0.68,,total dry weight g nm experiment 2007,99
+33121138.5,rfhybrid,dry weight,1.53,,total dry weight g nm experiment 2007,99
+33121138.5,allium cepa,dry weight,6.164,,total dry weight g am experiment 2007,99
+33121138.5,allium fistulosum,dry weight,6.22,,total dry weight g am experiment 2007,99
+33121138.5,allium roylei,dry weight,3.45,,total dry weight g am experiment 2007,99
+33121138.5,rfhybrid,dry weight,5.63,,total dry weight g am experiment 2007,99
+33121138.5,allium cepa,dry weight,4.15,,total dry weight g r experiment 2007,99
+33121138.5,allium fistulosum,dry weight,4.73,,total dry weight g r experiment 2007,99
+33121138.5,allium roylei,dry weight,2.77,,total dry weight g r experiment 2007,99
+33121138.5,rfhybrid,dry weight,4.1,,total dry weight g r experiment 2007,99
+33121138.5,allium cepa,dry weight,4.09,,total dry weight g ap experiment 2007,99
+33121138.5,allium fistulosum,dry weight,3.85,,total dry weight g ap experiment 2007,99
+33121138.5,allium roylei,dry weight,2.06,,total dry weight g ap experiment 2007,99
+33121138.5,rfhybrid,dry weight,3.58,,total dry weight g ap experiment 2007,99
+33121138.5,mean,dry weight,1.97,,total dry weight g nm trihybrid genotypes n  83,99
+33121138.5,minimum,dry weight,0.37,,total dry weight g nm trihybrid genotypes n  83,99
+33121138.5,maximum,dry weight,5.34,,total dry weight g nm trihybrid genotypes n  83,99
+33121138.5,mean,dry weight,7.71,,total dry weight g am trihybrid genotypes n  83,99
+33121138.5,minimum,dry weight,1.18,,total dry weight g am trihybrid genotypes n  83,99
+33121138.5,maximum,dry weight,11.44,,total dry weight g am trihybrid genotypes n  83,99
+33121138.5,mean,dry weight,5.81,,total dry weight g r trihybrid genotypes n  83,99
+33121138.5,minimum,dry weight,0.68,,total dry weight g r trihybrid genotypes n  83,99
+33121138.5,maximum,dry weight,8.89,,total dry weight g r trihybrid genotypes n  83,99
+33121138.5,mean,dry weight,4.88,,total dry weight g ap trihybrid genotypes n  83,99
+33121138.5,minimum,dry weight,1.01,,total dry weight g ap trihybrid genotypes n  83,99
+33121138.5,maximum,dry weight,7.83,,total dry weight g ap trihybrid genotypes n  83,99
+33121138.5,am leaf dry,weight,1.82,,levels of bulbing poor weight g,99
+33121138.5,am leaf dry,weight,0.001,,wald statistic f probability weight g,99
+33121138.5,am bulb dry,weight,1.65,,levels of bulbing poor weight g,99
+33121138.5,weight g,weight,weight g,,levels of bulbing poor weight g,99
+33121138.5,nr of leaves,weight,7.3,,levels of bulbing poor weight g,99
+33121138.5,nr of roots,weight,24.4,,levels of bulbing poor weight g,99
+33121138.5,am bulb dry,weight,ns 0.483,,wald statistic f probability weight g,99
+33121138.5,weight g,weight,weight g,,wald statistic f probability weight g,99
+33121138.5,nr of leaves,weight,ns 0.208,,wald statistic f probability weight g,99
+33121138.5,nr of roots,weight,ns 0.498,,wald statistic f probability weight g,99
+33121138.5,am leaf dry weight g,weight,5.38,,levels of bulbing poor weight g,99
+33121138.5,am bulb dry weight g,weight,2.55,,levels of bulbing poor weight g,99
+33121138.5,nr of leaves,weight,10.6,,levels of bulbing poor weight g,99
+33121138.5,nr of roots,weight,38.5,,levels of bulbing poor weight g,99
+33121138.5,r g,weight,6.0,,levels of bulbing poor weight g,99
+33121138.5,ap g,weight,49.0,,levels of bulbing poor weight g,99
+33121138.5,am leaf dry weight g,weight,0.001,,wald statistic f probability weight g,99
+33121138.5,am bulb dry weight g,weight,0.025,,wald statistic f probability weight g,99
+33121138.5,nr of leaves,weight,0.001,,wald statistic f probability weight g,99
+33121138.5,nr of roots,weight,ns 0.064,,wald statistic f probability weight g,99
+33121138.5,r g,weight,0.001,,wald statistic f probability weight g,99
+33121138.5,ap g,weight,0.001,,wald statistic f probability weight g,99
+32604987.3,,growth,china grain,,growth conditions not applicable medium enriched with inorganic se nan nan nan nan nan nan north and south dakota nebraska kansas colorado other parts of usa nan nan nan nan nan china usa nan seleniferous soil highse area of china,99
+32604987.3,barley,growth,denmark,,growth conditions not applicable medium enriched with inorganic se nan nan nan nan nan nan north and south dakota nebraska kansas colorado other parts of usa nan nan nan nan nan china usa nan seleniferous soil highse area of china,99
+32604987.3,rice,growth,seleniferous soil,,growth conditions not applicable medium enriched with inorganic se nan nan nan nan nan nan north and south dakota nebraska kansas colorado other parts of usa nan nan nan nan nan china usa nan seleniferous soil highse area of china,99
+32604987.3,,growth,,,growth conditions highse area of china,99
+32604987.3,,growth,,,growth conditions highse area of china,99
+32604987.3,,growth,,,growth conditions highse area of china,99
+32604987.3,,growth,china grain _ china,,growth conditions highse area of china,99
+32604987.3,soya beans lima beans,growth,soya beans lima beans,,growth conditions highse area of china,99
+32604987.3,brazil nuts,growth,natural,,growth conditions highse area of china,99
+32604987.3,,growth,acre  rondonia brazil shelled manaus  belem brazil unshelled,,growth conditions highse area of china,99
+32604987.3,,growth,,,growth conditions natural uk pur chased natural unshelled natural natural,99
+32604987.3,,growth,purchased with shells,,growth conditions natural uk pur chased natural unshelled natural natural,99
+32604987.3,,growth,purchased without shells,,growth conditions natural uk pur chased natural unshelled natural natural,99
+32604987.3,,growth,,,growth conditions natural uk pur chased natural unshelled natural natural,99
+32604987.3,,growth,natural,,growth conditions natural uk pur chased natural unshelled natural natural,99
+32604987.3,,growth,unspecified,,growth conditions black and white,99
+32604987.3,,growth,natural natural,,growth conditions natural,99
+32604987.3,pecan nuts,growth,pecan nuts,,growth conditions natural,99
+32604987.3,monkeypot nuts,growth,natural,,growth conditions natural,99
+32604987.3,,growth,,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil enriched,99
+32604987.3,,growth,,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil enriched,99
+32604987.3,broccoli florets and leaves,growth,enriched,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil enriched,99
+32604987.3,broccoli sprouts,growth,enriched,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil enriched,99
+32604987.3,,growth,,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil enriched,99
+32604987.3,broccoli roots,growth,grown in hydroponic culture with nasseo3,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil enriched,99
+32604987.3,broccoli florets,growth,,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil enriched,99
+32604987.3,cabbage brassica oleracea capitata,growth,enriched,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil enriched,99
+32604987.3,,growth,sludgeamended soil,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil enriched,99
+32604987.3,,growth,,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil enriched,99
+32604987.3,radish raphanus sativus,growth,hydroponic culture with,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil enriched,99
+32604987.3,,growth,ii nazseo,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil i nasseo3,99
+32604987.3,,growth,,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil i nasseo3,99
+32604987.3,bisporus and lentinula edodes,growth,enriched,,growth conditions enriched by leaf spraying natural seleniferous soil sludgeamended soil uk seleniferous soil i nasseo3,99
+32604987.3,,growth,,,growth conditions enriched enriched natural usa seleniferous soil enriched enriched nan enriched with 15 se iv added to growth medium nan nan nan natural natural nan supplement,99
+32604987.3,,growth,,,growth conditions enriched enriched natural usa seleniferous soil enriched enriched nan enriched with 15 se iv added to growth medium nan nan nan natural natural nan supplement,99
+32604987.3,,growth,,,growth conditions enriched enriched natural usa seleniferous soil enriched enriched nan enriched with 15 se iv added to growth medium nan nan nan natural natural nan supplement,99
+32604987.3,garlic allium sativum,growth,enriched enriched,,growth conditions enriched enriched natural usa seleniferous soil enriched enriched nan enriched with 15 se iv added to growth medium nan nan nan natural natural nan supplement,99
+32604987.3,,growth,,,growth conditions enriched enriched natural usa seleniferous soil enriched enriched nan enriched with 15 se iv added to growth medium nan nan nan natural natural nan supplement,99
+32604987.3,,growth,,,growth conditions enriched nan enriched nan nan nan nan grown on selenifer ous soil enriched enriched,99
+32604987.3,,growth,,,growth conditions enriched nan enriched nan nan nan nan grown on selenifer ous soil enriched enriched,99
+32604987.3,,growth,,,growth conditions enriched nan enriched nan nan nan nan grown on selenifer ous soil enriched enriched,99
+32604987.3,,growth,35.0,,typical concentration predominant form 05 total eluted se 283 wet weight 96 lyophilised 155 in hot water extract 60 in hot water extract total se 68 112 235 296 1355 of which  distribution as follows 68 52 70 73 8 18.0 25.0 10.0 5.0 05 10 93 93 205 total 1980 .9 496.0 total se 48 77230 252 405 5249 of which  distribution as follows  3 1 1 15 15,99
+32604987.3,,weight,25.0,,typical concentration predominant form 05 total eluted se 283 wet weight 96 lyophilised 155 in hot water extract 60 in hot water extract total se 68 112 235 296 1355 of which  distribution as follows 68 52 70 73 8 18.0 25.0 10.0 5.0 05 10 93 93 205 total 1980 .9 496.0 total se 48 77230 252 405 5249 of which  distribution as follows  3 1 1 15 15,99
+32604987.3,,weight,3 1 2 2 05 15 73 60 76 7676 74 3550 se at 48524 1525  053  12,,typical concentration predominant form 05 total eluted se 283 wet weight 96 lyophilised 155 in hot water extract 60 in hot water extract total se 68 112 235 296 1355 of which  distribution as follows 68 52 70 73 8 18.0 25.0 10.0 5.0 05 10 93 93 205 total 1980 .9 496.0 total se 48 77230 252 405 5249 of which  distribution as follows  3 1 1 15 15,99
+32604987.3,chives allium schoenoprasum leaves,growth,enriched with se iv,,growth conditions,99
+32604987.3,,growth,enriched with se vi,,growth conditions,99
+32604987.3,,growth,enriched with semet,,growth conditions,99
+32604987.3,horseradish meat and poultry,growth,enriched,,growth conditions,99
+32604987.3,meats,growth,usa,,growth conditions,99
+32604987.3,beef pork lamb,growth,uk,,growth conditions,99
+32604987.3,turkey raw liver kidney raw fish whole,growth,uk uk 109 stations,,growth conditions,99
+32604987.3,fish black marlin blue marlin,growth,usa,,growth conditions,99
+32604987.3,fish mackerel octopus,growth,spainportugal,,growth conditions,99
+32604987.3,fish sardine swordfish tuna,growth,spainportugal,,growth conditions,99
+32604987.3,fish tuna,growth,canned,,growth conditions,99
+32604987.3,several fish mollusks crustaceans and pods,growth,canned edible tissue,,growth conditions,99
+32604987.3,several species of marine and freshwater fish,growth,muscle,,growth conditions,99
+32604987.3,cod,growth,cooked,,growth conditions,99
+32604987.3,cod muscle,growth,dried and powdered,,growth conditions,99
